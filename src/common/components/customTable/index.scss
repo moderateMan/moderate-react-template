@@ -1,0 +1,35 @@
+.customItem {
+    position: relative;
+    width: 200px;
+    top: 20px;
+    left: -20px;
+}
+.saveButton {
+    margin: 20px 0px;
+}
+
+.saveButton2 {
+    margin: 20px 0px;
+    position: absolute;
+    bottom: 0px;
+}
+.btnWrapper3 {
+    display: flex;
+    position: absolute;
+    top: -40px;
+    // right: 30px;
+    right: 0;
+    font-family: PingFang SC;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    z-index: 2;
+}
+
+.commonCustomTable {
+    position: relative;
+    .addBtn2 {
+        margin-left: 10px;
+    }
+}

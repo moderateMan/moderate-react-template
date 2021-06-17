@@ -1,0 +1,15 @@
+.showPartCItem {
+    .flightRangeInput {
+        display: flex;
+    }
+}
+.flightRangeInput {
+    display: flex;
+    border: 1px solid #d9d9d9;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 3px;
+}
+.flightRangeInputItem {
+    width: 60px;
+}

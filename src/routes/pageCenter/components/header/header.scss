@@ -1,0 +1,33 @@
+.header_style {
+  background-color: #ffffff !important;
+  box-shadow: 0px 1px 4px 0px #001529 12%;
+  line-height: 60px;
+  position: relative;
+
+  .header_logo {
+    float: left;
+  }
+  .header_manage {
+    float: right;
+    cursor: pointer;
+  }
+  .header_login_out {
+    float: right;
+    margin-left: 70px;
+    cursor: pointer;
+  }
+}
+
+.trigger {
+  font-size: 20px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+  position: relative;
+  left: -65px;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
