@@ -2,7 +2,7 @@
 <p align="center">
  <img style="
     width: 99px;
-" src="https://s1.imagehub.cc/images/2021/06/17/68747470733a2f2f73312e696d6167656875622e63632f696d616765732f323032312f30362f31312f6c6f676f32306664613864363066303234393666612e706e67b41208741c859699.png">
+" src="https://s1.imagehub.cc/images/2021/06/19/logo29220baeceff248d5.png">
 </p>
 
 # Moderate "终"定在哪？
