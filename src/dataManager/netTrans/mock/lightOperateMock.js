@@ -29,7 +29,7 @@ let config = {
                 data: [{
                     lightName: "test_lightName_1",
                     comment: "test_comment_1",
-                    lightItems: [{ lightItemId: 1, lightType: 0, baseSelect: 0, exclude: 0 }, { lightItemId: 2, lightType: 1, baseSelect: 1, exclude: false }]
+                    lightItems: [{ lightItemId: 1, lightType: 0, baseSelect: 0, exclude: false }, { lightItemId: 2, lightType: 1, baseSelect: 1, exclude: false }]
                 }]
             }
         }

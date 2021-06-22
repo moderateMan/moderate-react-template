@@ -64,7 +64,9 @@ export default class BaseApiShape {
         } else {
             this.checkObj({ required, current })
         }
-        return this.checkReport;
+        let temp = [...this.checkReport];
+        this.checkReport= []
+        return temp;
     }
     //如果上来是数组，实际上其实判断就是自己的内部的元素，那就是判断多个对象了
     checkObj({ required = {}, current = {}, logPrefix }) {
