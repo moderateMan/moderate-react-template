@@ -86,6 +86,8 @@ const hasJsxRuntime = (() => {
 module.exports = function (webpackEnv) {
     const isEnvDevelopment = webpackEnv === "development";
     const isEnvProduction = webpackEnv === "production";
+    const isEnvElectron = process.env.ELECTRON === "electron";
+
 
     // Variable used for enabling profiling in Production
     // passed into alias object. Uses a flag if passed into the build command
@@ -375,9 +377,9 @@ module.exports = function (webpackEnv) {
                 COMMON: path.resolve("src/common"),
                 API: path.resolve("src/dataManager/netTrans/api"),
                 MOCK: path.resolve("src/dataManager/netTrans/mock"),
-                NET_TRANS:path.resolve("src/dataManager/netTrans"),
+                NET_TRANS: path.resolve("src/dataManager/netTrans"),
                 STORE: path.resolve("src/dataManager/stores"),
-                DATA_MANAGER:path.resolve("src/dataManager"),
+                DATA_MANAGER: path.resolve("src/dataManager"),
                 DOCS: path.resolve("src/docs"),
             },
             plugins: [
@@ -733,6 +735,7 @@ module.exports = function (webpackEnv) {
             // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
             // You can remove this if you don't use Moment.js:
             new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+            new webpack.IgnorePlugin({ resourceRegExp: /^\.\/web-mobile$/, }),
             // Generate a service worker script that will precache, and keep up to date,
             // the HTML & assets that are part of the webpack build.
             isEnvProduction &&
@@ -835,8 +838,8 @@ module.exports = function (webpackEnv) {
         // Turn off performance processing because we utilize
         // our own hints via the FileSizeReporter
         performance: false,
-        externals:isEnvProduction?{
-            mockjs:mockjs
-        }:{}
+        externals: (isEnvProduction && !isEnvElectron) ? {
+            mockjs: mockjs
+        } : {}
     };
 };

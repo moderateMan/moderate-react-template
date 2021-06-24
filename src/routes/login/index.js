@@ -10,7 +10,7 @@ import FetchRequest from 'SRC/dataManager/netTrans/request'
 import { getPath } from "ROUTES";
 let gameFloag = 0;
 const FormItem = Form.Item;
-let isDev = process.env.NODE_ENV === 'development';
+let isDev = process.env.NODE_ENV === 'development'||process.env.ELECTRON === 'electron';
 @injectIntl
 @inject("global")
 @observer
@@ -80,7 +80,7 @@ class LoginPage extends React.Component {
       this.isStart = true;
       // document.getElementById("GameCanvas").style.width = `${document.documentElement.clientWidth - 278
       //   }px`;
-      
+
       document.getElementById("gameRoot").style.display = "block";
       function loadScript(moduleName, cb) {
         function scriptLoaded() {
@@ -102,19 +102,15 @@ class LoginPage extends React.Component {
       ) {
         gameFloag = 1;
         loadScript(
-          "http://localhost:3000/web-mobile/src/settings.js",
+          "./web-mobile/src/settings.js",
           function () {
             {
               loadScript(
-                "http://localhost:3000/web-mobile/main.js",
+                "./web-mobile/main.js",
                 function () {
                   {
-                    // if (typeof cc == undefined) {
-                    //     cc = null;
-                    // }
-
                     loadScript(
-                      "http://localhost:3000/web-mobile/cocos2d-js.js",
+                      "./web-mobile/cocos2d-js.js",
                       function () {
                         {
                           self.boot();
@@ -368,7 +364,7 @@ class LoginPage extends React.Component {
         <div className="box">
           <p>
             Moderate
-                  </p>
+          </p>
           <div className='logoE'></div>
 
           <div className="loginWrap">

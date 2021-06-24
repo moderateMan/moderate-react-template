@@ -8,6 +8,7 @@ import { menusMapConfig } from "ROUTES/config";
 import { getPath } from "ROUTES";
 import request from 'SRC/dataManager/netTrans/request'
 import "./index.scss";
+// import "./index.less";
 import { toJS } from "mobx";
 
 @inject("global")
@@ -165,12 +166,13 @@ class PageCenter extends Component {
             <Layout style={{ height: "100%" }}>
                 <MenuSlider {...{ subRoutesConfig, intl, global, collapsed: collapsed }} />
                 <Layout>
-                    <TopHeader
+                    <div className="componentGlobal">我用的less</div>
+                    {/* <TopHeader
                         toggle={this.toggle}
                         collapsed={collapsed}
                         logout={this.logout}
                     ></TopHeader>
-                    <SubRoutes subRoutesConfig={subRoutesConfig} />
+                    <SubRoutes subRoutesConfig={subRoutesConfig} /> */}
                 </Layout>
             </Layout>
         );
