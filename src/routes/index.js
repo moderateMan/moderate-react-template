@@ -192,7 +192,7 @@ function Routes() {
                 let newkey = decodeURIComponent(locationState.pathname + locationState.search);
                 /* 找一下看看有没有记录值 */
                 let recordValue = scrollData[newkey]
-                if (recordValue) {
+                if (typeof recordValue === 'number') {
                     scrollToView(node, recordValue)
                 }
                 // 取值（过去的）存一下，old

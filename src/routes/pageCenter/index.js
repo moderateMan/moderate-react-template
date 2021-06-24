@@ -166,13 +166,12 @@ class PageCenter extends Component {
             <Layout style={{ height: "100%" }}>
                 <MenuSlider {...{ subRoutesConfig, intl, global, collapsed: collapsed }} />
                 <Layout>
-                    <div className="componentGlobal">我用的less</div>
-                    {/* <TopHeader
+                    <TopHeader
                         toggle={this.toggle}
                         collapsed={collapsed}
                         logout={this.logout}
                     ></TopHeader>
-                    <SubRoutes subRoutesConfig={subRoutesConfig} /> */}
+                    <SubRoutes subRoutesConfig={subRoutesConfig} />
                 </Layout>
             </Layout>
         );
