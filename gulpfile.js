@@ -1,15 +1,5 @@
-const { series, parallel, watch } = require('gulp');
+const { series, parallel, src, dest } = require('gulp');
 var del = require('del');
-const watcher = watch(['src/docs/*.md']);
-var browserSync = require('browser-sync').create();// 静态服务器
-
-function test(cb) {
-    browserSync.init({ proxy: "http://localhost:3000/login" });
-    watcher.on('add', function (path, stats) {
-        console.log(`File ${path} was changed`);
-        browserSync.reload()
-    });
-}
 
 function cleanGame(cb) {
     return del([
@@ -21,4 +11,30 @@ function cleanGame(cb) {
     });
 }
 
-exports.default = cleanGame;
+// 删除本地调试的引擎文件
+function delDevCocosJs(cb) {
+    return del([
+        'build/web-mobile/cocos2d-js.js',
+    ]).then(() => {
+        cb()
+    });
+}
+
+// 拷贝发布版本的引擎文件
+function copyProductCocosJs() {
+    return src('src/assets/cocos2d-js.js').pipe(dest('build/web-mobile/'));
+}
+
+function end(cb) {
+    cb();
+    process.exit(0)
+}
+
+
+// electron任务
+exports.delDevCocosJs = delDevCocosJs;
+// electron任务
+exports.processGame = series(delDevCocosJs,copyProductCocosJs, end);
+
+// 正常打包的任务
+exports.cleanGame = cleanGame;

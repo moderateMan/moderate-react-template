@@ -69,6 +69,7 @@ function getClientEnvironment(publicUrl) {
         return env;
       },
       {
+        MOCK:"",
         ELECTRON:process.env.ELECTRON,
         // Useful for determining whether we’re running in production mode.
         // Most importantly, it switches React into the correct mode.

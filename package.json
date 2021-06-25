@@ -109,11 +109,13 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js && gulp",
+    "build": "node scripts/build.js && gulp cleanGame",
     "test": "node scripts/test.js",
-    "cleanGame": "gulp",
+    "cleanGame": "gulp cleanGame",
     "buildWithGame": "cross-env ELECTRON=electron node scripts/build.js",
-    "electron": "electron ."
+    "electron": "electron .",
+    "processGame":"gulp processGame",
+    "buildElectron":"npm-run-all buildWithGame processGame electron"
   },
   "eslintConfig": {
     "rules": {

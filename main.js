@@ -41,14 +41,14 @@ const createWindow = () => {
             contextIsolation: false
         }
     });
-
+    mainWindow.maximize()
     // and load the index.html of the app.
     mainWindow.loadFile("./build/index.html");
 
     // mainWindow.maximize()
     mainWindow.removeMenu()
     // mainWindow.webContents.openDevTools()
-    mainWindow.webContents.openDevTools({mode:'right'});
+    // mainWindow.webContents.openDevTools({mode:'right'});
     // Emitted when the window is closed.
     mainWindow.on('closed', () => {
         // Dereference the window object, usually you would store windows
