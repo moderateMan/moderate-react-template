@@ -1,0 +1,64 @@
+.slider_btn {
+  position: absolute;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  bottom: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+  font-weight: bold;
+  font-size: larger;
+  opacity: 1;
+  -webkit-transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+    width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+    width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  font-size: 30px;
+  margin-left: 60px;
+}
+
+.logoFade {
+  transition: all 1s ease;
+  transform: translateX(120px) translateY(-5px) scale(0.8);
+}
+.logoShow {
+  transition: all 1s ease;
+  transform: translateX(-45px) translateY(-130px) scale(1.5);
+}
+.fade {
+  transition: opacity 0.2s linear;
+}
+
+.fadeEx {
+  transition: opacity 0.1s linear;
+}
+.show{
+  text-align: center;
+  font-size: 38px;
+  font-family: "cursive";
+  font-weight: bold;
+  color: #888;
+  padding-left: 35px;
+  transition: all 1s ease;
+  transform: translateX(-45px) translateY(-130px) scale(1.5);
+}
+
+.fade:not(.show) {
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.logoE {
+  width: 60px;
+  height: 100px;
+  background: url("../../assets/images/logo2.png") no-repeat center;
+  background-size: 100%;
+}

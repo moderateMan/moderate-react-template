@@ -2,6 +2,8 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { Form, Input, Button, Select, Radio, Col, Row } from "antd";
 import { FormattedMessage, injectIntl } from "react-intl";
+import styles from './index.module.scss'
+import { AnimateWrapper } from "COMMON/wha/animateWha";
 import { ACCESS_TOKEN } from "COMMON/constants";
 import Storage from "COMMON/storage";
 import "./index.scss";
@@ -10,7 +12,7 @@ import FetchRequest from 'SRC/dataManager/netTrans/request'
 import { getPath } from "ROUTES";
 let gameFloag = 0;
 const FormItem = Form.Item;
-let isDev = process.env.NODE_ENV === 'development'||process.env.ELECTRON === 'electron';
+let isDev = process.env.NODE_ENV === 'development' || process.env.ELECTRON === 'electron';
 @injectIntl
 @inject("global")
 @observer
@@ -20,6 +22,7 @@ class LoginPage extends React.Component {
     this.isStart = false;
     this.state = {
       codeImage: "",
+      collapsed: false
     };
   }
   /**
@@ -42,19 +45,27 @@ class LoginPage extends React.Component {
       form: { validateFields },
       global: { loginFn },
     } = this.props;
-    validateFields({ force: true }, (error, values) => {
-      if (!error) {
-        const { username, password, code, language } = values;
-        loginFn(username, password, code, language).then(() => {
-          this.loginCallback()
-        });
-      }
-    });
+    debugger
+    // validateFields({ force: true }, (error, values) => {
+    //   if (!error) {
+    //     const { username, password, code, language } = values;
+    //     loginFn(username, password, code, language).then(() => {
+    //       this.loginCallback()
+    //     });
+    //   }
+    // });
+   
   };
 
   //登录之后的回调
   loginCallback = () => {
-    this.props.history.push(getPath("intro"));
+    const {
+      form: { validateFields },
+      global: { loginFn },
+    } = this.props;
+    loginFn("123", "123", "aaaa", "zh").then(() => {
+      this.props.history.push(getPath("intro"));
+    });
   };
 
   componentWillUnmount() {
@@ -126,8 +137,19 @@ class LoginPage extends React.Component {
       } else {
         cc.game.resume()
       }
-      document.addEventListener("gameComplete", () => {
+      document.addEventListener("completeFromGame", (data) => {
         // this.props.history.push(getPath("lightHome"));
+        debugger
+        if (data.detail.status === 1) {
+          this.setState({
+            collapsed: false
+          })
+        } else {
+          this.setState({
+            collapsed: true
+          })
+        }
+
       })
     }
 
@@ -349,7 +371,7 @@ class LoginPage extends React.Component {
       global: { locale, changeLocale },
       intl: { formatMessage },
     } = this.props;
-    const { codeImage } = this.state;
+    const { codeImage, collapsed } = this.state;
     const usernamePlaceholder = formatMessage({ id: "login.username" });
     const usernameEmpty = formatMessage({ id: "login.usernameEmpty" });
     const passwordPlaceholder = formatMessage({ id: "login.password" });
@@ -360,98 +382,20 @@ class LoginPage extends React.Component {
     const codeEmpty = formatMessage({ id: "login.codeEmpty" });
     return (
       <div className="loginpagewrap">
-
         <div className="box">
-          <p>
-            Moderate
-          </p>
-          <div className='logoE'></div>
-
-          <div className="loginWrap">
-            <Form onSubmit={this.handleSubmit}>
-              <FormItem>
-                {getFieldDecorator("username", {
-                  rules: [
-                    {
-                      required: true,
-                      message: usernameEmpty,
-                    },
-                    {
-                      max: 100,
-                      message: maxLength,
-                    },
-                  ],
-                })(<Input style={{ backgroundColor: "rgb(255,255,255,0.3)" }} placeholder={usernamePlaceholder} />)}
-              </FormItem>
-              <FormItem>
-                {getFieldDecorator("password", {
-                  rules: [
-                    {
-                      required: true,
-                      message: passwordEmpty,
-                    },
-                    {
-                      max: 19,
-                      message: pwdMaxLength,
-                    },
-                  ],
-                })(
-                  <Input style={{ backgroundColor: "rgb(255,255,255,0.3)" }} type="password" placeholder={passwordPlaceholder} />
-                )}
-              </FormItem>
-              <FormItem className="login-code">
-                {getFieldDecorator("code", {
-                  rules: [
-                    {
-                      required: true,
-                      message: codeEmpty,
-                    },
-                  ],
-                })(
-                  <Input
-                    type="password"
-                    placeholder={codePlaceholder}
-                    style={{
-                      backgroundColor: "rgb(255,255,255,0.3)",
-                      width: "58%",
-                      verticalAlign: "middle",
-                    }}
-                  />
-                )}
-                <span className="codeImage" onClick={this.changeCodeImage}>
-                  <img src={codeImage} alt="" />
-                </span>
-              </FormItem>
-              <FormItem>
-                {getFieldDecorator("language", {
-                  initialValue: locale,
-                })(
-                  <Radio.Group style={{ width: "100%" }} onChange={(e) => {
-                    changeLocale(e.target.value)
-                  }}>
-                    <Row>
-                      <Col span={12}><Radio value="zh"><FormattedMessage
-                        id="login.chinese"
-                        defaultMessage="中文"
-                      /></Radio></Col>
-                      <Col span={12}>
-                        <Radio value="en"><FormattedMessage
-                          id="login.english"
-                          defaultMessage="英文"
-                        /></Radio>
-                      </Col>
-                    </Row>
-
-
-                  </Radio.Group>,
-                )}
-              </FormItem>
-              <Button type="primary" htmlType="submit" className="loginBtn">
-                <FormattedMessage id="login.login" defaultMessage="登录" />
-              </Button>
-            </Form>
-          </div>
+          {<AnimateWrapper className={styles.logoFade}
+            toggleClass={styles.logoShow}
+            action={collapsed}><div className={styles.logoE}></div></AnimateWrapper>}
+          {<AnimateWrapper className={styles.fade}
+            toggleClass={styles.show}
+            action={collapsed}>Moderate</AnimateWrapper>}
         </div>
+        {<AnimateWrapper className={styles.fade}
+          toggleClass={styles.show}
+          action={collapsed}> <Button shape='round' type="primary" onClick={this.loginCallback} className="loginBtn">
+            开始吧
+          </Button></AnimateWrapper>}
+
       </div>
     );
   }
