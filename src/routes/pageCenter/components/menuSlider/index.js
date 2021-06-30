@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { findCurrentMenuInfo, filterParams, getUrlParam, getParentLoop } from "COMMON/utils";
-import { AnimateWrapper } from "COMMON/wha/animateWha";
+import { CommonAnimateWha as AnimateWrapper} from "COMMON/components";
 import { Menu, Icon, Layout, Button, Modal } from "antd";
 import { ROUTES_REMOTE_ID, ROUTES_LOCAL_ID } from "ROUTES/config";
 import { getPath } from "ROUTES";

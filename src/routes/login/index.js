@@ -3,7 +3,7 @@ import { observer, inject } from "mobx-react";
 import { Form, Input, Button, Select, Radio, Col, Row } from "antd";
 import { FormattedMessage, injectIntl } from "react-intl";
 import styles from './index.module.scss'
-import { AnimateWrapper } from "COMMON/wha/animateWha";
+import { CommonAnimateWha as AnimateWrapper} from "COMMON/components";
 import { ACCESS_TOKEN } from "COMMON/constants";
 import Storage from "COMMON/storage";
 import "./index.scss";

@@ -6,8 +6,8 @@ function cleanGame(cb) {
         'build/web-mobile',
         // 这里我们使用一个通配模式来匹配 `mobile` 文件夹中的所有东西
     ]).then(() => {
-        process.exit();
         cb()
+        process.exit();
     });
 }
 

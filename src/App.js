@@ -8,7 +8,7 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
 import { injectIntl } from "react-intl";
-import { HashRouter, Route, Switch, Redirect, useHistory } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Routes from "./routes";
 import { Modal } from "antd";
 import "./index.scss";
@@ -83,9 +83,9 @@ class App extends React.Component {
      * @returns {*}
      */
     render() {
-        return <HashRouter getUserConfirmation={this.getConfirmation}>
+        return <BrowserRouter getUserConfirmation={this.getConfirmation}>
             <Routes />
-        </HashRouter>
+        </BrowserRouter>
     }
 }
 export default App;

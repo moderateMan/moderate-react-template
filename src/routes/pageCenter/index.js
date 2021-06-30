@@ -5,11 +5,10 @@ import { Layout, Menu, Icon, Button, Modal } from "antd";
 import { MenuSlider, TopHeader } from "./components/";
 import SubRoutes from "./subRoutes";
 import { menusMapConfig } from "ROUTES/config";
-// import docConfig from "DOCS/docConfig.json";
+import docConfig from "DOCS/docConfig.json";
 import { getPath } from "ROUTES";
 import request from 'SRC/dataManager/netTrans/request'
 import "./index.scss";
-// import "./index.less";
 import { toJS } from "mobx";
 
 @inject("global")
@@ -100,13 +99,7 @@ class PageCenter extends Component {
                 temp.children = this.docList;
             }
         }
-        if (process.env.NODE_ENV === "development") {
-            await request.post("/getMd", { data: {} }).then((data) => {
-                processMd(data,)
-            })
-        } else {
-            // processMd(docConfig)
-        }
+        processMd(docConfig)
         return config;
     }
 
