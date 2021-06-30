@@ -5,6 +5,7 @@ import { Layout, Menu, Icon, Button, Modal } from "antd";
 import { MenuSlider, TopHeader } from "./components/";
 import SubRoutes from "./subRoutes";
 import { menusMapConfig } from "ROUTES/config";
+// import docConfig from "DOCS/docConfig.json";
 import { getPath } from "ROUTES";
 import request from 'SRC/dataManager/netTrans/request'
 import "./index.scss";
@@ -76,31 +77,36 @@ class PageCenter extends Component {
                 }
             });
         }
-        if (process.env.NODE_ENV === "development") {
-            await request.post("/getMd", { data: {} }).then((data) => {
-                data.forEach((item) => {
-                    const { children } = item
-                    if (children) {
-                        const { docList = [], docTreeMap={} } = this.createDocMenuData({ item, docList: [], docTreeMap: {}, parentKey: 0 })
-                        this.docList = docList
-                        this.docTreeMap = docTreeMap;
-                        changeParams({
-                            docList: docList,
-                            docTreeMap: docTreeMap
-                        })
-                    }
-                })
-                let temp = config.find((item) => {
-                    return item.menuId === 2003
-                })
-                if (temp) {
-                    let children;
-                    if (!temp["children"]) children = temp["children"] = []
-                    temp.children = this.docList;
+        let processMd = (data) => {
+            data.forEach((item) => {
+                const { children } = item
+                if (children) {
+                    const { docList = [], docTreeMap = {} } = this.createDocMenuData({ item, docList: [], docTreeMap: {}, parentKey: 0 })
+                    this.docList = docList
+                    this.docTreeMap = docTreeMap;
+                    changeParams({
+                        docList: docList,
+                        docTreeMap: docTreeMap
+                    })
                 }
             })
+            //找到文档的菜单项
+            let temp = config.find((item) => {
+                return item.menuId === 2003
+            })
+            if (temp) {
+                let children;
+                if (!temp["children"]) children = temp["children"] = []
+                temp.children = this.docList;
+            }
         }
-
+        if (process.env.NODE_ENV === "development") {
+            await request.post("/getMd", { data: {} }).then((data) => {
+                processMd(data,)
+            })
+        } else {
+            // processMd(docConfig)
+        }
         return config;
     }
 
@@ -133,7 +139,7 @@ class PageCenter extends Component {
                     docKey: encodeURIComponent(path),
                 }
                 if (!isFolder && parentKey) {
-                    let docPath = parentKey.replace(/\\/g,"/").split("/docs/")[1] + "/" + name;
+                    let docPath = parentKey.replace(/\\/g, "/").split("/docs/")[1] + "/" + name;
                     temp.search.docPath = docPath;
                 }
 

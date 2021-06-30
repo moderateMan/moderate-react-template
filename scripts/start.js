@@ -235,7 +235,12 @@ checkBrowsers(paths.appPath, isInteractive)
     });
 
     devServer.app.post("/api/getMd", jsonParser, (req, res) => {
-      res.json(getAll("", paths.appSrc + '/docs'))
+      let data = getAll("", paths.appSrc + '/docs');
+      res.json(data)
+      // fs.writeFile(paths.appSrc + '/docs/docConfig.json', JSON.stringify(data), err => {
+      //   if (err) throw err
+      //   console.log('文档配置已被写入')
+      // })
     });
 
 

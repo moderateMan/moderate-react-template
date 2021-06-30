@@ -22,7 +22,7 @@ class LoginPage extends React.Component {
     this.isStart = false;
     this.state = {
       codeImage: "",
-      collapsed: false
+      collapsed: true
     };
   }
   /**
