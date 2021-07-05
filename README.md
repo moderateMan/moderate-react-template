@@ -31,6 +31,8 @@ Moderate，意思为适中的，适度的，用这个作为代号，主要取决
 
 📒 __集成了MD文档功能__，这样可以方便在开发时有什么相关想法和收获，在不脱离项目的情况下进行记录沉淀，既方便个人，又贡献集体。
 
+🥡 __集成了electron__，通过命令可以打包成Pc/Mac的应用。
+
 🏀 __初步整合了Cocos引擎__，可以在react代码中写游戏，想想就感觉兴奋，一加一就不是等于二的问题了。
 
 
@@ -56,13 +58,36 @@ Moderate，意思为适中的，适度的，用这个作为代号，主要取决
 ? your projectName: Moderate
 
 ```
+
+## 安装前必要准备
+### 设置淘宝镜像
+```shell
+npm config set registry=https://registry.npm.taobao.org/
+```
+
+### 解决electron安装卡住的问题
+
+```shell
+npm config set ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
+```
+
+## 安装依赖
+
+```shell
+yarn
+```
+ 
+
 ## 运行
 
 ```shell
 npm start
-
+或
+yarn start
 ```
 
+## 效果图
+![](https://s1.imagehub.cc/images/2021/06/29/ezgif.com-gif-maker-10444ce63768eb8f0e.gif)
 # 用不用
 
 因人而异，Moderate就是在“平平无奇”的地方，做着”普普通通“的事情，不奢望会被接受，不忧虑会被否定，一直在路上，仅希望有一分就贡献一分光和热。
