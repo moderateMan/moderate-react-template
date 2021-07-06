@@ -41,22 +41,42 @@ function cleanGame(cb) {
 
 
 function githubPull(cb) {
-    return exec("git pull", function (err, stdout, stderr) {
-        cb(err);
-      });
+  let data = process.argv.slice(2);
+  let type = data[1];
+  let param = data[2];
+  let branchTemp;
+  if (type === "-b") {
+    branchTemp = param;
   }
+  return exec("git pull", function (err, stdout, stderr) {
+    console.log(stdout);
+    console.log(err);
+    cb(err);
+  });
+}
 
-  function giteePull(cb) {
-    return exec("git pull gitee", function (err, stdout, stderr) {
-        cb(err);
-      });
+function giteePull(cb) {
+  let data = process.argv.slice(2);
+  let type = data[1];
+  let param = data[2];
+  let branchTemp;
+  if (type === "-b") {
+    branchTemp = param;
   }
+  return exec(
+    `git pull gitee ${branchTemp || "main"}`,
+    function (err, stdout, stderr) {
+      console.log(stdout);
+      console.log(stderr);
+      cb(err);
+    }
+  );
+}
 
 // electron任务
 exports.delDevCocosJs = delDevCocosJs;
 // electron任务
 exports.processGame = series(delDevCocosJs, copyProductCocosJs, end);
 exports.pull = series(githubPull, giteePull, end);
-
 // 正常打包的任务
 exports.cleanGame = cleanGame;
