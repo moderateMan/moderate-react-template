@@ -116,7 +116,8 @@
     "processGame":"gulp processGame",
     "buildWithGame": "cross-env ELECTRON=electron node scripts/build.js && gulp processGame",
     "buildElectron":"npm-run-all buildWithGame processGame electron",
-    "gitPull":"git pull && git pull gitee main"
+    "gitPullAll":"git pull && git pull gitee main",
+    "gitPushAll":"git push && git push gitee main"
   },
   "eslintConfig": {
     "rules": {
