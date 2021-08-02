@@ -5,6 +5,7 @@
   "main": "main.js",
   "homepage": "./",
   "dependencies": {
+    "@ant-design/compatible": "^1.0.8",
     "@babel/core": "^7.12.3",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",
     "@svgr/webpack": "5.5.0",
@@ -14,7 +15,7 @@
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "animate.css": "^4.1.1",
-    "antd": "^3.22.0",
+    "antd": "^4.16.9",
     "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.0",
@@ -113,11 +114,11 @@
     "test": "node scripts/test.js",
     "cleanGame": "gulp cleanGame",
     "electron": "electron .",
-    "processGame":"gulp processGame",
+    "processGame": "gulp processGame",
     "buildWithGame": "cross-env ELECTRON=electron node scripts/build.js && gulp processGame",
-    "buildElectron":"npm-run-all buildWithGame processGame electron",
-    "gitPullAll":"git pull && git pull gitee main",
-    "gitPushAll":"git push && git push gitee main"
+    "buildElectron": "npm-run-all buildWithGame processGame electron",
+    "gitPullAll": "git pull && git pull gitee main",
+    "gitPushAll": "git push && git push gitee main"
   },
   "eslintConfig": {
     "rules": {

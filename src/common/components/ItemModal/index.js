@@ -1,6 +1,9 @@
 import React from "react";
 import "./index.scss";
-import { Form, Button, Modal, Input, Select, Tag, Checkbox } from "antd";
+import { PlusOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Modal, Input, Select, Tag, Checkbox } from "antd";
 import { initial } from "lodash";
 
 class commonItemModal extends React.Component {
@@ -251,7 +254,7 @@ class commonItemModal extends React.Component {
                     <div style={isShowBtn}>
                         <Button
                             type="dashed"
-                            icon="plus"
+                            icon={<PlusOutlined />}
                             onClick={this.handleItemBtnClick}
                         >
                             添加

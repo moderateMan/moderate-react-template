@@ -1,5 +1,6 @@
 import React from "react";
-import { Select, Icon, Divider } from "antd";
+import { PlusOutlined } from '@ant-design/icons';
+import { Select, Divider } from "antd";
 let Option = Select.Option;
 
 export default function renderCustomSelect({
@@ -40,7 +41,7 @@ export default function renderCustomSelect({
                                             });
                                   }}
                               >
-                                  <Icon type="plus" />{" "}
+                                  <PlusOutlined />{" "}
                                   {`${intlData ? intlData.add : "add"} ${
                                       btnText || drawerTableType.toUpperCase()
                                   }`}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { cloneDeep } from 'lodash'
-import { Layout, Menu, Icon, Button, Modal } from "antd";
+import { Layout, Menu, Button, Modal } from "antd";
 import { MenuSlider, TopHeader } from "./components/";
 import SubRoutes from "./subRoutes";
 import { menusMapConfig } from "ROUTES/config";

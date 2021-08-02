@@ -1,14 +1,6 @@
 import React, { Component } from "react";
-import {
-    Form,
-    Button,
-    Row,
-    Col,
-    message,
-    Modal,
-    Icon,
-    Radio,
-} from "antd";
+import { EditOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Form, Button, Row, Col, message, Modal, Radio } from "antd";
 import { observer, inject } from "mobx-react";
 import debounce from "lodash/debounce";
 import { objectExistValue, getUrlParam } from "COMMON/utils";
@@ -22,11 +14,12 @@ import { getPath } from "ROUTES";
 import "./index.scss";
 
 const { confirm } = Modal;
-@Form.create()
+
 @withIntlHoc("heavy")
 @inject("heavyOperateStore", "global")
 @observer
 class HeavyEdit extends Component {
+    formRef = React.createRef();
     constructor(props) {
         super(props);
         pageConfig.call(this);
@@ -135,7 +128,7 @@ class HeavyEdit extends Component {
     handleItSwitch = (dragItem, trgetItem) => {
         const { nodeId: dragNodeId, showAId: dragItId } = dragItem;
         const { nodeId: targetNodeId, } = trgetItem;
-        debugger
+
         if (dragNodeId == targetNodeId) {
             return;
         }
@@ -158,7 +151,7 @@ class HeavyEdit extends Component {
             })
         });
         Modal.confirm({
-            icon: <Icon type="info-circle" />,
+            icon: <InfoCircleOutlined />,
             title: "请确定操作",
             content: (
                 <div>
@@ -298,10 +291,8 @@ class HeavyEdit extends Component {
     };
 
     handleSave = () => {
-        const {
-            form: { validateFields },
-        } = this.props;
-        validateFields((error, data) => {
+        const { validateFields } = this.formRef.current;
+        validateFields().then((error, data) => {
             const { history } = this.props;
             if (!error && objectExistValue(data)) {
                 const {
@@ -449,7 +440,7 @@ class HeavyEdit extends Component {
                         <Button
                             className="detailEdit"
                             type="primary"
-                            icon="edit"
+                            icon={<EditOutlined />}
                             onClick={() => {
                                 this.props.history.push(getPath("heavyEdit", {
                                     search: `?heavyId=${this.heavyId}`,
@@ -459,11 +450,13 @@ class HeavyEdit extends Component {
                             {intlData["heavyPage_edit"]}
                         </Button>
                     )}
-                    <CommonFormTable
-                        isJustShow={isJustShow}
-                        form={form}
-                        dataSource={formItemArr}
-                    />
+                    <Form ref={this.formRef} layout="vertical">
+                        <CommonFormTable
+                            isJustShow={isJustShow}
+                            form={this.formRef.current}
+                            dataSource={formItemArr}
+                        />
+                    </Form>
                 </div>
                 <CommonWrapper title={intlData["heavyPage_nodeSetting"]}>
                     <Row>

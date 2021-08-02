@@ -1,6 +1,8 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
-import { Form, Input, Button, Select, Radio, Col, Row } from "antd";
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button, Select, Radio, Col, Row } from "antd";
 import { FormattedMessage, injectIntl } from "react-intl";
 import styles from './index.module.scss'
 import { CommonAnimateWha as AnimateWrapper} from "COMMON/components";
@@ -45,7 +47,7 @@ class LoginPage extends React.Component {
       form: { validateFields },
       global: { loginFn },
     } = this.props;
-    debugger
+    
     // validateFields({ force: true }, (error, values) => {
     //   if (!error) {
     //     const { username, password, code, language } = values;
@@ -138,8 +140,6 @@ class LoginPage extends React.Component {
         cc.game.resume()
       }
       document.addEventListener("completeFromGame", (data) => {
-        // this.props.history.push(getPath("lightHome"));
-        debugger
         if (data.detail.status === 1) {
           this.setState({
             collapsed: false

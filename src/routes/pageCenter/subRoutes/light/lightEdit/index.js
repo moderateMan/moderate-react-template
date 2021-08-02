@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { Prompt, Link } from 'react-router-dom';
-import { Form, Icon, Button, Modal, message } from "antd";
+import { EditOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Button, Modal, message, Form } from "antd";
 import { objectExistValue, getUrlParam } from "COMMON/utils";
-import {CommonWrapper,CommonCustomTable,CommonFormTable} from "COMMON/components";
+import { CommonWrapper, CommonCustomTable, CommonFormTable } from "COMMON/components";
 import injectInternational from "COMMON/hocs/intlHoc";
 import debounce from "lodash/debounce";
 import setConfig from "./config";
@@ -22,6 +23,7 @@ let PAGE_STATUS = {
 @inject("lightOperateStore", "global")
 @observer
 class TempEdit extends Component {
+    formRef = React.createRef();
     constructor(props) {
         super(props);
         setConfig.call(this);
@@ -96,14 +98,13 @@ class TempEdit extends Component {
     }
 
     save = () => {
+        const { validateFields } = this.formRef.current;
         const {
-            form: { validateFields },
             lightOperateStore: {
                 fetchLightAdd,
                 fetchLightUpdate,
                 lightItemArr,
                 isNewAddFlag,
-
             },
             history,
             handleExtra,
@@ -113,10 +114,11 @@ class TempEdit extends Component {
         if (editingKey) {
             return message.warning(intlData["light_editting"]);
         }
+        
         let targetHandleSaveApi;
         //通过url地址判断当前是修改还是新增
         targetHandleSaveApi = this.isEdit ? fetchLightUpdate : fetchLightAdd;
-        validateFields((error, data) => {
+        validateFields().then((error, data) => {
             if (!error && objectExistValue(data)) {
                 if (
                     !lightItemArr.length ||
@@ -199,7 +201,7 @@ class TempEdit extends Component {
             message.warning(intlData["light_deleteData"]);
         } else {
             Modal.confirm({
-                icon: <Icon type="info-circle" />,
+                icon: <InfoCircleOutlined />,
                 title: intlData["light_deleteOne"],
                 content: intlData["light_irreversible"],
                 okText: intlData["light_Yes"],
@@ -244,18 +246,18 @@ class TempEdit extends Component {
         return weight;
     };
     isPrompt() {
-        if (!this.state.isOk&&this._status === PAGE_STATUS.ADD) {
-            return Object.entries(this.props.form.getFieldsValue()).some((item) => {
-                return item[1];
-            })
-        } else {
-            return false
-        }
+        // if (!this.state.isOk && this._status === PAGE_STATUS.ADD&&this.formRef.current?.getFieldsValue) {
+        //     return Object.entries(this.formRef.current.getFieldsValue()).some((item) => {
+        //         return item[1];
+        //     })
+        // } else {
+        //     return false
+        // }
     }
-    componentDidUpdate(){
-        const {intlData} = this.props;
-        if(this.state.intlData !== intlData){
-            this.setState({intlData},()=>{
+    componentDidUpdate() {
+        const { intlData } = this.props;
+        if (this.state.intlData !== intlData) {
+            this.setState({ intlData }, () => {
                 this.refreshConfig();
             })
         }
@@ -267,7 +269,7 @@ class TempEdit extends Component {
             handleExtra,
             intlData,
         } = this.props;
-       
+
         const { lightItemArr, isNewAddFlag } = lightOperateStore;
         const { formItemArr, columns, editingKey } = this.state;
         return (
@@ -288,7 +290,7 @@ class TempEdit extends Component {
                         <Button
                             className="savaBtn"
                             type="primary"
-                            icon="edit"
+                            icon={<EditOutlined />}
                             onClick={() => {
                                 this.save();
                             }}
@@ -296,8 +298,8 @@ class TempEdit extends Component {
                             {intlData["posPage.edit"]}
                         </Button>
                     </Link>}
-                    <Form layout="vertical">
-                        <CommonFormTable isJustShow={this.isDetail} form={form} dataSource={formItemArr} />
+                    <Form ref={this.formRef} layout="vertical">
+                        {this.formRef.current&&<CommonFormTable isJustShow={this.isDetail} form={this.formRef.current} dataSource={formItemArr} />}
                     </Form>
                 </div>
                 <CommonWrapper title={intlData["light_itemListTitle"]}>
@@ -349,4 +351,4 @@ class TempEdit extends Component {
     }
 }
 
-export default Form.create()(TempEdit);
+export default TempEdit;

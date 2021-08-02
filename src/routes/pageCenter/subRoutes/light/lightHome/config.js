@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./index.scss";
-import { Icon } from "antd";
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { PAGE_SIZE } from "COMMON/constants";
 import { getPath } from 'ROUTES';
 
@@ -59,17 +59,15 @@ export default function () {
                                         search: `?title=${intlData["light_lightEditTitle"]}&id=${id}`
                                     })}
                                 >
-                                    <Icon
+                                    <EditOutlined
                                         style={{
                                             fontSize: 15,
                                             color: "#1890FF",
                                             marginLeft: 10,
                                             marginRight: 10,
-                                        }}
-                                        type="edit"
-                                    />
+                                        }} />
                                 </Link>
-                                <Icon
+                                <DeleteOutlined
                                     style={{
                                         fontSize: 15,
                                         color: "#1890FF",
@@ -78,9 +76,7 @@ export default function () {
                                     }}
                                     onClick={() => {
                                         this.handlDelete([id]);
-                                    }}
-                                    type="delete"
-                                />
+                                    }} />
                             </span>
                         );
                     },

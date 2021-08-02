@@ -34,6 +34,7 @@ class CommonFormTable extends React.Component {
             style = { marginBottom: 30 },
             ...restProps
         } = this.props;
+        
         let rowArr = [];
         this.count(dataSource);
         let showTemp = [];

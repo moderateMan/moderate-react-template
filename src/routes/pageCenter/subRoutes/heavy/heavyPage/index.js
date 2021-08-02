@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Modal, message } from "antd";
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { Form,Modal, message } from "antd";
 import "./index.scss";
-import { Form, Icon } from "antd";
 import {CommonTable,CommonWrapper,CommonSearchTable} from "COMMON/components";
 import { observer, inject } from "mobx-react";
 import { toJS } from "mobx";
@@ -15,6 +15,7 @@ const EditableContext = React.createContext();
 @inject("heavyHomeStore", "global")
 @observer
 class HeavyPage extends Component {
+    formRef = React.createRef();
     constructor(props) {
         super(props);
         applyConfig.call(this);
@@ -33,7 +34,6 @@ class HeavyPage extends Component {
         global.changeParams({
             isLoading: true,
         });
-        this.props.form.validateFields();
     }
 
     componentWillUnmount() { }
@@ -69,7 +69,7 @@ class HeavyPage extends Component {
         }
         let { pageIndex, pageSize } = this.state;
         Modal.confirm({
-            icon: <Icon type="info-circle" />,
+            icon: <InfoCircleOutlined />,
             title: intlData.modalDeleteTitle,
             content: intlData.modalDeleteContent,
             cancelText: intlData.No,
@@ -255,4 +255,4 @@ class HeavyPage extends Component {
     }
 }
 
-export default Form.create()(HeavyPage);
+export default HeavyPage;

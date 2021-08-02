@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
 import { Modal, message, Button } from "antd";
 import "./index.scss";
-import { Form, Icon } from "antd";
 import { CommonTable, CommonWrapper, CommonSearchTable } from "COMMON/components";
 import { observer, inject } from "mobx-react";
 import { toJS } from "mobx";
@@ -56,7 +58,7 @@ class LightHome extends Component {
         }
         let { pageIndex, pageSize } = this.state;
         Modal.confirm({
-            icon: <Icon type="info-circle" />,
+            icon: <InfoCircleOutlined />,
             title: intlData.modalDeleteTitle,
             content: intlData.modalDeleteContent,
             cancelText: intlData.No,

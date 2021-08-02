@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { findDOMNode } from 'react-dom'
-import { Avatar, Layout, Modal, Button, Form, Input, Icon, Dropdown, Menu } from "antd";
+import { Form, Icon as LegacyIcon } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { UserOutlined } from '@ant-design/icons';
+import { Avatar, Layout, Modal, Button, Input, Dropdown, Menu } from "antd";
 import "./header.scss";
 import FetchRequest from 'SRC/dataManager/netTrans/request'
 import injectInternational from "COMMON/hocs/intlHoc";
@@ -186,7 +189,7 @@ class TopHeader extends Component {
         const { modalVisible } = this.state;
         return (
             <Header className="header_style">
-                <Icon
+                <LegacyIcon
                     className="trigger"
                     type={collapsed ? 'menu-unfold' : 'menu-fold'}
                     onClick={toggle}
@@ -207,7 +210,7 @@ class TopHeader extends Component {
                             marginLeft: "15px",
                             marginTop: "15px",
                             backgroundColor: '#87d068'
-                        }} icon="user" />
+                        }} icon={<UserOutlined />} />
                     </Dropdown>
                     <Modal
                         visible={modalVisible}

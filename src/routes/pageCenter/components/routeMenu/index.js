@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {ROUTES_LOCAL_ID} from 'ROUTES/config';
-import { Tree, Icon } from 'antd';
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { DownOutlined } from '@ant-design/icons';
+import { Tree } from 'antd';
 const {DOC_ID} = ROUTES_LOCAL_ID;
 
 const { TreeNode } = Tree;
@@ -80,18 +82,18 @@ export default (props) => {
       }
       if (item.children && item.children.length) {
         return (
-          <TreeNode icon={({ selected }) => <Icon type={item.icon} />}  key={item.key} title={intlData[item.name]||item.name}>
+          <TreeNode icon={({ selected }) => <LegacyIcon type={item.icon} />}  key={item.key} title={intlData[item.name]||item.name}>
             {loop(item.children)}
           </TreeNode>
         );
       }
-      return <TreeNode icon={({ selected }) => <Icon type={item.icon} />} key={item.key} title={intlData[item.name]||item.name} />;
+      return <TreeNode icon={({ selected }) => <LegacyIcon type={item.icon} />} key={item.key} title={intlData[item.name]||item.name} />;
     });
   return (
     <Tree
       showIcon
       showLine
-      switcherIcon={<Icon type="down" />}
+      switcherIcon={<DownOutlined />}
       className="draggable-tree"
       draggable
       blockNode

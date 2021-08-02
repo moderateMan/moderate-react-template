@@ -1,7 +1,9 @@
 import React from "react";
 import "./index.scss";
 import CommonPropItem from "../formItem";
-import { Button, Modal, Form } from "antd";
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Modal } from "antd";
 
 const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
     // eslint-disable-next-line

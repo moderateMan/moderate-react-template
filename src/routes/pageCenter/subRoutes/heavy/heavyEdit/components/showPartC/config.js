@@ -3,7 +3,10 @@ import OperateSearchSelectsSelect from "../cutomLinkSelect";
 import SearchSelect from "../searchSelect";
 import "../../index.scss";
 import "./index.scss";
-import { Input, Switch, Icon, Row, Col, Form, InputNumber } from "antd";
+import { SwapRightOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Switch, Row, Col, InputNumber } from "antd";
 
 export const tableConfig = (params = {}) => {
     const { searchSelectData = [], isJustShow, intlData } = params;
@@ -230,7 +233,7 @@ export const tableConfig = (params = {}) => {
                                         </Form.Item>
                                     </Col>
                                     <Col span={2}>
-                                        <Icon type="swap-right" />
+                                        <SwapRightOutlined />
                                     </Col>
                                     <Col span={7}>
                                         <Form.Item style={{ margin: 0 }}>

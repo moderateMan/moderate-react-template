@@ -1,5 +1,6 @@
 import React from 'react'
-import { notification, Icon, message, Modal } from 'antd'
+import { SmileOutlined } from '@ant-design/icons';
+import { notification, message, Modal } from 'antd';
 import { INFO, WARNING, SUCCESS, EXCEPTION_INFO, DATA_MODIFY_WARNING, TIMEOUT_INFO } from '../constants'
 
 export const messageNotice = (type = INFO, content = '') => {
@@ -16,7 +17,7 @@ const openNotificationWithIcon = (message = '', description = '', type = INFO) =
         message,
         description,
         duration: 6,
-        icon: <Icon type="smile" style={{ color: '#108ee9' }} />
+        icon: <SmileOutlined style={{ color: '#108ee9' }} />
     })
 }
 

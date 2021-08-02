@@ -4,7 +4,8 @@ import CustomTable from "COMMON/components/customTable";
 
 import useStores from "COMMON/hooks/useStores";
 import { showPartBItem } from "COMMON/shapes";
-import { message, Icon, Popover } from "antd";
+import { DeleteOutlined, InfoCircleFilled, QuestionCircleOutlined } from '@ant-design/icons';
+import { message, Popover } from "antd";
 import { updateConfig } from "./config";
 import injectInternational from "COMMON/hocs/intlHoc";
 
@@ -60,18 +61,16 @@ const showPartB = injectInternational("heavy")((props) => {
                 {`${intlData.heavyPage_showPartB} ${position}`}
                 {!isJustShow && (
                     <Fragment>
-                        <Icon
+                        <DeleteOutlined
                             className={
                                 isEnableDeleteBtn
                                     ? "titleBtn"
                                     : "titleBtnDisable"
                             }
-                            type="delete"
                             onClick={() => {
                                 if (!isEnableDeleteBtn) return;
                                 handleConDelete({ pos: position });
-                            }}
-                        ></Icon>
+                            }}></DeleteOutlined>
                         <Popover
                             content={
                                 <div
@@ -80,19 +79,16 @@ const showPartB = injectInternational("heavy")((props) => {
                                         alignItems: "center",
                                     }}
                                 >
-                                    <Icon
+                                    <InfoCircleFilled
                                         style={{
                                             color: " #FAAD14",
                                             marginRight: 5,
-                                        }}
-                                        type="info-circle"
-                                        theme="filled"
-                                    />
+                                        }} />
                                     {intlData.heavyPage_warn_deleteCon}
                                 </div>
                             }
                         >
-                            <Icon className="titleBtn" type="question-circle" />
+                            <QuestionCircleOutlined className="titleBtn" />
                         </Popover>
                     </Fragment>
                 )}

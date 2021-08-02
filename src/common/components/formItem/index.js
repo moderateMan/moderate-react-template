@@ -5,6 +5,7 @@ import formItemHoc from "COMMON/hocs/formItemHoc";
 class CommonFormItem extends React.Component {
     render() {
         const { form, data = {}, getFromItem, ...restProps } = this.props;
+        
         return (
             <Fragment>
                 {getFromItem({

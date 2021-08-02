@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./index.scss";
-import { Select, Icon, Button } from "antd";
+import { ArrowDownOutlined, ArrowUpOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Select, Button } from "antd";
 import moment from "moment";
 import { PAGE_SIZE } from "COMMON/constants";
 import { getPath } from "ROUTES";
@@ -207,17 +208,15 @@ export default function () {
                                         search: `?title=${intlData["heavyPage_detailTitle"]}&heavyId=${heavyId}`,
                                     })}
                                 >
-                                    <Icon
+                                    <EditOutlined
                                         style={{
                                             fontSize: 15,
                                             color: "#1890FF",
                                             marginLeft: 10,
                                             marginRight: 10,
-                                        }}
-                                        type="edit"
-                                    />
+                                        }} />
                                 </Link>
-                                <Icon
+                                <DeleteOutlined
                                     style={{
                                         fontSize: 15,
                                         color: "#1890FF",
@@ -226,10 +225,8 @@ export default function () {
                                     }}
                                     onClick={() => {
                                         this.handlDelete([heavyId]);
-                                    }}
-                                    type="delete"
-                                />
-                                <Icon
+                                    }} />
+                                <ArrowUpOutlined
                                     style={{
                                         fontSize: 15,
                                         color: "#1890FF",
@@ -242,10 +239,8 @@ export default function () {
                                             rowIndex,
                                             data: item,
                                         });
-                                    }}
-                                    type="arrow-up"
-                                />
-                                <Icon
+                                    }} />
+                                <ArrowDownOutlined
                                     style={{
                                         fontSize: 15,
                                         color: "#1890FF",
@@ -258,9 +253,7 @@ export default function () {
                                             data: item,
                                             rowIndex,
                                         });
-                                    }}
-                                    type="arrow-down"
-                                />
+                                    }} />
                                 <Button
                                     onClick={() => {
                                         this.handleSwitchStatus({

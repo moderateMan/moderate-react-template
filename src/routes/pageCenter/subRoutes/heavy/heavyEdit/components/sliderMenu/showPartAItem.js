@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { Menu, Icon, Button } from "antd";
+import { CheckOutlined } from '@ant-design/icons';
+import { Menu, Button } from "antd";
 import { toJS } from "mobx";
 
 let CARD = "CARD";
@@ -74,12 +75,10 @@ export default ({
                         handleSwitchClick();
                     }}
                 >
-                    <Icon
+                    <CheckOutlined
                         style={{
                             marginLeft: 50,
-                        }}
-                        type="check"
-                    />
+                        }} />
                 </span>
             </div>
         </div>

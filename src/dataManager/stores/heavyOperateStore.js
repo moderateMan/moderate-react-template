@@ -114,7 +114,6 @@ class heavyOperateStore extends BaseStore {
             return new Promise((resolve, reject) => {
                 this.fetchApiWrapper("fetchDetail", params)
                     .then((res) => {
-                        debugger
                         const { showPartA, ...rest } = res.data;
                         this.changeParams({
                             heavyDataPart1: { ...rest },

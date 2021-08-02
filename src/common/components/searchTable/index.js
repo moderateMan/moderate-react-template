@@ -1,7 +1,10 @@
 import React from "react";
 import CommonFormTable from "COMMON/components/formTable";
 import { hasErrors } from "COMMON/utils";
-import { Form,  Row, Col, Button } from "antd";
+import { SearchOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Row, Col, Button } from "antd";
 import { inject } from "mobx-react";
 
 @inject("global")
@@ -53,7 +56,7 @@ class CommonSearchTable extends React.Component {
                                 htmlType="submit"
                                 disabled={hasErrors(getFieldsError())}
                                 type="primary"
-                                icon="search"
+                                icon={<SearchOutlined />}
                             >
                                 {locale == "zh" ? "查询" : "Search"}
                             </Button>

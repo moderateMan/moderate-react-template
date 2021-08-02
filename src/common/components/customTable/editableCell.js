@@ -13,6 +13,7 @@ class EditableCell extends React.Component {
     }
 
     renderCell = (form) => {
+        debugger
         const {
             editing,
             dataIndex,
@@ -31,15 +32,11 @@ class EditableCell extends React.Component {
             <td style={{
                 textAlign:"center"
             }}>
-                {editing ? (
-                    <div>
-                        {getFromItem({
+                {editing ? getFromItem({
                             dataIndex,
                             formConfig: formConfigTemp,
                             ...form,
-                        })}
-                    </div>
-                ) : (
+                        }): (
                     children
                 )}
             </td>

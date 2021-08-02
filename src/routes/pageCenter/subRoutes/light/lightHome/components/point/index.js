@@ -1,5 +1,4 @@
 import React, { useEffect, useState, Fragment } from "react";
-import { Icon } from "antd";
 import "./index.scss";
 import { observer } from "mobx-react";
 

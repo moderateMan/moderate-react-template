@@ -4,6 +4,7 @@ import TopFormPart from "../topFormPart";
 import ShowPartB from "../showPartB";
 import ShowPartC from "../showPartC";
 import { showPartBItem, showPartCItem } from "COMMON/shapes";
+import { PlusOutlined } from '@ant-design/icons';
 import { Button, message, Modal } from "antd";
 import injectInternational from "COMMON/hocs/intlHoc";
 
@@ -231,7 +232,7 @@ const showPartA = injectInternational("heavy")((props) => {
                 <Button
                     onClick={handleShowPartBAdd}
                     type="dashed"
-                    icon="plus"
+                    icon={<PlusOutlined />}
                     className="addShowPartBBtn"
                 >
                     {`${intlData.add} ${intlData.heavyPage_showPartB}`}

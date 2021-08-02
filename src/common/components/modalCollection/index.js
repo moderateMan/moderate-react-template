@@ -1,6 +1,8 @@
 import React from "react";
 import "./index.scss";
-import { Form, Modal } from "antd";
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Modal } from "antd";
 import CommonFormItem from "COMMON/components/formItem";
 
 class commonModalCollection extends React.Component {

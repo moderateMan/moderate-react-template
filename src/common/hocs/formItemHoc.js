@@ -1,16 +1,6 @@
 import React, { Fragment } from "react";
-import {
-    Form,
-    Input,
-    Checkbox,
-    Upload,
-    Icon,
-    Button,
-    Select,
-    DatePicker,
-    Switch,
-    InputNumber,
-} from "antd";
+import { UploadOutlined } from '@ant-design/icons';
+import { Form,Input, Checkbox, Upload, Button, Select, DatePicker, Switch, InputNumber } from "antd";
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 let Option = Select.Option;
@@ -53,6 +43,7 @@ function formItemHoc(WrappedComponent) {
             config = {},
             ...restProps
         }) {
+            
             const {
                 label = "",
                 label2,
@@ -75,7 +66,7 @@ function formItemHoc(WrappedComponent) {
                 Upload: (
                     <Upload showUploadList={false} {...config}>
                         <Button>
-                            <Icon type="upload" /> Click to Upload
+                            <UploadOutlined /> Click to Upload
                         </Button>
                     </Upload>
                 ),
@@ -116,17 +107,11 @@ function formItemHoc(WrappedComponent) {
             if (isCustomFormItem) {
                 return itemTemp;
             } else {
-                if (isCustomFormContent) {
-                    formContent = itemTemp
-                } else {
-                    formContent = getFieldDecorator(dataIndex, {
-                        ...rest,
-                    })(itemTemp)
-                }
+                formContent = itemTemp
             }
 
             return (
-                <Form.Item {...formLayout} style={{ width: "100%", margin: 0 }} label={typeof label === 'function' ? label() : label}>
+                <Form.Item {...rest} name={dataIndex} {...formLayout} style={{ width: "100%", margin: 0 }} label={typeof label === 'function' ? label() : label}>
                     {formContent}
                 </Form.Item>
             );

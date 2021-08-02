@@ -1,6 +1,6 @@
 import React from "react";
 import "../../index.scss";
-import { Switch, Input, Form } from "antd";
+import { Switch, Input } from "antd";
 import CustomSelect from "../customSelect";
 import { Fragment } from "react";
 
@@ -38,57 +38,47 @@ export const updateConfig = (params) => {
                 key: "maxConxTime",
                 editable: true,
                 formConfig: {
-                    isCustomFormContent: true,
-                    render: ({ getFieldValue, getFieldDecorator, record }) => {
-                        let initValue = record["maxConxTime"];
-                        return (
-                            <Fragment>
-                                {getFieldDecorator("maxConxTime", {
-                                    initialValue: initValue,
-                                    normalize: (value) => {
-                                        if (value && !isNaN(value * 1)) {
-                                            return value * 1;
-                                        }
-                                        return value;
-                                    },
-                                    rules: [
-                                        {
-                                            pattern: /^[0-9]+$/,
-                                            message: intlData.rule_number,
-                                        },
-                                        {
-                                            message:
-                                                intlData.heavyPage_heavy_maxConx,
-                                            validator: (
-                                                rule,
-                                                value,
-                                                callback
-                                            ) => {
-                                                let temp = parseInt(value);
-                                                if (
-                                                    !isNaN(temp) &&
-                                                    temp <
-                                                    parseInt(
-                                                        getFieldValue("mct")
-                                                    )
-                                                ) {
-                                                    callback(true);
-                                                } else {
-                                                    callback();
-                                                }
-                                            },
-                                        },
-                                    ],
-                                })(
-                                    <Input
-                                        maxLength={8}
-                                        style={{ width: "100%" }}
-                                        placeholder={intlData.placeholder_input}
-                                    ></Input>
-                                )}
-                            </Fragment>
-                        );
+                    rules:[
+                        {
+                            pattern: /^[0-9]+$/,
+                            message: intlData.rule_number,
+                        },
+                        {
+                            message:
+                                intlData.heavyPage_heavy_maxConx,
+                            validator: (
+                                rule,
+                                value,
+                                callback
+                            ) => {
+                                let temp = parseInt(value);
+                                if (
+                                    !isNaN(temp) &&
+                                    temp <
+                                    parseInt(
+                                        getFieldValue("mct")
+                                    )
+                                ) {
+                                    callback(true);
+                                } else {
+                                    callback();
+                                }
+                            },
+                        },
+                    ],
+                    normalize:(value) => {
+                        if (value && !isNaN(value * 1)) {
+                            return value * 1;
+                        }
+                        return value;
                     },
+                    inputAttrConfig:{
+                        maxLength:8,
+                        style:{
+                            width:"100%" 
+                        },
+                        placeholder: intlData.placeholder_input,
+                    }
                 },
             },
             {

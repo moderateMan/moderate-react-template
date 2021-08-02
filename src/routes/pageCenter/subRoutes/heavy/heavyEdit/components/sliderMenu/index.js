@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Menu, Icon } from "antd";
+import { DeleteOutlined, DoubleRightOutlined, PlusOutlined, SwapOutlined } from '@ant-design/icons';
+import { Menu } from "antd";
 import useStores from "COMMON/hooks/useStores";
 import injectInternational from "COMMON/hocs/intlHoc";
 import ShowPartAItem from "./showPartAItem";
@@ -39,7 +40,7 @@ const SliderMenu = injectInternational("heavy")((props) => {
             <div className="btn">
                 {!isJustShow && (
                     <a onClick={handleNodeAdd}>
-                        <Icon type="plus" />
+                        <PlusOutlined />
                         <span className="btnLabel">
                             {intlData.heavyPage_add2 + intlData.heavyPage_node}
                         </span>
@@ -53,7 +54,7 @@ const SliderMenu = injectInternational("heavy")((props) => {
                     className="menuItem"
                     mode="inline"
                     onClick={({ item, key, keyPath, domEvent }) => {
-                        debugger
+                        
                         handleSubItemClick({
                             nodeId: keyPath[keyPath.length - 1] * 1,
                             showPartAId: key.split("-")[1] * 1,
@@ -67,7 +68,7 @@ const SliderMenu = injectInternational("heavy")((props) => {
                                 key={nodeIndex}
                                 title={
                                     <span>
-                                        <Icon type="double-right" />
+                                        <DoubleRightOutlined />
                                         <span>
                                             {intlData.heavyPage_node}{" "}
                                             {nodeIndex + 1}
@@ -82,7 +83,7 @@ const SliderMenu = injectInternational("heavy")((props) => {
                                                     });
                                                 }}
                                             >
-                                                <Icon type="delete"></Icon>
+                                                <DeleteOutlined></DeleteOutlined>
                                             </span>
                                         )}
                                     </span>
@@ -95,7 +96,7 @@ const SliderMenu = injectInternational("heavy")((props) => {
                                                 handleItAdd(nodeIndex + 1);
                                             }}
                                         >
-                                            <Icon type="plus" />
+                                            <PlusOutlined />
                                             <span className="btnLabel">
                                                 {intlData.heavyPage_add2 +
                                                     intlData.heavyPage_node}
@@ -143,7 +144,7 @@ const SliderMenu = injectInternational("heavy")((props) => {
                                                         });
                                                     }}
                                                 >
-                                                    <Icon type="delete"></Icon>
+                                                    <DeleteOutlined></DeleteOutlined>
                                                 </span>
                                             )}
                                             {!isJustShow && (
@@ -154,13 +155,11 @@ const SliderMenu = injectInternational("heavy")((props) => {
                                                         handleSwitchClick();
                                                     }}
                                                 >
-                                                    <Icon
+                                                    <SwapOutlined
                                                         style={{
                                                             transform:
                                                                 "rotate(-90deg)",
-                                                        }}
-                                                        type="swap"
-                                                    />
+                                                        }} />
                                                 </span>
                                             )}
                                         </Menu.Item>
