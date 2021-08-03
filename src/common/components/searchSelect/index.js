@@ -1,5 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Select } from "antd";
+import { CommonFormItem } from "COMMON/components/";
 const { Option } = Select;
 
 class SearchSelect extends React.Component {
@@ -80,39 +81,44 @@ class SearchSelect extends React.Component {
             );
         });
         let domProps = getFieldDecorator ? {} : { value: initValue || "ALL" };
-        let dom = (
-            <Select
-                disabled={disabled}
-                showSearch
-                placeholder={this.props.placeholder}
-                style={{ width: "100px" }}
-                defaultActiveFirstOption={false}
-                showArrow={false}
-                onBlur={(e) => {
-                    setFieldsValue &&
-                        !isSearch &&
-                        setFieldsValue({
-                            [dataIndex]: tempdata,
-                        });
-                }}
-                onSearch={this.handleSearch}
-                onSelect={this.handleChange}
-                notFoundContent={null}
-                {...other}
-                {...domProps}
-            >
-                {options}
-            </Select>
-        );
         return (
-            <Fragment>
-                {getFieldDecorator
-                    ? getFieldDecorator(dataIndex, {
-                        initialValue: isHasAll ? "ALL" : initValue,
-                        rules,
-                    })(dom)
-                    : dom}
-            </Fragment>
+            <CommonFormItem formConfig={
+                {inputConfig:{
+                    disabled:disabled,
+                    showSearch:true,
+                    showArrow:false,
+                    defaultActiveFirstOption:false,
+                    onBlur:(e) => {
+                        setFieldsValue &&
+                            !isSearch &&
+                            setFieldsValue({
+                                [dataIndex]: tempdata,
+                            });
+                    },
+                    onSearch:this.handleSearch,
+                    onSelect:this.handleChange,
+                    ...other,
+                    ...domProps
+                }}
+            } dataIndex={dataIndex} initialValue={isHasAll ? "ALL" : initValue }>
+                {/* <Select
+                    disabled={disabled}
+                    showSearch
+                    placeholder={this.props.placeholder}
+                    style={{ width: "100px" }}
+                    defaultActiveFirstOption={false}
+                    showArrow={false}
+                    onBlur={}
+                    onSearch={this.handleSearch}
+                    onSelect={this.handleChange}
+                    notFoundContent={null}
+                    {...other}
+                    {...domProps}
+                >
+                    {options}
+                </Select> */}
+            </CommonFormItem>
+          
         );
     }
 }

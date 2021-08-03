@@ -91,7 +91,7 @@ export default function () {
                             wrapperCol: { span: 18 },
                             labelAlign: "left",
                         },
-                        inputAttrConfig: {
+                        inputConfig: {
                             placeholder:
                                 intlData["placeholder_input"],
                             size: "large",

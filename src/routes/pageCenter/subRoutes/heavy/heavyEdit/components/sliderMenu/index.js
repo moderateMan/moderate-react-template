@@ -54,7 +54,7 @@ const SliderMenu = injectInternational("heavy")((props) => {
                     className="menuItem"
                     mode="inline"
                     onClick={({ item, key, keyPath, domEvent }) => {
-                        
+
                         handleSubItemClick({
                             nodeId: keyPath[keyPath.length - 1] * 1,
                             showPartAId: key.split("-")[1] * 1,
@@ -86,24 +86,20 @@ const SliderMenu = injectInternational("heavy")((props) => {
                                                 <DeleteOutlined></DeleteOutlined>
                                             </span>
                                         )}
+                                        {!isJustShow && (
+                                            <span
+                                                className="itemClose"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleItAdd(nodeIndex + 1);
+                                                }}
+                                            >
+                                               <PlusOutlined />
+                                            </span>
+                                        )}
                                     </span>
                                 }
                             >
-                                {!isJustShow && (
-                                    <div className="btn">
-                                        <a
-                                            onClick={() => {
-                                                handleItAdd(nodeIndex + 1);
-                                            }}
-                                        >
-                                            <PlusOutlined />
-                                            <span className="btnLabel">
-                                                {intlData.heavyPage_add2 +
-                                                    intlData.heavyPage_node}
-                                            </span>
-                                        </a>
-                                    </div>
-                                )}
                                 {/* if you won`t use DndProvider to wraper your component that has processed by useDrop or useDrap,you will never get the context........so try it! */}
                                 {itArr.map((it, itIndex) => {
                                     let params = {
@@ -117,8 +113,8 @@ const SliderMenu = injectInternational("heavy")((props) => {
                                     return isSort ? (
                                         <ShowPartAItem
                                             {...params}
-                                            handleItSwitch={(p1,p2)=>{
-                                                handleItSwitch(p1,p2)
+                                            handleItSwitch={(p1, p2) => {
+                                                handleItSwitch(p1, p2)
                                             }}
                                             handleSwitchClick={
                                                 handleSwitchClick

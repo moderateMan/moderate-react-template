@@ -138,6 +138,7 @@ export default injectInternational("menuTitle")((props) => {
                             width: "100%",
                             height: "100%",
                             position: "absolute",
+                            top:0,
                             left: 0,
                             paddingLeft: paddingLeftTemp,
                         }, icon, names, pathname: pathnameTemp, search: searchTemp, intlData

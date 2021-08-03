@@ -98,8 +98,8 @@ let config = {
         zh: "节点",
     },
     heavyPage_showPartB: {
-        en: "ShowPart",
-        zh: "显示块",
+        en: "ShowPartB",
+        zh: "ShowPartB",
     },
     heavyPage_exclude: {
         en: "Exclude",
@@ -114,8 +114,8 @@ let config = {
         zh: "<-关联 Input:最小值",
     },
     heavyPage_showPartC: {
-        en: "customFormItem",
-        zh: "自定义表单项",
+        en: "ShowPartC",
+        zh: "ShowPartC",
     },
     heavyPage_linkSwitch: {
         en: "Link Switch",

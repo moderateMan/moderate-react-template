@@ -7,6 +7,7 @@ import { showPartBItem, showPartCItem } from "COMMON/shapes";
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, message, Modal } from "antd";
 import injectInternational from "COMMON/hocs/intlHoc";
+import styles from './index.module.scss'
 
 const { confirm } = Modal;
 
@@ -163,7 +164,7 @@ const showPartA = injectInternational("heavy")((props) => {
         });
     };
     return (
-        <div className="showPartB">
+        <div className={styles.showPart}>
             {isSort&&<div style={{ position: "absolute",  inset: 9, backgroundColor: "rgb(0,0,0,0.2)", zIndex: 10 }}></div>}
             <TopFormPart
                 isJustShow={isJustShow}

@@ -11,71 +11,42 @@ export const updateConfig = (params) => {
     let tableConfig = {
         columns: [
             {
-                title: intlData.heavyPage_exclude,
-                dataIndex: "exclude",
-                key: "exclude",
-                editable: true,
-                width: "70px",
-                render: (value) => {
-                    return <Switch checked={value}></Switch>;
-                },
-                inputType: "Checkbox",
-                formConfig: {
-                    render: (params) => {
-                        const { inputAttrConfig } = params;
-                        return <Switch {...inputAttrConfig}></Switch>;
-                    },
-                    valuePropName: "checked",
-                    initialValue: false,
-                    rules: [],
-                    type: "Checkbox",
-                    inputAttrConfig: {},
-                },
-            },
-            {
                 title: intlData.heavyPage_maxConnectTime,
                 dataIndex: "maxConxTime",
                 key: "maxConxTime",
                 editable: true,
                 formConfig: {
-                    rules:[
+                    rules: [
                         {
                             pattern: /^[0-9]+$/,
                             message: intlData.rule_number,
                         },
-                        {
-                            message:
-                                intlData.heavyPage_heavy_maxConx,
-                            validator: (
-                                rule,
-                                value,
-                                callback
-                            ) => {
+                        ({ getFieldValue }) => ({
+                            validator(_, value) {
                                 let temp = parseInt(value);
                                 if (
                                     !isNaN(temp) &&
-                                    temp <
+                                    temp >
                                     parseInt(
                                         getFieldValue("mct")
                                     )
                                 ) {
-                                    callback(true);
-                                } else {
-                                    callback();
+                                    return Promise.resolve();
                                 }
+                                return Promise.reject(new Error(intlData.heavyPage_heavy_maxConx));
                             },
-                        },
+                        }),
                     ],
-                    normalize:(value) => {
+                    normalize: (value) => {
                         if (value && !isNaN(value * 1)) {
                             return value * 1;
                         }
                         return value;
                     },
-                    inputAttrConfig:{
-                        maxLength:8,
-                        style:{
-                            width:"100%" 
+                    inputConfig: {
+                        maxLength: 8,
+                        style: {
+                            width: "100%"
                         },
                         placeholder: intlData.placeholder_input,
                     }
@@ -88,7 +59,7 @@ export const updateConfig = (params) => {
                 editable: true,
                 formConfig: {
                     type: "Input",
-                    inputAttrConfig: {
+                    inputConfig: {
                         placeholder: intlData.placeholder_input,
                         maxLength: 8,
                         style: {

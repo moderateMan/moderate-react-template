@@ -40,7 +40,7 @@ export default function config() {
                                     intlData["light_placeholder_lightName"],
                             },
                         ],
-                        inputAttrConfig: {
+                        inputConfig: {
                             placeholder:
                                 intlData["light_placeholder_lightName"],
                             maxLength: 30,
@@ -55,7 +55,7 @@ export default function config() {
                         label: intlData["light_comment"] + "：",
                         rules: [],
                         type: "TextArea",
-                        inputAttrConfig: {
+                        inputConfig: {
                             placeholder:
                                 intlData["light_placeholder_comment"],
                             autoSize: { minRows: 4 },
@@ -78,7 +78,7 @@ export default function config() {
                                 message: `${intlData["light_placeholder_input"]} ${intlData["light_lightType"]}`,
                             },
                         ],
-                        inputAttrConfig: {
+                        inputConfig: {
                             placeholder: `${intlData["light_placeholder_select"]} ${intlData["light_lightType"]}`,
                             maxLength: 60,
                             style: {
@@ -94,13 +94,13 @@ export default function config() {
                         ],
                         type: "Select",
                         render: ({
-                            inputAttrConfig,
+                            inputConfig,
                             optionArr,
                             setFieldsValue,
                         }) => {
                             return (
                                 <Select
-                                    {...inputAttrConfig}
+                                    {...inputConfig}
                                 >
                                     {optionArr &&
                                         optionArr.length > 0 &&
@@ -139,7 +139,7 @@ export default function config() {
                             [0, intlData["light_option"] + "A"],
                             [1, intlData["light_option"] + "B"],
                         ],
-                        inputAttrConfig: {
+                        inputConfig: {
                             placeholder: intlData["light_placeholder_aoa"],
                             style: {
                                 width: "150px",
@@ -168,7 +168,7 @@ export default function config() {
                         valuePropName: "checked",
                         initialValue: false,
                         type: "Switch",
-                        inputAttrConfig: {}
+                        inputConfig: {}
                     },
                 },
                 {

@@ -180,7 +180,7 @@ class commonItemModal extends React.Component {
                                                 itemData[itemTemp.propName],
                                         })(
                                             <Input
-                                                {...itemTemp.inputAttrConfig}
+                                                {...itemTemp.inputConfig}
                                             />
                                         )}
                                     </Form.Item>
@@ -198,7 +198,7 @@ class commonItemModal extends React.Component {
                                         })(
                                             // onChange={this.handleSelectChange} >
                                             <Select
-                                                {...itemTemp.inputAttrConfig}
+                                                {...itemTemp.inputConfig}
                                             >
                                                 {itemTemp.optionArr &&
                                                     itemTemp.optionArr.length >
@@ -242,7 +242,7 @@ class commonItemModal extends React.Component {
                                                 itemData[itemTemp.propName],
                                         })(
                                             <Checkbox
-                                                {...itemTemp.inputAttrConfig}
+                                                {...itemTemp.inputConfig}
                                                 onChange={handlChangeCheck}
                                             ></Checkbox>
                                         )}

@@ -74,7 +74,7 @@ export default function () {
                                 message: intlData.rule_common,
                             },
                         ],
-                        inputAttrConfig: {
+                        inputConfig: {
                             placeholder: intlData.placeholder_input,
                             maxLength: 30,
                             size: "large",
@@ -111,7 +111,7 @@ export default function () {
                             },
                         ],
                         type: "Select",
-                        inputAttrConfig: {
+                        inputConfig: {
                             placeholder: intlData.placeholder_select,
                             size: "large",
                             style: { width: "100%" },
@@ -144,7 +144,7 @@ export default function () {
                             },
                         ],
                         type: "Select",
-                        inputAttrConfig: {
+                        inputConfig: {
                             size: "large",
                         },
                     },
@@ -168,7 +168,7 @@ export default function () {
                             },
                         ],
                         type: "RangePicker",
-                        inputAttrConfig: {
+                        inputConfig: {
                             size: "large",
                         },
                     },
@@ -187,7 +187,7 @@ export default function () {
                                     intlData.rule_number.toLowerCase() + "!",
                             },
                         ],
-                        inputAttrConfig: {
+                        inputConfig: {
                             disabled: this.isEdit,
                             placeholder:
                                 intlData.placeholder_input,
@@ -206,7 +206,7 @@ export default function () {
                         label: intlData.heavyPage_comment + "：",
                         rules: [],
                         type: "TextArea",
-                        inputAttrConfig: {
+                        inputConfig: {
                             placeholder: intlData.placeholder_input,
                             autoSize: { minRows: 4 },
                             maxLength: 60,
@@ -221,7 +221,7 @@ export default function () {
                         label: "",
                         rules: [],
                         type: "",
-                        inputAttrConfig: {
+                        inputConfig: {
                             style: {
                                 display: "none",
                             },

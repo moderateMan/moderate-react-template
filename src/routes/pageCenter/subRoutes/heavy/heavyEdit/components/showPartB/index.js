@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import "./index.scss";
+import styles from "./index.module.scss";
 import CustomTable from "COMMON/components/customTable";
 
 import useStores from "COMMON/hooks/useStores";
@@ -56,16 +56,16 @@ const showPartB = injectInternational("heavy")((props) => {
         return rowData;
     };
     return (
-        <div className="showPartB">
-            <div className="showPartBTile">
+        <div className={styles.showPartB}>
+            <div className={styles.showPartBTile}>
                 {`${intlData.heavyPage_showPartB} ${position}`}
                 {!isJustShow && (
                     <Fragment>
                         <DeleteOutlined
                             className={
                                 isEnableDeleteBtn
-                                    ? "titleBtn"
-                                    : "titleBtnDisable"
+                                    ? styles.titleBtn
+                                    : styles.titleBtnDisable
                             }
                             onClick={() => {
                                 if (!isEnableDeleteBtn) return;
@@ -88,7 +88,7 @@ const showPartB = injectInternational("heavy")((props) => {
                                 </div>
                             }
                         >
-                            <QuestionCircleOutlined className="titleBtn" />
+                            <QuestionCircleOutlined className={styles.titleBtn}/>
                         </Popover>
                     </Fragment>
                 )}

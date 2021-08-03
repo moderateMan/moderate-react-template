@@ -30,7 +30,7 @@ export default function () {
                             wrapperCol: { span: 15, offset: 0 },
                             labelAlign: "left",
                         },
-                        inputAttrConfig: {
+                        inputConfig: {
                             placeholder: intlData["placeholder_input"],
                             size: "large",
                         },
@@ -69,7 +69,7 @@ export default function () {
                             [1, "A"],
                             [2, "B"],
                         ],
-                        inputAttrConfig: {
+                        inputConfig: {
                             placeholder: intlData["placeholder_select"],
                             size: "large",
                             allowClear: true,
@@ -98,7 +98,7 @@ export default function () {
                             [0, intlData.heavyPage_saved],
                             [1, intlData.heavyPage_actived],
                         ],
-                        inputAttrConfig: {
+                        inputConfig: {
                             placeholder: intlData["placeholder_select"],
                             size: "large",
                             allowClear: true,

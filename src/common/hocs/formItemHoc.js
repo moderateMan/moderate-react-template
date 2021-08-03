@@ -1,17 +1,17 @@
-import React, { Fragment } from "react";
+import React  from "react";
 import { UploadOutlined } from '@ant-design/icons';
 import { Form,Input, Checkbox, Upload, Button, Select, DatePicker, Switch, InputNumber } from "antd";
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 let Option = Select.Option;
 let getSelect = (params) => {
-    const { inputAttrConfig = {}, optionArr } = params;
+    const { inputConfig = {}, optionArr } = params;
     const {
         style = {
             width: "100%",
         },
         ...rest
-    } = inputAttrConfig;
+    } = inputConfig;
     return (
         <Select style={style} {...rest}>
             {optionArr &&
@@ -48,7 +48,7 @@ function formItemHoc(WrappedComponent) {
                 label = "",
                 label2,
                 type,
-                inputAttrConfig = {},
+                inputConfig = {},
                 optionArr = [],
                 render,
                 formLayout = {},
@@ -58,11 +58,11 @@ function formItemHoc(WrappedComponent) {
                 ...rest
             } = formConfig;
             if (type === "Select") {
-                inputAttrConfig.style = { width: "100%", ...inputAttrConfig.style }
+                inputConfig.style = { width: "100%", ...inputConfig.style }
             }
             let itemConfig = {
-                Checkbox: <Checkbox {...inputAttrConfig}>{label2}</Checkbox>,
-                Switch: <Switch {...inputAttrConfig}></Switch>,
+                Checkbox: <Checkbox {...inputConfig}>{label2}</Checkbox>,
+                Switch: <Switch {...inputConfig}></Switch>,
                 Upload: (
                     <Upload showUploadList={false} {...config}>
                         <Button>
@@ -70,18 +70,18 @@ function formItemHoc(WrappedComponent) {
                         </Button>
                     </Upload>
                 ),
-                TextArea: <TextArea {...inputAttrConfig} />,
+                TextArea: <TextArea {...inputConfig} />,
                 Select: () => {
-                    return getSelect({ inputAttrConfig, optionArr });
+                    return getSelect({ inputConfig, optionArr });
                 },
-                RangePicker: <RangePicker {...inputAttrConfig} />,
+                RangePicker: <RangePicker {...inputConfig} />,
                 InputNumber: (
                     <InputNumber
                         style={{ width: "80%" }}
-                        {...inputAttrConfig}
+                        {...inputConfig}
                     />
                 ),
-                default: <Input {...inputAttrConfig} />,
+                default: <Input {...inputConfig} />,
             };
 
             let itemTemp;

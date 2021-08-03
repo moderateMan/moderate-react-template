@@ -1,12 +1,10 @@
 import React from "react";
 import OperateSearchSelectsSelect from "../cutomLinkSelect";
-import SearchSelect from "../searchSelect";
+import { CommonSearchSelect } from "COMMON/components/";
 import "../../index.scss";
 import "./index.scss";
 import { SwapRightOutlined } from '@ant-design/icons';
-import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { Input, Switch, Row, Col, InputNumber } from "antd";
+import { Form, Input, Switch, Row, Col, InputNumber } from "antd";
 
 export const tableConfig = (params = {}) => {
     const { searchSelectData = [], isJustShow, intlData } = params;
@@ -23,12 +21,13 @@ export const tableConfig = (params = {}) => {
                 },
                 inputType: "Checkbox",
                 formConfig: {
-                    render: ({ inputAttrConfig, setFieldsValue, record }) => {
+
+                    render: ({ inputConfig, setFieldsValue, record }) => {
                         return (
                             <Switch
                                 onChange={(e) => {
                                     var event = new CustomEvent(
-                                        "cutomLinkSelect_allow",
+                                        "reRender",
                                         {
                                             detail: {
                                                 allow: e,
@@ -37,7 +36,7 @@ export const tableConfig = (params = {}) => {
                                     );
                                     document.dispatchEvent(event);
                                 }}
-                                {...inputAttrConfig}
+                                {...inputConfig}
                             ></Switch>
                         );
                     },
@@ -69,8 +68,8 @@ export const tableConfig = (params = {}) => {
                     );
                 },
                 formConfig: {
-                    isCustomFormContent: true,
-                    render: ({ getFieldDecorator, record, getFieldValue }) => {
+                    isCustomFormItem: true,
+                    render: ({ record, getFieldValue }) => {
                         const { operateSearchSelects, notOperateSearchSelects } = record;
                         let useFlagInitValue = true,
                             searchSelectInitValue;
@@ -84,50 +83,47 @@ export const tableConfig = (params = {}) => {
                         let allowCodeShare = getFieldValue("allowCodeShare");
                         let exclude = getFieldValue("exclude");
                         return (
-                            <div>
-                                <OperateSearchSelectsSelect
-                                    exclude={exclude}
-                                    disable={!allowCodeShare}
-                                    useFlagInitValue={useFlagInitValue}
-                                    searchSelectInitValue={
-                                        searchSelectInitValue
-                                    }
-                                    getFieldDecorator={getFieldDecorator}
-                                    dataSource={searchSelectData}
-                                />
-                            </div>
+                            <OperateSearchSelectsSelect
+                                exclude={exclude}
+                                disable={!allowCodeShare}
+                                useFlagInitValue={useFlagInitValue}
+                                searchSelectInitValue={
+                                    searchSelectInitValue
+                                }
+                                dataSource={searchSelectData}
+                            />
                         );
                     },
                 },
             },
-            {
-                title: intlData.heavyPage_associationSelect,
-                dataIndex: "selectProperty",
-                key: "selectProperty",
-                editable: true,
-                width: "120px",
-                formConfig: {
-                    isCustomFormContent: true,
-                    render: ({ getFieldDecorator, record }) => {
-                        const { selectProperty } = record;
-                        return (
-                            <div>
-                                <SearchSelect
-                                    dataIndex={"selectProperty"}
-                                    initValue={selectProperty || "ALL"}
-                                    getFieldDecorator={getFieldDecorator}
-                                    dataSource={searchSelectData}
-                                />
-                            </div>
-                        );
-                    },
-                    inputAttrConfig: {
-                        style: {
-                            width: "50px",
-                        },
-                    },
-                },
-            },
+            // {
+            //     title: intlData.heavyPage_associationSelect,
+            //     dataIndex: "selectProperty",
+            //     key: "selectProperty",
+            //     editable: true,
+            //     width: "120px",
+            //     formConfig: {
+            //         isCustomFormContent: true,
+            //         render: ({ getFieldDecorator, record }) => {
+            //             const { selectProperty } = record;
+            //             return (
+            //                 <div>
+            //                     <CommonSearchSelect
+            //                         dataIndex={"selectProperty"}
+            //                         initValue={selectProperty || "ALL"}
+            //                         getFieldDecorator={getFieldDecorator}
+            //                         dataSource={searchSelectData}
+            //                     />
+            //                 </div>
+            //             );
+            //         },
+            //         inputConfig: {
+            //             style: {
+            //                 width: "50px",
+            //             },
+            //         },
+            //     },
+            // },
             {
                 title: intlData.heavyPage_range,
                 dataIndex: "testRange",
@@ -138,9 +134,7 @@ export const tableConfig = (params = {}) => {
                     isDebug: true,
                     isCustomFormItem: true,
                     render: ({
-                        getFieldDecorator,
                         record = {},
-                        getFieldValue,
                     }) => {
                         const {
                             testNoEnd = 9999,
@@ -153,137 +147,96 @@ export const tableConfig = (params = {}) => {
                                     alignItems: "center"
                                 }}>
                                     <Col span={9} offset={3}>
-                                        <Form.Item style={{ margin: 0 }}>
-                                            {getFieldDecorator(
-                                                "testNoStart",
-                                                {
-                                                    initialValue:
-                                                        testNoStart || 1,
-                                                    normalize: (value) => {
-                                                        if (
-                                                            value &&
-                                                            !isNaN(value * 1)
-                                                        ) {
-                                                            return value * 1;
-                                                        }
-                                                        return value;
-                                                    },
-                                                    rules: [
-                                                        {
-                                                            required: true,
-                                                            message:
-                                                                intlData.heavyPage_startNo,
-                                                        },
-                                                        {
-                                                            pattern: /^[0-9]+$/,
-                                                            message:
-                                                                intlData.rule_number,
-                                                        },
-                                                        {
-                                                            message:
-                                                                intlData.heavyPage_heavy_zeroWarn,
-                                                            validator: (
-                                                                rule,
-                                                                value,
-                                                                callback
-                                                            ) => {
-                                                                if (
-                                                                    value == 0
-                                                                ) {
-                                                                    callback(
-                                                                        "不可为零！"
-                                                                    );
-                                                                } else {
-                                                                    callback();
-                                                                }
-                                                            },
-                                                        },
-                                                        {
-                                                            message:
-                                                                intlData.heavyPage_heavy_maxWarn,
-                                                            validator: (
-                                                                rule,
-                                                                value,
-                                                                callback
-                                                            ) => {
-                                                                if (
-                                                                    value &&
-                                                                    value * 1 >
-                                                                    getFieldValue(
-                                                                        "testNoEnd"
-                                                                    ) *
-                                                                    1
-                                                                ) {
-                                                                    callback(
-                                                                        "不可为零！"
-                                                                    );
-                                                                } else {
-                                                                    callback();
-                                                                }
-                                                            },
-                                                        },
-                                                    ],
-                                                }
-                                            )(
-                                                <Input
-                                                    maxLength={4}
-                                                    className="testRangeInputItem"
-                                                ></Input>
-                                            )}
+                                        <Form.Item name={"testNoStart"} rules={[
+                                            {
+                                                required: true,
+                                                message:
+                                                    intlData.heavyPage_startNo,
+                                            },
+                                            {
+                                                pattern: /^[0-9]+$/,
+                                                message:
+                                                    intlData.rule_number,
+                                            },
+                                            ({ getFieldValue }) => ({
+                                                validator(_, value) {
+                                                    let temp = parseInt(value);
+                                                    if (
+                                                        value &&
+                                                        value * 1 >
+                                                        getFieldValue(
+                                                            "testNoEnd"
+                                                        ) *
+                                                        1
+                                                    ) {
+                                                        return Promise.reject(new Error("不可为零！"));
+                                                    } else {
+                                                        return Promise.resolve();
+                                                    }
+
+                                                },
+                                            })
+                                        ]} normalize={(value) => {
+                                            if (
+                                                value &&
+                                                !isNaN(value * 1)
+                                            ) {
+                                                return value * 1;
+                                            }
+                                            return value;
+                                        }} initialValue={testNoStart || 1} style={{ margin: 0 }}>
+                                            <Input
+                                                maxLength={4}
+                                                className="testRangeInputItem"
+                                            ></Input>
                                         </Form.Item>
                                     </Col>
                                     <Col span={2}>
                                         <SwapRightOutlined />
                                     </Col>
                                     <Col span={7}>
-                                        <Form.Item style={{ margin: 0 }}>
-                                            {getFieldDecorator("testNoEnd", {
-                                                initialValue:
-                                                    testNoEnd || 9999,
-                                                normalize: (value) => {
+                                        <Form.Item rules={[
+                                            {
+                                                required: true,
+                                                message:
+                                                    intlData.heavyPage_startNo,
+                                            },
+                                            {
+                                                pattern: /^[0-9]+$/,
+                                                message:
+                                                    intlData.rule_number,
+                                            },
+                                            ({ getFieldValue }) => ({
+                                                validator(_, value) {
+                                                    let temp = parseInt(value);
                                                     if (
                                                         value &&
-                                                        !isNaN(value * 1)
+                                                        value * 1 >
+                                                        getFieldValue(
+                                                            "testNoEnd"
+                                                        ) *
+                                                        1
                                                     ) {
-                                                        return value * 1;
+                                                        return Promise.reject(new Error("不可为零！"));
+                                                    } else {
+                                                        return Promise.resolve();
                                                     }
-                                                    return value;
+
                                                 },
-                                                rules: [
-                                                    {
-                                                        required: true,
-                                                        message:
-                                                            intlData.heavyPage_startNo,
-                                                    },
-                                                    {
-                                                        pattern: /^[0-9]+$/,
-                                                        message:
-                                                            intlData.rule_number,
-                                                    },
-                                                    {
-                                                        message:
-                                                            intlData.heavyPage_heavy_zeroWarn,
-                                                        validator: (
-                                                            rule,
-                                                            value,
-                                                            callback
-                                                        ) => {
-                                                            if (value == 0) {
-                                                                callback(
-                                                                    "不可为零！"
-                                                                );
-                                                            } else {
-                                                                callback();
-                                                            }
-                                                        },
-                                                    },
-                                                ],
-                                            })(
-                                                <Input
-                                                    maxLength={4}
-                                                    className="testRangeInputItem"
-                                                ></Input>
-                                            )}
+                                            })
+                                        ]} normalize={(value) => {
+                                            if (
+                                                value &&
+                                                !isNaN(value * 1)
+                                            ) {
+                                                return value * 1;
+                                            }
+                                            return value;
+                                        }} initialValue={testNoEnd || 9999} name={"testNoEnd"} style={{ margin: 0 }}>
+                                            <Input
+                                                maxLength={4}
+                                                className="testRangeInputItem"
+                                            ></Input>
                                         </Form.Item>
                                     </Col>
                                 </Row>
