@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {ROUTES_LOCAL_ID} from 'ROUTES/config';
 import { Icon as LegacyIcon } from '@ant-design/compatible';
-import { DownOutlined } from '@ant-design/icons';
+import { ApiFill } from '@ant-design/icons';
 import { Tree } from 'antd';
 const {DOC_ID} = ROUTES_LOCAL_ID;
 
@@ -93,7 +93,7 @@ export default (props) => {
     <Tree
       showIcon
       showLine
-      switcherIcon={<DownOutlined />}
+      switcherIcon={<ApiFill />}
       className="draggable-tree"
       draggable
       blockNode

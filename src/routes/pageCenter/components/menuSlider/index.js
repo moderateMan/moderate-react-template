@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { findCurrentMenuInfo, filterParams, getUrlParam, getParentLoop } from "COMMON/utils";
 import { CommonAnimateWha as AnimateWrapper} from "COMMON/components";
 import { Icon as LegacyIcon } from '@ant-design/compatible';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import { ApiFill } from '@ant-design/icons';
 import { Menu, Layout, Button, Modal } from "antd";
 import { ROUTES_REMOTE_ID, ROUTES_LOCAL_ID } from "ROUTES/config";
 import { getPath } from "ROUTES";
@@ -205,7 +205,7 @@ export default injectInternational("menuTitle")((props) => {
                 action={!collapsed}><Button type={"primary"} onClick={() => {
                     if (isEditMenu) {
                         Modal.confirm({
-                            icon: <InfoCircleOutlined />,
+                            icon: <ApiFill />,
                             title: "友情提示",
                             content: "该操作会修改项目中的menuConfig文件，确定么？",
                             cancelText: "取消",

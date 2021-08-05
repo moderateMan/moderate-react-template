@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { findDOMNode } from 'react-dom'
 import { Form, Icon as LegacyIcon } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
-import { UserOutlined } from '@ant-design/icons';
+import { ApiFill } from '@ant-design/icons';
 import { Avatar, Layout, Modal, Button, Input, Dropdown, Menu } from "antd";
 import "./header.scss";
 import FetchRequest from 'SRC/dataManager/netTrans/request'
@@ -210,7 +210,7 @@ class TopHeader extends Component {
                             marginLeft: "15px",
                             marginTop: "15px",
                             backgroundColor: '#87d068'
-                        }} icon={<UserOutlined />} />
+                        }} icon={<ApiFill />} />
                     </Dropdown>
                     <Modal
                         visible={modalVisible}
