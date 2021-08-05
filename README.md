@@ -1,111 +1,46 @@
+# Getting Started with Create React App
 
-<p align="center">
- <img style="
-    width: 99px;
-" src="https://s1.imagehub.cc/images/2021/06/19/logo29220baeceff248d5.png">
-</p>
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-[项目预览](http://112.124.31.50:3000/)
-# Moderate "终"定在哪？
+## Available Scripts
 
-Moderate，意思为适中的，适度的，用这个作为代号，主要取决于他的本名“中用”，其一以贯之的想法就是中庸，秉承着以人为本的态度，着眼一般且常见业务，整理出一套“还行”的解决方案，选择性地追求先锋，策略性地坚持守拙，大体保持趋向极致的中庸，目标是打造一个没那么“重”(各种设限)，没那么“轻”(啥也没有)，方便演化的一个有生命力的脚手架，这就是Moderate所追求的“终”。
+In the project directory, you can run:
 
->基于此想法指导下，初步具备了以下主要功能：
+### `yarn start`
 
-🥟 __开箱即用__。
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-🍢 __路由可配置可约定，简单好用__。
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-🥥 __面向对象的思想设计业务模块，代码更简洁__。
+### `yarn test`
 
-🥪 __常用组件封装，复用性更好__。
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-🍱 __抽象出数据管理器层，业务组织的更清晰高效__。
+### `yarn build`
 
-🍬 __基于Axios进行必要的封装__。
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-🇬🇧 __封装了更好用的国际化高阶组件__。
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-🥦 __封装了更好用的Mock功能__。
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-📐 __对请求出入参数结构进行深度正确性校验__。
+### `yarn eject`
 
-🍉 __封装了更好用的Mobx仓库基类__.
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-📒 __封装了更好用的MD文档功能，很独特__。
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-🥡 __集成Electron,结合Gulp进行定制化发布__。
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-🏀 __集成Cocos引擎，可以做更炫更酷的效果__。
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-🍎 __Lerna结合Commander开发脚手架工具，更具扩展可能__。
+## Learn More
 
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-# 快速上手
-
-## 环境准备
-
-首先得有 node
-
-推荐使用 `yarn` 管理 `npm` 依赖，并使用国内源（阿里用户使用内网源）。
-
-## 安装 qanglee-cli
-
-```shell
-  npm i -g qanglee-cli
-```
-
-## 创建项目
-
-先找个地方，然后执行`qanglee create`或者`npx qanglee create`。
-
-```shell
-  qanglee create
-? your projectName: Moderate
-
-```
-
-## 安装前必要准备
-### 设置淘宝镜像
-```shell
-npm config set registry=https://registry.npm.taobao.org/
-```
-
-### 解决electron安装卡住的问题
-
-```shell
-npm config set ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
-```
-
-## 安装依赖
-
-```shell
-yarn
-```
- 
-
-## 运行
-
-```shell
-npm start
-或
-yarn start
-```
-
-## 效果图
-![](https://s1.imagehub.cc/images/2021/06/29/ezgif.com-gif-maker-10444ce63768eb8f0e.gif)
-
-
-
-# 用不用
-
-因人而异，Moderate就是在“平平无奇”的地方，做着”普普通通“的事情，不奢望会被接受，不忧虑会被否定，一直在路上，仅希望有一分就贡献一分光和热。
-
-
-# 作赋一首，以抒胸意
-
-  前潜皆可，可攻可守。
-  黑白皆容，趋善避恶。
-  乾坤知易，随遇而刻。
-  保中守和，无成有终。
-
+To learn React, check out the [React documentation](https://reactjs.org/).

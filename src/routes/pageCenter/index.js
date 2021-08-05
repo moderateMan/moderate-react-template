@@ -163,7 +163,7 @@ class PageCenter extends Component {
         const { collapsed, subRoutesConfig } = this.state;
         return (
             <Layout style={{ height: "100%" }}>
-                <MenuSlider {...{ subRoutesConfig, intl, global, collapsed: collapsed }} />
+                {/* <MenuSlider {...{ subRoutesConfig, intl, global, collapsed: collapsed }} />
                 <Layout>
                     <TopHeader
                         toggle={this.toggle}
@@ -171,7 +171,7 @@ class PageCenter extends Component {
                         logout={this.logout}
                     ></TopHeader>
                     <SubRoutes subRoutesConfig={subRoutesConfig} />
-                </Layout>
+                </Layout> */}
             </Layout>
         );
     }

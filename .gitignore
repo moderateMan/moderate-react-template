@@ -38,3 +38,5 @@ yarn-error.log*
 *.sln
 
 yarn-error.log
+
+/myapp
