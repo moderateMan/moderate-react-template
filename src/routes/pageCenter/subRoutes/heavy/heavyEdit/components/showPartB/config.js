@@ -1,8 +1,5 @@
 import React from "react";
 import "../../index.scss";
-import { Switch, Input } from "antd";
-import CustomSelect from "../customSelect";
-import { Fragment } from "react";
 
 export const updateConfig = (params) => {
     const {
