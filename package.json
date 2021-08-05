@@ -114,8 +114,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "gitPullAll": "git pull && git pull gitee main",
-    "gitPushAll": "git push && git push gitee main"
+    "gitPullAll": "git pull && git pull gitee",
+    "gitPushAll": "git push && git push gitee"
   },
   "eslintConfig": {
     "extends": [
