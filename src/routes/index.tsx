@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {LocationDescriptor,LocationState} from "history"
+import { LocationDescriptor, LocationState } from "history";
 import { Empty } from "antd";
 import {
   Route,
@@ -66,8 +66,11 @@ type docListT = docListITemT[];
 type strDataT = string[];
 
 // 获得pathKey
-export function getPath(pathKey: string | object, options?: {}):LocationDescriptor<LocationState> {
-  let temp:LocationDescriptor<LocationState> = {
+export function getPath(
+  pathKey: string | object,
+  options?: {}
+): LocationDescriptor<LocationState> {
+  let temp: LocationDescriptor<LocationState> = {
     pathname: "",
     search: "",
   };
@@ -84,12 +87,11 @@ export function getPath(pathKey: string | object, options?: {}):LocationDescript
   } else {
     route = pathKey in routesMap ? routesMap[pathKey] : null;
   }
-  if (!route) 
-  {
-    console.warn("该路由并没有配置！")
+  if (!route) {
+    console.warn("该路由并没有配置！");
     return temp;
   }
- 
+
   const { search, redirect, path, param } = route;
   let searchTemp = "";
   if (typeof search === "object") {
@@ -107,7 +109,6 @@ export function getPath(pathKey: string | object, options?: {}):LocationDescript
     pathnameTemp = `${path.split("/:")[0]}${param ? "/" + param : ""}`;
   }
 
- 
   if (typeof options === "object") {
     temp = {
       ...temp,
@@ -264,8 +265,7 @@ function Routes() {
   }, []);
   return (
     <Switch>
-     <Route path="/pageCenter" component={PageCenter}>
-      </Route>
+      <Route path="/pageCenter" component={PageCenter}></Route>
     </Switch>
   );
 }

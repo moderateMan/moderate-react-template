@@ -1,27 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import {ROUTES_LOCAL_ID} from 'ROUTES/config';
-import { Icon as LegacyIcon } from '@ant-design/compatible';
-import { ApiFill } from '@ant-design/icons';
-import { Tree } from 'antd';
-const {DOC_ID} = ROUTES_LOCAL_ID;
+import React, { useEffect, useState } from "react";
+import { ROUTES_LOCAL_ID } from "@ROUTES/config";
+import { StepBackwardOutlined } from "@ant-design/icons";
+import { Tree } from "antd";
+import {
+  AntTreeNodeDragEnterEvent,
+  AntTreeNodeDropEvent,
+} from "antd/lib/tree/Tree";
+const { DOC_ID } = ROUTES_LOCAL_ID;
 
 const { TreeNode } = Tree;
-export default (props) => {
+type RouteMenuCom = {
+  [key: string]: any;
+  subRoutesConfig?: any;
+  handleTreeDataChange?: any;
+  intlData?: any;
+};
+const RouteMenuCom = (props: RouteMenuCom) => {
   const { subRoutesConfig, handleTreeDataChange, intlData } = props;
-  const [treeData, setTreeData] = useState([])
+  const [treeData, setTreeData] = useState([]);
   useEffect(() => {
-    setTreeData(subRoutesConfig)
-  }, [subRoutesConfig])
-  let onDragEnter = info => {
-  };
-  let onDrop = info => {
+    setTreeData(subRoutesConfig);
+  }, [subRoutesConfig]);
+  let onDragEnter = (info: AntTreeNodeDragEnterEvent) => {};
+  let onDrop = (info: AntTreeNodeDropEvent) => {
     console.log(info);
     const dropKey = info.node.props.eventKey;
     const dragKey = info.dragNode.props.eventKey;
-    const dropPos = info.node.props.pos.split('-');
-    const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1]);
+    const dropPos = info.node.props.pos.split("-");
+    const dropPosition =
+      info.dropPosition - Number(dropPos[dropPos.length - 1]);
 
-    const loop = (data, key, callback) => {
+    const loop = (data:any[], key:any, callback:any) => {
       data.forEach((item, index, arr) => {
         if (item.key === key) {
           return callback(item, index, arr);
@@ -34,8 +43,8 @@ export default (props) => {
     const data = [...treeData];
 
     // Find dragObject
-    let dragObj;
-    loop(data, dragKey, (item, index, arr) => {
+    let dragObj:any;
+    loop(data, dragKey, (item:any, index:any, arr:any) => {
       arr.splice(index, 1);
       dragObj = item;
     });
@@ -43,7 +52,7 @@ export default (props) => {
     //落在一个条目内部
     if (!info.dropToGap) {
       // Drop on the content
-      loop(data, dropKey, item => {
+      loop(data, dropKey, (item:any) => {
         item.children = item.children || [];
         // where to insert 示例添加到尾部，可以是随意位置
         item.children.push(dragObj);
@@ -53,15 +62,15 @@ export default (props) => {
       info.node.props.expanded && // Is expanded
       dropPosition === 1 // On the bottom gap
     ) {
-      loop(data, dropKey, item => {
+      loop(data, dropKey, (item:any) => {
         item.children = item.children || [];
         // where to insert 示例添加到头部，可以是随意位置
         item.children.unshift(dragObj);
       });
     } else {
-      let ar;
-      let i;
-      loop(data, dropKey, (item, index, arr) => {
+      let ar:any[] = [];
+      let i:any;
+      loop(data, dropKey, (item:any, index:any, arr:any) => {
         ar = arr;
         i = index;
       });
@@ -71,36 +80,46 @@ export default (props) => {
         ar.splice(i + 1, 0, dragObj);
       }
     }
-    
-    setTreeData(data)
+
+    setTreeData(data);
     handleTreeDataChange(data);
   };
-  let loop = data =>
-    data.map(item => {
-      if(item.menuId === DOC_ID){
-        return
+  let loop = (data:any) =>
+    data.map((item:any) => {
+      if (item.menuId === DOC_ID) {
+        return;
       }
       if (item.children && item.children.length) {
         return (
-          <TreeNode icon={({ selected }) => <LegacyIcon type={item.icon} />}  key={item.key} title={intlData[item.name]||item.name}>
+          <TreeNode
+            icon={({ selected }) => <StepBackwardOutlined type={item.icon} />}
+            key={item.key}
+            title={intlData[item.name] || item.name}
+          >
             {loop(item.children)}
           </TreeNode>
         );
       }
-      return <TreeNode icon={({ selected }) => <LegacyIcon type={item.icon} />} key={item.key} title={intlData[item.name]||item.name} />;
+      return (
+        <TreeNode
+          icon={({ selected }) => <StepBackwardOutlined type={item.icon} />}
+          key={item.key}
+          title={intlData[item.name] || item.name}
+        />
+      );
     });
   return (
     <Tree
       showIcon
       showLine
-      switcherIcon={<ApiFill />}
+      switcherIcon={<StepBackwardOutlined />}
       className="draggable-tree"
       draggable
       blockNode
       style={{
-        height: 'calc(100% - 64px)',
+        height: "calc(100% - 64px)",
         paddingLeft: 15,
-        paddingTop: 5
+        paddingTop: 5,
       }}
       onDragEnter={onDragEnter}
       onDrop={onDrop}
@@ -108,4 +127,6 @@ export default (props) => {
       {loop(treeData)}
     </Tree>
   );
-}
+};
+
+export default RouteMenuCom;

@@ -8,8 +8,8 @@ import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Layout } from "antd";
-import CommonLoading from "COMMON/components/loading";
-import { TopNavigation } from "../components";
+import CommonLoading from "@COMMON/components/loading";
+// import { TopNavigation } from "../components";
 import { CSSTransition, TransitionGroup, SwitchTransition } from 'react-transition-group';
 import { defaultRootRoute, TOP_ROUTE_ID } from 'ROUTES/config'
 
@@ -125,11 +125,12 @@ class SubRoutes extends Component {
             }
         };
         let routes = subRoutesConfig.map((routerItem) => renderRouterItem(routerItem));
-        const { PAGEC_CENTER_TOP } = TOP_ROUTE_ID;
-        if (PAGEC_CENTER_TOP in defaultRootRoute) {
-            let rootRoute = renderRouterItem(defaultRootRoute[PAGEC_CENTER_TOP])
-            routes.unshift(rootRoute)
-        }
+        // const { PAGEC_CENTER_TOP } = TOP_ROUTE_ID;
+        // if (PAGEC_CENTER_TOP in defaultRootRoute) {
+        //     let rootRoute = renderRouterItem(defaultRootRoute[PAGEC_CENTER_TOP])
+        //     routes.unshift(rootRoute)
+        // }
+        debugger
         return routes;
     };
     /**
@@ -150,7 +151,7 @@ class SubRoutes extends Component {
         return (
             <Content className="content" id="content">
                 <div className="maintainStyle maintain-small-style">
-                    <TopNavigation menuConfig={menuConfig} />
+                    {/* <TopNavigation menuConfig={menuConfig} /> */}
                     <Suspense fallback={<CommonLoading />}>
                         <TransitionGroup
                             className={'router-wrapper'}

@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { LocationDescriptor, LocationState } from "history";
-// import { cloneDeep } from 'lodash'
+import { cloneDeep } from "lodash";
 import { Layout, Menu, Button, Modal } from "antd";
-import { MenuSlider, TopHeader } from "./components/";
-// import SubRoutes from "./subRoutes";
-// import { menusMapConfig } from "@ROUTES/config";
+import { MenuSlider } from "./components/";
+import SubRoutes from "./subRoutes";
+import { menusMapConfig } from "@ROUTES/config";
 // import docConfig from "DOCS/docConfig.json";
 import { getPath } from "@ROUTES/index";
 // import request from 'SRC/dataManager/netTrans/request'
 import "./index.scss";
-// import { toJS } from "mobx";
+import { toJS } from "mobx";
 
 interface Props {
   [prop: string]: any;
@@ -52,6 +52,12 @@ type createDocMenuDataPropsT = {
 @inject("global")
 @observer
 class PageCenter extends Component<thisProps, States> {
+  tempObj = {
+    name: "commonTitle_doc",
+    icon: "read",
+    path: "/pageCenter/document",
+    isNoFormat: true,
+  };
   docList: string[] = [];
   docTreeMap: any[] = [];
   /**
@@ -71,18 +77,22 @@ class PageCenter extends Component<thisProps, States> {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {
       global: { getMenu },
       history,
-    } = this.props;
+    } = this.props; 
 
-    // getMenu().then(async () => {
-    //     let config:any[] = await this.createSubRoutesConfig();
-    //     this.setState({
-    //         subRoutesConfig: config
-    //     })
-    // })
+    getMenu().then(async (data:any) => {
+        let config:any[] = await this.createSubRoutesConfig();
+        this.setState({
+            subRoutesConfig: config
+        })
+    })
+    // let config: any[] = await this.createSubRoutesConfig();
+    // this.setState({
+    //   subRoutesConfig: config,
+    // });
   }
 
   toggle = () => {
@@ -90,64 +100,35 @@ class PageCenter extends Component<thisProps, States> {
   };
 
   createSubRoutesConfig = async () => {
-    return [];
-    //     const { global } = this.props
-    //     let { menuConfig = [], changeParams } = global;
-    //     menuConfig = toJS(menuConfig)
-    //     let menusMapConfigTemp = new Map(cloneDeep([...menusMapConfig]));
-    //     const config = [];
-    //     if (Array.isArray(menuConfig)) {
-    //         menuConfig.forEach((item) => {
-    //             const { menuId, parentId } = item || {};
-    //             if (menuId && menusMapConfigTemp.has(menuId)) {
-    //                 const menuInfo = menusMapConfigTemp.get(menuId);
-    //                 menuInfo.menuId = menuId;
-    //                 if (parentId === 0) {
-    //                     config.push(menuInfo);
-    //                 } else {
-    //                     let configTemp = menusMapConfigTemp.get(parentId);
-    //                     if (!configTemp) {
-    //                         console.warn(`本地没有相应路由配置(parentId:${parentId})`)
-    //                         return;
-    //                     }
-    //                     let children = configTemp["children"];
-    //                     children ? children.push(menuInfo) : (configTemp["children"] = [menuInfo]);
-    //                 }
-    //             }
-    //         });
-    //     }
-    //     let processMd = (data) => {
-    //         data.forEach((item) => {
-    //             const { children } = item
-    //             if (children) {
-    //                 const { docList = [], docTreeMap = {} } = this.createDocMenuData({ item, docList: [], docTreeMap: {}, parentKey: 0 })
-    //                 this.docList = docList
-    //                 this.docTreeMap = docTreeMap;
-    //                 changeParams({
-    //                     docList: docList,
-    //                     docTreeMap: docTreeMap
-    //                 })
-    //             }
-    //         })
-    //         //找到文档的菜单项
-    //         let temp = config.find((item) => {
-    //             return item.menuId === 2003
-    //         })
-    //         if (temp) {
-    //             let children;
-    //             if (!temp["children"]) children = temp["children"] = []
-    //             temp.children = this.docList;
-    //         }
-    //     }
-    //     processMd(docConfig)
-    //     return config;
-  };
-
-  tempObj = {
-    name: "commonTitle_doc",
-    icon: "read",
-    path: "/pageCenter/document",
-    isNoFormat: true,
+    const { global } = this.props;
+    let { menuConfig = [], changeParams } = global;
+    menuConfig = toJS(menuConfig);
+    let menusMapConfigTemp = new Map(cloneDeep(menusMapConfig));
+    const config: any[] = [];
+    if (Array.isArray(menuConfig)) {
+      debugger
+      menuConfig.forEach((item) => {
+        const { menuId, parentId } = item || {};
+        if (menuId && menusMapConfigTemp.has(menuId)) {
+          const menuInfo = menusMapConfigTemp.get(menuId);
+          menuInfo.menuId = menuId;
+          if (parentId === 0) {
+            config.push(menuInfo);
+          } else {
+            let configTemp = menusMapConfigTemp.get(parentId);
+            if (!configTemp) {
+              console.warn(`本地没有相应路由配置(parentId:${parentId})`);
+              return;
+            }
+            let children = configTemp["children"];
+            children
+              ? children.push(menuInfo)
+              : (configTemp["children"] = [menuInfo]);
+          }
+        }
+      });
+    }
+    return config;
   };
 
   createDocMenuData = (data: createDocMenuDataPropsT) => {
@@ -202,15 +183,16 @@ class PageCenter extends Component<thisProps, States> {
     const { collapsed, subRoutesConfig } = this.state;
     return (
       <Layout style={{ height: "100%" }}>
-        1231231
-        {/* <MenuSlider {...{ subRoutesConfig, intl, global, collapsed: collapsed }} /> */}
+        <MenuSlider
+          {...{ subRoutesConfig, intl, global, collapsed: collapsed }}
+        />
         <Layout>
           {/* <TopHeader
                         toggle={this.toggle}
                         collapsed={collapsed}
                         logout={this.logout}
                     ></TopHeader> */}
-          {/* <SubRoutes subRoutesConfig={subRoutesConfig} /> */}
+          <SubRoutes subRoutesConfig={subRoutesConfig} />
         </Layout>
       </Layout>
     );

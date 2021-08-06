@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { Modal, message, Button } from "antd";
+import { Modal, message, Button,Form } from "antd";
 import "./index.scss";
 import { CommonTable, CommonWrapper, CommonSearchTable } from "COMMON/components";
 import { observer, inject } from "mobx-react";
@@ -12,9 +10,8 @@ import applyConfig from "./config";
 import { getPath } from "ROUTES";
 
 const EditableContext = React.createContext();
-@Form.create()
 @injectInternational("light")
-@inject("lightHomeStore", "global")
+@inject( "global")
 @observer
 class LightHome extends Component {
     constructor(props) {
@@ -27,7 +24,7 @@ class LightHome extends Component {
             pageIndex: 1,
             pageSize: this.state.pageSize,
         });
-        this.props.form.validateFields();
+        // this.props.form.validateFields();
     }
 
     componentWillUnmount() { }
@@ -39,42 +36,42 @@ class LightHome extends Component {
     };
 
     handleRefreshPage = (props) => {
-        const {
-            lightHomeStore: { fetchPage },
-        } = this.props;
-        const { searchPosName } = this.state;
-        props.lightName = searchPosName;
-        fetchPage(props).finally(() => {
-        });
+        // const {
+        //     lightHomeStore: { fetchPage },
+        // } = this.props;
+        // const { searchPosName } = this.state;
+        // props.lightName = searchPosName;
+        // fetchPage(props).finally(() => {
+        // });
     };
 
     handlDelete = (params) => {
-        const {
-            lightHomeStore: { lightArr, fetchLightDelete },
-            intlData,
-        } = this.props;
-        if (params.length === 0) {
-            return message.warning(intlData["light_warn_select"]);
-        }
-        let { pageIndex, pageSize } = this.state;
-        Modal.confirm({
-            icon: <InfoCircleOutlined />,
-            title: intlData.modalDeleteTitle,
-            content: intlData.modalDeleteContent,
-            cancelText: intlData.No,
-            okText: intlData.Yes,
-            onOk: () => {
-                fetchLightDelete(params).then(() => {
-                    if (params.length === lightArr.length) {
-                        pageIndex = pageIndex - 1;
-                    }
-                    this.handleRefreshPage({
-                        pageIndex: pageIndex || 1,
-                        pageSize: pageSize,
-                    });
-                });
-            },
-        });
+        // const {
+        //     lightHomeStore: { lightArr, fetchLightDelete },
+        //     intlData,
+        // } = this.props;
+        // if (params.length === 0) {
+        //     return message.warning(intlData["light_warn_select"]);
+        // }
+        // let { pageIndex, pageSize } = this.state;
+        // Modal.confirm({
+        //     icon: <InfoCircleOutlined />,
+        //     title: intlData.modalDeleteTitle,
+        //     content: intlData.modalDeleteContent,
+        //     cancelText: intlData.No,
+        //     okText: intlData.Yes,
+        //     onOk: () => {
+        //         fetchLightDelete(params).then(() => {
+        //             if (params.length === lightArr.length) {
+        //                 pageIndex = pageIndex - 1;
+        //             }
+        //             this.handleRefreshPage({
+        //                 pageIndex: pageIndex || 1,
+        //                 pageSize: pageSize,
+        //             });
+        //         });
+        //     },
+        // });
     };
 
     handleSearch = (values) => {
@@ -103,7 +100,7 @@ class LightHome extends Component {
     render() {
         const {
             form,
-            lightHomeStore: { lightArr, pageSum = 5 },
+            // lightHomeStore: { lightArr, pageSum = 5 },
             intlData,
         } = this.props;
         const {
@@ -116,7 +113,8 @@ class LightHome extends Component {
 
         return (
             <div>
-                <EditableContext.Provider value={form}>
+                12312312AAAA
+                {/* <EditableContext.Provider value={form}>
                     <CommonWrapper>
                         <CommonSearchTable
                             dataSource={searchItemArr}
@@ -162,7 +160,7 @@ class LightHome extends Component {
                             columns={columns}
                         />
                     </CommonWrapper>
-                </EditableContext.Provider>
+                </EditableContext.Provider> */}
             </div>
         );
     }

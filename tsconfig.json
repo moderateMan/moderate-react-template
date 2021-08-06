@@ -26,7 +26,8 @@
       "@DATA_MANAGER/*": ["src/dataManager/*"],
       "@STORE/*": ["src/dataManager/stores/*"],
       "@COMMON/*":["src/common/*"],
-      "@ROUTES/*":["src/routes/*"]
+      "@ROUTES/*":["src/routes/*"],
+      "@SRC/*":["src/*"]
     }
   },
   "include": [

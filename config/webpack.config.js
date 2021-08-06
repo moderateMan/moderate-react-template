@@ -383,6 +383,7 @@ module.exports = function (webpackEnv) {
                 "@DATA_MANAGER":path.resolve("src/dataManager"),
                 "@COMMON":path.resolve("src/common"),
                 "@ROUTES":path.resolve("src/routes"),
+                "@SRC": path.resolve("src"),
                 DOCS: path.resolve("src/docs"),
             },
             plugins: [

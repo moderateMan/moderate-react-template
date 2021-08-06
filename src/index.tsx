@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider, inject, observer } from "mobx-react";
 import { IntlProvider } from "react-intl";
 import { ConfigProvider } from "antd";
+import language from "./language";
 import stores from "@DATA_MANAGER/index";
 import { iGlobal } from "@DATA_MANAGER/stores";
 
@@ -17,9 +18,10 @@ interface iProps {
 @observer
 class Root extends Component<iProps> {
   render() {
-    // const {locale} = this.props.global!
+    const { locale } = this.props.global!;
+    let data = language.getData();
     return (
-      <IntlProvider locale={"zh"}>
+      <IntlProvider locale={"zh"} messages={data[locale as keyof typeof data]}>
         <ConfigProvider>
           <App />
         </ConfigProvider>

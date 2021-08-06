@@ -69,6 +69,26 @@ export const routesMap:routesMapType = {
         redirect: "/pageCenter/start",
         key: uuid()
     },
+    //light 相关页面
+    lightHome: {
+        name: "commonTitle_light",
+        icon: "table",
+        path: "/pageCenter/light",
+        exact: true,
+        component: lazyImport(() =>
+        import('@ROUTES/pageCenter/subRoutes/light/lightHome')
+    ),
+        key: uuid()
+    },
+    heavyHome: {
+        name: "commonTitle_heavy",
+        path: "/pageCenter/heavyPage",
+        icon: "table",
+        exact: true,
+        redirect: "/pageCenter/start",
+        key: uuid()
+    },
+   
 }
 
 /* 路由匹配menu的注册数据，新建后台驱动的menu在这配置 */
@@ -77,6 +97,13 @@ export const menusMap = {
         ...routesMap.templates,
     },
     [START_ID]: { ...routesMap.moderate },
+    [HEAVY_ID]: {
+        ...routesMap.lightHome,
+        
+    },
+    [LIGHT_ID]: {
+        ...routesMap.heavyHome,
+    },
 }
 
 export const defaultRootRoute = {
