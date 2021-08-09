@@ -1,27 +1,17 @@
-import React, { Fragment } from "react";
-import {
-    Form,
-    Input,
-    Checkbox,
-    Upload,
-    Icon,
-    Button,
-    Select,
-    DatePicker,
-    Switch,
-    InputNumber,
-} from "antd";
+import React  from "react";
+import { UploadOutlined } from '@ant-design/icons';
+import { Form,Input, Checkbox, Upload, Button, Select, DatePicker, Switch, InputNumber } from "antd";
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 let Option = Select.Option;
 let getSelect = (params) => {
-    const { inputAttrConfig = {}, optionArr } = params;
+    const { inputConfig = {}, optionArr } = params;
     const {
         style = {
             width: "100%",
         },
         ...rest
-    } = inputAttrConfig;
+    } = inputConfig;
     return (
         <Select style={style} {...rest}>
             {optionArr &&
@@ -53,11 +43,12 @@ function formItemHoc(WrappedComponent) {
             config = {},
             ...restProps
         }) {
+            
             const {
                 label = "",
                 label2,
                 type,
-                inputAttrConfig = {},
+                inputConfig = {},
                 optionArr = [],
                 render,
                 formLayout = {},
@@ -67,30 +58,30 @@ function formItemHoc(WrappedComponent) {
                 ...rest
             } = formConfig;
             if (type === "Select") {
-                inputAttrConfig.style = { width: "100%", ...inputAttrConfig.style }
+                inputConfig.style = { width: "100%", ...inputConfig.style }
             }
             let itemConfig = {
-                Checkbox: <Checkbox {...inputAttrConfig}>{label2}</Checkbox>,
-                Switch: <Switch {...inputAttrConfig}></Switch>,
+                Checkbox: <Checkbox {...inputConfig}>{label2}</Checkbox>,
+                Switch: <Switch {...inputConfig}></Switch>,
                 Upload: (
                     <Upload showUploadList={false} {...config}>
                         <Button>
-                            <Icon type="upload" /> Click to Upload
+                            <UploadOutlined /> Click to Upload
                         </Button>
                     </Upload>
                 ),
-                TextArea: <TextArea {...inputAttrConfig} />,
+                TextArea: <TextArea {...inputConfig} />,
                 Select: () => {
-                    return getSelect({ inputAttrConfig, optionArr });
+                    return getSelect({ inputConfig, optionArr });
                 },
-                RangePicker: <RangePicker {...inputAttrConfig} />,
+                RangePicker: <RangePicker {...inputConfig} />,
                 InputNumber: (
                     <InputNumber
                         style={{ width: "80%" }}
-                        {...inputAttrConfig}
+                        {...inputConfig}
                     />
                 ),
-                default: <Input {...inputAttrConfig} />,
+                default: <Input {...inputConfig} />,
             };
 
             let itemTemp;
@@ -116,17 +107,11 @@ function formItemHoc(WrappedComponent) {
             if (isCustomFormItem) {
                 return itemTemp;
             } else {
-                if (isCustomFormContent) {
-                    formContent = itemTemp
-                } else {
-                    formContent = getFieldDecorator(dataIndex, {
-                        ...rest,
-                    })(itemTemp)
-                }
+                formContent = itemTemp
             }
 
             return (
-                <Form.Item {...formLayout} style={{ width: "100%", margin: 0 }} label={typeof label === 'function' ? label() : label}>
+                <Form.Item {...rest} name={dataIndex} {...formLayout} style={{ width: "100%", margin: 0 }} label={typeof label === 'function' ? label() : label}>
                     {formContent}
                 </Form.Item>
             );

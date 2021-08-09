@@ -130,7 +130,6 @@ class SubRoutes extends Component {
         //     let rootRoute = renderRouterItem(defaultRootRoute[PAGEC_CENTER_TOP])
         //     routes.unshift(rootRoute)
         // }
-        debugger
         return routes;
     };
     /**

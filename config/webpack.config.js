@@ -28,6 +28,7 @@ const typescriptFormatter = require("react-dev-utils/typescriptFormatter");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const WebpackBar = require("webpackbar");
+const NyanProgressPlugin = require('nyan-progress-webpack-plugin');
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
 const postcssNormalize = require("postcss-normalize");
@@ -815,7 +816,7 @@ module.exports = function (webpackEnv) {
                     },
                 }
             }),
-            new WebpackBar(),
+            new NyanProgressPlugin(),
             new BundleAnalyzerPlugin({
                 openAnalyzer: false,
             }),

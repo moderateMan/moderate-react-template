@@ -2,10 +2,6 @@ import React, { useEffect, useState } from "react";
 import { ROUTES_LOCAL_ID } from "@ROUTES/config";
 import { StepBackwardOutlined } from "@ant-design/icons";
 import { Tree } from "antd";
-import {
-  AntTreeNodeDragEnterEvent,
-  AntTreeNodeDropEvent,
-} from "antd/lib/tree/Tree";
 const { DOC_ID } = ROUTES_LOCAL_ID;
 
 const { TreeNode } = Tree;
@@ -21,8 +17,8 @@ const RouteMenuCom = (props: RouteMenuCom) => {
   useEffect(() => {
     setTreeData(subRoutesConfig);
   }, [subRoutesConfig]);
-  let onDragEnter = (info: AntTreeNodeDragEnterEvent) => {};
-  let onDrop = (info: AntTreeNodeDropEvent) => {
+  let onDragEnter = (info:any) => {};
+  let onDrop = (info:any) => {
     console.log(info);
     const dropKey = info.node.props.eventKey;
     const dragKey = info.dragNode.props.eventKey;
@@ -58,7 +54,7 @@ const RouteMenuCom = (props: RouteMenuCom) => {
         item.children.push(dragObj);
       });
     } else if (
-      (info.node.props.children || []).length > 0 && // Has children
+      (info.node.props.children&& [].length > 0 )&& // Has children
       info.node.props.expanded && // Is expanded
       dropPosition === 1 // On the bottom gap
     ) {

@@ -34,7 +34,6 @@ class CommonTable extends React.Component {
                             <Button
                                 type={type}
                                 className="posAddBtn"
-                                icon={icon}
                                 onClick={handleClick}
                                 key={index}
                                 {...rest}

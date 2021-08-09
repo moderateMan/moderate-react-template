@@ -12,7 +12,6 @@ class Global implements iGlobal {
   @action
   getMenu = (params: any) => {
     return new Promise((resolve, reject) => {
-        debugger
       this.menuConfig = [...menuLocalConfig,...menuRemoteConfig];
       resolve(this.menuConfig );
     });

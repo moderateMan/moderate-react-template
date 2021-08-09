@@ -106,7 +106,6 @@ class PageCenter extends Component<thisProps, States> {
     let menusMapConfigTemp = new Map(cloneDeep(menusMapConfig));
     const config: any[] = [];
     if (Array.isArray(menuConfig)) {
-      debugger
       menuConfig.forEach((item) => {
         const { menuId, parentId } = item || {};
         if (menuId && menusMapConfigTemp.has(menuId)) {

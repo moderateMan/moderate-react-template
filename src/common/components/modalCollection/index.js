@@ -69,4 +69,4 @@ class commonModalCollection extends React.Component {
     }
 }
 
-export default Form.create()(commonModalCollection);
+export default (commonModalCollection);

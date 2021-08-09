@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { findDOMNode } from 'react-dom'
-import { Form, Icon as LegacyIcon } from '@ant-design/compatible';
+import {
+    HomeOutlined,
+  } from '@ant-design/icons';
 import '@ant-design/compatible/assets/index.css';
 import { ApiFill } from '@ant-design/icons';
 import { Avatar, Layout, Modal, Button, Input, Dropdown, Menu } from "antd";
 import "./header.scss";
-import FetchRequest from 'SRC/dataManager/netTrans/request'
+import FetchRequest from '@SRC/dataManager/netTrans/request'
 import injectInternational from "COMMON/hocs/intlHoc";
 import { inject, observer } from "mobx-react";
 import { warningByMessage, successByMessage, exceptionByMessage } from "COMMON/utils";
@@ -189,7 +190,7 @@ class TopHeader extends Component {
         const { modalVisible } = this.state;
         return (
             <Header className="header_style">
-                <LegacyIcon
+                <HomeOutlined
                     className="trigger"
                     type={collapsed ? 'menu-unfold' : 'menu-fold'}
                     onClick={toggle}
@@ -275,4 +276,4 @@ class TopHeader extends Component {
     }
 }
 
-export default Form.create()(TopHeader);
+export default (TopHeader);

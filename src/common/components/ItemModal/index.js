@@ -251,7 +251,6 @@ class commonItemModal extends React.Component {
                     <div style={isShowBtn}>
                         <Button
                             type="dashed"
-                            icon="plus"
                             onClick={this.handleItemBtnClick}
                         >
                             添加
@@ -272,4 +271,4 @@ class commonItemModal extends React.Component {
     }
 }
 
-export default Form.create()(commonItemModal);
+export default (commonItemModal);

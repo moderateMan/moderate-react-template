@@ -238,7 +238,6 @@ const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
   return (
     <Sider collapsed={collapsed} width={258} theme={"light"}>
       <div className={styles.logoE}></div>
-
       <div className={styles.logo}>
         <AnimateWrapper
           className={styles.fade}

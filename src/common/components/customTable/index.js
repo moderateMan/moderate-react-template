@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 import { Prompt, Link } from "react-router-dom";
 import { inject } from "mobx-react";
 import { toJS } from "mobx";
-import { Table, Popconfirm, Form, Button, message, Icon } from "antd";
+import {
+  HomeOutlined,
+} from '@ant-design/icons';
+import { Table, Popconfirm, Form, Button, message } from "antd";
 import { uuid } from "COMMON/utils";
 import contextHoc from "COMMON/hocs/contextHoc";
 import EditableCell from "./editableCell";
@@ -121,15 +124,7 @@ class CustomTable extends React.Component {
                             onClick={() => this.save(form, record.key)}
                             style={{ marginRight: 8 }}
                           >
-                            <Icon
-                              style={{
-                                fontSize: 15,
-                                color: "#1890FF",
-                                marginLeft: 10,
-                                marginRight: 10,
-                              }}
-                              type="check"
-                            />
+                            <HomeOutlined></HomeOutlined>
                           </a>
                           <Popconfirm
                             title={
@@ -142,15 +137,7 @@ class CustomTable extends React.Component {
                             onConfirm={() => this.cancel(record)}
                           >
                             <a>
-                              <Icon
-                                style={{
-                                  fontSize: 15,
-                                  color: "#1890FF",
-                                  marginLeft: 10,
-                                  marginRight: 10,
-                                }}
-                                type="delete"
-                              />
+                              <HomeOutlined></HomeOutlined>
                             </a>
                           </Popconfirm>
                         </div>
@@ -163,28 +150,11 @@ class CustomTable extends React.Component {
                       disabled={!!editingKey}
                       onClick={() => this.edit(record.key)}
                     >
-                      <Icon
-                        style={{
-                          fontSize: 15,
-                          color: "#1890FF",
-                          marginLeft: 10,
-                          marginRight: 10,
-                        }}
-                        type="edit"
-                      />
+                      <HomeOutlined></HomeOutlined>
                     </a>
-                    <Icon
-                      style={{
-                        fontSize: 15,
-                        color: "#1890FF",
-                        marginLeft: 10,
-                        marginRight: 10,
-                      }}
-                      onClick={() => {
-                        this.handleDelete(record);
-                      }}
-                      type="delete"
-                    />
+                    <HomeOutlined onClick={() => {
+                      this.handleDelete(record);
+                    }}></HomeOutlined>
                   </span>
                 )}
               </div>
@@ -349,7 +319,6 @@ class CustomTable extends React.Component {
             <div className="btnWrapper3">
               <Button
                 className="posAddBtn"
-                icon="delete"
                 onClick={handleDeleteBtnClick}
               >
                 {locale == "zh" ? "删除" : "Delete"}
@@ -422,7 +391,6 @@ class CustomTable extends React.Component {
                   isEdit: true
                 })
               }}
-              icon="plus"
               type="dashed"
             >
               {locale == "zh" ? "添加一行" : "New Line"}
@@ -434,4 +402,4 @@ class CustomTable extends React.Component {
   }
 }
 
-export default Form.create()(CustomTable);
+export default (CustomTable);

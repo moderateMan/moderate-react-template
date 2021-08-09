@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import { Spin, Icon } from 'antd'
+import {
+    HomeOutlined,
+  } from '@ant-design/icons';
+import { Spin } from 'antd'
 import './index.scss'
 
-const antIcon = <Icon type="loading" spin />
+const antIcon = <HomeOutlined type="loading" spin />
 
 class CommonLoading extends Component {
     render() {

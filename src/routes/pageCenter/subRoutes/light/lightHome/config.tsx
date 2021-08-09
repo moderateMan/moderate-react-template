@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./index.scss";
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { PAGE_SIZE } from "COMMON/constants";
-import { getPath } from 'ROUTES';
+import { PAGE_SIZE } from "@COMMON/constants";
+import { getPath } from '@ROUTES/index';
 
 export default function () {
     this.selectedRows = [];
@@ -29,7 +29,7 @@ export default function () {
                     title: intlData["light_lightName"],
                     dataIndex: "lightName",
                     key: "lightName",
-                    render: (item, record) => {
+                    render: (item:{id:any}, record:any) => {
                         const { id } = record;
                         return (
                             <Link
@@ -50,7 +50,7 @@ export default function () {
                 {
                     title: intlData["light_action"],
                     key: "action",
-                    render: (item, record) => {
+                    render: (item:{id:any}, record:any) => {
                         const { id } = item;
                         return (
                             <span>
