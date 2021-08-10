@@ -8,7 +8,7 @@ type iStores = {
   [key: string]: any;
 };
 
-let globalIns = new Global({});
+let globalIns = new Global();
 class Stores implements iStores {
   storeConfig: any;
   global: iGlobal = globalIns;

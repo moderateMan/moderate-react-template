@@ -5,8 +5,13 @@ import {
   } from '@ant-design/icons';
 import { INFO, WARNING, SUCCESS, EXCEPTION_INFO, DATA_MODIFY_WARNING, TIMEOUT_INFO } from '../constants'
 
-export const messageNotice = (type = INFO, content = '') => {
-    Reflect.get(message, type)(content)
+
+type MessageNoticeTypeAllT = {
+    [WARNING]:"warning",
+    [SUCCESS]:"success",
+}
+export const messageNotice = (type:keyof MessageNoticeTypeAllT=WARNING, content = '') => {
+    message[type](content)
 }
 /**
  * 提示信息组件

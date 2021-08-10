@@ -1,18 +1,17 @@
 import { observable, action } from "mobx";
 import { menuLocalConfig, menuRemoteConfig } from "@ROUTES/config";
-class Global implements iGlobal {
+import BaseStore from './baseStore'
+class Global extends BaseStore implements iGlobal {
   @observable menuConfig: any[] = [];
   @observable current: string = "";
   @observable scrollData: object = {};
   @observable isLogin: boolean = false;
   @observable locale: string = "zh";
-  constructor(props: any) {}
-  @action
-  changeParams = () => {};
+ 
   @action
   getMenu = (params: any) => {
     return new Promise((resolve, reject) => {
-      this.menuConfig = [...menuLocalConfig,...menuRemoteConfig];
+      this.menuConfig = [...menuRemoteConfig,...menuLocalConfig];
       resolve(this.menuConfig );
     });
   };

@@ -12,7 +12,6 @@ class LightHomeStore extends BaseStore {
         return new Promise((resolve, reject) => {
             this.fetchApiWrapper("fetchPage", params)
                 .then((res:any) => {
-                    debugger
                     this.lightArr = res.data.list;
                     resolve(res);
                 }).catch((res) => {

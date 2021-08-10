@@ -16,11 +16,13 @@ require('../config/env');
 
 
 const fs = require('fs');
+var bodyParser = require('body-parser')
 const chalk = require('react-dev-utils/chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const clearConsole = require('react-dev-utils/clearConsole');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
+var childProcess = require('child_process');
 const {
   choosePort,
   createCompiler,
@@ -38,7 +40,7 @@ const react = require(require.resolve('react', { paths: [paths.appPath] }));
 const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
-
+var jsonParser = bodyParser.json()
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
@@ -63,6 +65,57 @@ if (process.env.HOST) {
     `Learn more here: ${chalk.yellow('https://cra.link/advanced-config')}`
   );
   console.log();
+}
+
+let getAll = function (level, dir) {
+  let path = require('path');
+  var filesNameArr = []
+  let cur = 0
+  // 用个hash队列保存每个目录的深度
+  var mapDeep = {}
+  mapDeep[dir] = 0
+  // 先遍历一遍给其建立深度索引
+  function getMap(dir, curIndex) {
+    var files = fs.readdirSync(dir) //同步拿到文件目录下的所有文件名
+    files.map(function (file) {
+      //var subPath = path.resolve(dir, file) //拼接为绝对路径
+      var subPath = path.join(dir, file) //拼接为相对路径
+      var stats = fs.statSync(subPath) //拿到文件信息对象
+      // 必须过滤掉node_modules文件夹
+      if (file != 'node_modules') {
+        mapDeep[file] = curIndex + 1
+        if (stats.isDirectory()) { //判断是否为文件夹类型
+          return getMap(subPath, mapDeep[file]) //递归读取文件夹
+        }
+      }
+    })
+  }
+  getMap(dir, mapDeep[dir])
+  function readdirs(dir, folderName) {
+    var result = { //构造文件夹数据
+      path: dir,
+      title: path.basename(dir),
+      type: 'directory',
+      deep: mapDeep[folderName]
+    }
+    var files = fs.readdirSync(dir) //同步拿到文件目录下的所有文件名
+    result.children = files.map(function (file) {
+      //var subPath = path.resolve(dir, file) //拼接为绝对路径
+      var subPath = path.join(dir, file) //拼接为相对路径
+      var stats = fs.statSync(subPath) //拿到文件信息对象
+      if (stats.isDirectory()) { //判断是否为文件夹类型
+        return readdirs(subPath, file, file) //递归读取文件夹
+      }
+      return { //构造文件数据
+        path: subPath,
+        name: file,
+        type: 'file'
+      }
+    })
+    return result //返回数据
+  }
+  filesNameArr.push(readdirs(dir, dir))
+  return filesNameArr
 }
 
 // We require that you explicitly set browsers and do not fall back to
@@ -130,7 +183,6 @@ checkBrowsers(paths.appPath, isInteractive)
       if (isInteractive) {
         clearConsole();
       }
-
       if (env.raw.FAST_REFRESH && semver.lt(react.version, '16.10.0')) {
         console.log(
           chalk.yellow(
@@ -141,7 +193,51 @@ checkBrowsers(paths.appPath, isInteractive)
 
       console.log(chalk.cyan('Starting the development server...\n'));
       openBrowser(urls.localUrlForBrowser);
+      //   childProcess.exec("gulp", function(error, stdout, stderr) {
+      //     console.log("error:"+error);
+      //     console.log("stdout:"+stdout);
+      //     console.log("stderr:"+stderr);
+      // });
     });
+
+    devServer.app.post("/api/test", jsonParser, (req, res) => {
+      // var spawn = require('child_process').spawn;
+      // var child = spawn('git pull', [
+      //   '-v', 'builds/pdf/book.html',
+      //   '-o', 'builds/pdf/book.pdf'
+      // ]);
+
+      // child.stdout.on('data', function (chunk) {
+      //   // output will be here in chunks
+      // });
+
+      // // or if you want to send output elsewhere
+      // child.stdout.pipe(paths.appSrc+'/docs');
+      let temp = req.body.data;
+      const { remoteMenuData = [], localMenuData = [] } = temp;
+      if (Array.isArray(remoteMenuData) && remoteMenuData.length) {
+        fs.writeFile(paths.appSrc + '/routes/menuRemoteConfig.json', JSON.stringify(remoteMenuData), err => {
+          if (err) throw err
+          console.log('menuRemoteConfig文件已被写入')
+        })
+      }
+      if (Array.isArray(localMenuData) && localMenuData.length) {
+        fs.writeFile(paths.appSrc + '/routes/menuLocalConfig.json', JSON.stringify(localMenuData), err => {
+          if (err) throw err
+          console.log('menuLocalConfig文件已被写入')
+        })
+      }
+      // res.json(getAll("",paths.appSrc+'/docs'))
+      // let temp = [{ "menuId": 1001, "parentId": 0 },
+      // { "menuId": 1002, "parentId": 1001 },s
+      // { "menuId": 1003, "parentId": 1001 }]
+
+    });
+
+    devServer.app.post("/api/getMd", jsonParser, (req, res) => {
+      res.json(getAll("", paths.appSrc + '/docs'))
+    });
+
 
     ['SIGINT', 'SIGTERM'].forEach(function (sig) {
       process.on(sig, function () {

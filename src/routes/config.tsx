@@ -70,6 +70,18 @@ export const routesMap:routesMapType = {
         redirect: "/pageCenter/start",
         key: uuid()
     },
+    start: {
+        path: "/pageCenter/start",
+        name: "commonTitle_start",
+        icon: "like",
+        search:{
+            docPath:"_start.md"
+        },
+        component: lazyImport(() =>
+            import('@ROUTES/pageCenter/subRoutes/document')
+        ),
+        key: uuid()
+    },
     //light 相关页面
     lightHome: {
         name: "commonTitle_light",
@@ -89,6 +101,15 @@ export const routesMap:routesMapType = {
         redirect: "/pageCenter/start",
         key: uuid()
     },
+    document: {
+        path: "/pageCenter/document/:id",
+        name: "commonTitle_doc",
+        icon: "read",
+        component: lazyImport(() =>
+            import('@ROUTES/pageCenter/subRoutes/document')
+        ),
+        key: uuid()
+    }
    
 }
 
@@ -98,13 +119,11 @@ export const menusMap = {
         ...routesMap.templates,
     },
     [START_ID]: { ...routesMap.moderate },
-    [HEAVY_ID]: {
-        ...routesMap.lightHome,
-        
-    },
+    [DOC_ID]: { ...routesMap.document },
     [LIGHT_ID]: {
-        ...routesMap.heavyHome,
+        ...routesMap.lightHome,
     },
+    [FAST_ID]: { ...routesMap.start },
 }
 
 export const defaultRootRoute = {

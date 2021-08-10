@@ -4,12 +4,12 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { LocationDescriptor, LocationState } from "history";
 import { cloneDeep } from "lodash";
 import { Layout, Menu, Button, Modal } from "antd";
-import { MenuSlider } from "./components/";
+import { MenuSlider, TopHeader } from "./components/";
 import SubRoutes from "./subRoutes";
 import { menusMapConfig } from "@ROUTES/config";
 // import docConfig from "DOCS/docConfig.json";
 import { getPath } from "@ROUTES/index";
-// import request from 'SRC/dataManager/netTrans/request'
+import request from "@DATA_MANAGER/netTrans/myReuqest";
 import "./index.scss";
 import { toJS } from "mobx";
 
@@ -81,14 +81,14 @@ class PageCenter extends Component<thisProps, States> {
     const {
       global: { getMenu },
       history,
-    } = this.props; 
+    } = this.props;
 
-    getMenu().then(async (data:any) => {
-        let config:any[] = await this.createSubRoutesConfig();
-        this.setState({
-            subRoutesConfig: config
-        })
-    })
+    getMenu().then(async (data: any) => {
+      let config: any[] = await this.createSubRoutesConfig();
+      this.setState({
+        subRoutesConfig: config,
+      });
+    });
     // let config: any[] = await this.createSubRoutesConfig();
     // this.setState({
     //   subRoutesConfig: config,
@@ -127,41 +127,81 @@ class PageCenter extends Component<thisProps, States> {
         }
       });
     }
+
+    if (process.env.NODE_ENV === "development") {
+      await request.post("/getMd", { data: {} }).then((data: any) => {
+        const { children } = data[0];
+        if (children) {
+          const { docList = [], docTreeMap = {} } = this.createDocMenuData({
+            item: data[0],
+            docList: [],
+            docTreeMap: {},
+            parentKey: 0,
+          });
+          this.docList = docList;
+          this.docTreeMap = docTreeMap;
+          
+          changeParams({
+            docList: docList,
+            docTreeMap: docTreeMap,
+          });
+        }
+        let temp = config.find((item) => {
+          return item.menuId === 2003;
+        });
+        if (temp) {
+          let children;
+          if (!temp["children"]) children = temp["children"] = [];
+          temp.children = this.docList;
+        }
+      });
+    }
     return config;
   };
 
-  createDocMenuData = (data: createDocMenuDataPropsT) => {
-    //     const { item, docList, docTreeMap, parentKey } = data;
-    //     const { children: list } = item;
-    //     list.forEach((child) => {
-    //         const { children, title = "", name = "", type, path } = child;
-    //         if (name.indexOf("_") === 0) {
-    //             return
-    //         }
-    //         docTreeMap[path] = { parentKey, data: child };
-    //         let param;
-    //         let isFolder = type === "directory"
-    //         if (name.indexOf(".md") != -1 || isFolder) {
-    //             param = name;
-    //             let temp = {
-    //                 ...this.tempObj, name: title || name, param, key:
-    //                     path, icon: isFolder ? "folder" : "file-markdown"
-    //             };
-    //             temp.search = {
-    //                 docKey: encodeURIComponent(path),
-    //             }
-    //             if (!isFolder && parentKey) {
-    //                 let docPath = parentKey.replace(/\\/g, "/").split("/docs/")[1] + "/" + name;
-    //                 temp.search.docPath = docPath;
-    //             }
-    //             docList.unshift(temp)
-    //             // if (children) {
-    //             //     temp.children = []
-    //             //     this.createDocMenuData({ item: child, docList: temp.children, docTreeMap, parentKey: path })
-    //             // }
-    //         }
-    //     })
-    //     return { docList, docTreeMap };
+  createDocMenuData = (data: any) => {
+    const { item, docList, docTreeMap, parentKey } = data;
+    const { children: list } = item;
+    list.forEach((child: any) => {
+      const { children, title = "", name = "", type, path } = child;
+      if (name.indexOf("_") === 0) {
+        return;
+      }
+      docTreeMap[path] = { parentKey, data: child };
+      let param;
+      let isFolder = type === "directory";
+      if (name.indexOf(".md") != -1 || isFolder) {
+        param = name;
+        let temp: any = {
+          ...this.tempObj,
+          name: title || name,
+          param,
+          key: path,
+          icon: isFolder ? "folder" : "file-markdown",
+        };
+
+        temp.search = {
+          docKey: encodeURIComponent(path),
+        };
+        if (!isFolder && parentKey) {
+          let docPath =
+            parentKey.replace(/\\/g, "/").split("/docs/")[1] + "/" + name;
+          temp.search.docPath = docPath;
+        }
+
+        docList.unshift(temp);
+        if (children) {
+          temp.children = [];
+          this.createDocMenuData({
+            item: child,
+            docList: temp.children,
+            docTreeMap,
+            parentKey: path,
+          });
+        }
+      }
+    });
+    return { docList, docTreeMap };
   };
 
   /**
@@ -186,11 +226,11 @@ class PageCenter extends Component<thisProps, States> {
           {...{ subRoutesConfig, intl, global, collapsed: collapsed }}
         />
         <Layout>
-          {/* <TopHeader
-                        toggle={this.toggle}
-                        collapsed={collapsed}
-                        logout={this.logout}
-                    ></TopHeader> */}
+          <TopHeader
+            toggle={this.toggle}
+            collapsed={collapsed}
+            logout={this.logout}
+          ></TopHeader>
           <SubRoutes subRoutesConfig={subRoutesConfig} />
         </Layout>
       </Layout>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import * as themes from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { customImg, customA, customAboutMe } from './customRender'
+import { customImg, customA, customAboutMe,relation } from './customRender'
 
 // 生成在一个范围内的随机数
 function frandom(min, max) {
@@ -26,7 +26,8 @@ const components = ({ isRandomTheme }) => {
         },
         img: customImg,
         a: customA,
-        aboutme: customAboutMe
+        aboutme: customAboutMe,
+        relation: relation
     }
 }
 export default components;

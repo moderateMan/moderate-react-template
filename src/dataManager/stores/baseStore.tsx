@@ -33,9 +33,9 @@ function debounce<T extends (...args: any) => any>(fn: T,delay: number) {
 
 
 type BaseStorePropsT = {
-  api: any;
-  apiParamsCheck: any;
-  apiOption: any;
+  api?: any;
+  apiParamsCheck?: any;
+  apiOption?: any;
   [key: string]: any;
 };
 
@@ -66,7 +66,7 @@ class BaseStore {
   apiOption: apiOptionT = {};
   apiFunc: apiFuncT = {};
   apiParamsCheck: apiParamsCheck = {};
-  constructor(props: BaseStorePropsT) {
+  constructor(props: BaseStorePropsT={}) {
     this.props = props;
     const { api, apiParamsCheck, apiOption } = props;
     if (api) {

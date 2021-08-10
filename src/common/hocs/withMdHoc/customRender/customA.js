@@ -42,6 +42,7 @@ export default ({ node, inline, className, children, ...props }) => {
             folderData = strData.slice(0, strData.length - 1)
             mdName = strData[strData.length - 1];
         }
+        let sss = useStores();
         const { global: { docList } } = useStores();
         let docListTemp = toJS(docList);
         let folder = findFloder(docListTemp, folderData)

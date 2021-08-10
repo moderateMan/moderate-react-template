@@ -1,12 +1,8 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
-import { injectIntl,WrappedComponentProps } from "react-intl";
+import { injectIntl } from "react-intl";
 import {
   HashRouter,
-  Route,
-  Switch,
-  Redirect,
-  useHistory,
 } from "react-router-dom";
 import { Modal } from "antd";
 const { confirm } = Modal;
