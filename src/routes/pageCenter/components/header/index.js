@@ -6,7 +6,7 @@ import '@ant-design/compatible/assets/index.css';
 import { ApiFill } from '@ant-design/icons';
 import { Avatar, Layout, Modal, Button, Input, Dropdown, Menu } from "antd";
 import "./header.scss";
-import FetchRequest from '@SRC/dataManager/netTrans/request'
+import FetchRequest from '@DATA_MANAGER/netTrans/myReuqest'
 import injectInternational from "COMMON/hocs/intlHoc";
 import { inject, observer } from "mobx-react";
 import { warningByMessage, successByMessage, exceptionByMessage } from "COMMON/utils";
