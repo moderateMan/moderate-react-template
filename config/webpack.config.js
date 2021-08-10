@@ -385,6 +385,7 @@ module.exports = function (webpackEnv) {
                 "@COMMON":path.resolve("src/common"),
                 "@ROUTES":path.resolve("src/routes"),
                 "@SRC": path.resolve("src"),
+                "@API": path.resolve("src/dataManager/netTrans/api"),
                 DOCS: path.resolve("src/docs"),
             },
             plugins: [

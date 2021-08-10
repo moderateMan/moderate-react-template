@@ -18,6 +18,7 @@ class Global implements iGlobal {
   };
 }
 
+
 export type iGlobal = {
   current: string;
   scrollData: object;
@@ -25,6 +26,7 @@ export type iGlobal = {
   locale: string;
   changeParams: (data: any) => void;
   docTreeMap?: any[];
+  formatMessage?():string
 };
 
 export default Global;

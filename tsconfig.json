@@ -27,7 +27,8 @@
       "@STORE/*": ["src/dataManager/stores/*"],
       "@COMMON/*":["src/common/*"],
       "@ROUTES/*":["src/routes/*"],
-      "@SRC/*":["src/*"]
+      "@SRC/*":["src/*"],
+      "@API/*":["src/dataManager/netTrans/api/*"]
     }
   },
   "include": [

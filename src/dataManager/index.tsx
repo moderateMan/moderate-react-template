@@ -5,12 +5,14 @@ import Global from "@DATA_MANAGER/stores/global";
 type iStores = {
   global: iGlobal;
   storeConfig: any;
+  [key: string]: any;
 };
 
+let globalIns = new Global({});
 class Stores implements iStores {
   storeConfig: any;
-  global: iGlobal = new Global({});
- 
+  global: iGlobal = globalIns;
+  [key: string]: any;
   constructor() {
     this.storeConfig = createConfig.call(this);
     this.totoInstantiaze();
@@ -23,7 +25,7 @@ class Stores implements iStores {
   totoInstantiaze() {
     for (let key in this.storeConfig) {
       const { storeClass, params } = this.storeConfig[key];
-      Object.assign(this, new storeClass(params));
+      this[key] = new storeClass(params);
     }
   }
 }

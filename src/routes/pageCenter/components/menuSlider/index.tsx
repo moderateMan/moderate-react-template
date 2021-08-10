@@ -14,13 +14,12 @@ import injectInternational from "@COMMON/hocs/intlHoc";
 import { useReducerEx } from "@COMMON/hooks/";
 import { MenuSlider, RouteMenu } from "..";
 import styles from "./index.module.scss";
-import request from "@DATA_MANAGER/netTrans/request";
+import request from "@DATA_MANAGER/netTrans/myReuqest";
 import useStores from "@COMMON/hooks/useStores";
 import { LinkCustom } from "./components";
 const { SubMenu } = Menu;
 const { Item: MenuItem } = Menu;
 const { Sider } = Layout;
-
 const { DOC_ID } = ROUTES_LOCAL_ID;
 class TestA extends React.Component {
   render() {

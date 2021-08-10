@@ -6,7 +6,7 @@ import {
 import { INFO, WARNING, SUCCESS, EXCEPTION_INFO, DATA_MODIFY_WARNING, TIMEOUT_INFO } from '../constants'
 
 export const messageNotice = (type = INFO, content = '') => {
-    message[type](content)
+    Reflect.get(message, type)(content)
 }
 /**
  * 提示信息组件
@@ -14,8 +14,8 @@ export const messageNotice = (type = INFO, content = '') => {
  * @param description
  * @param type
  */
-const openNotificationWithIcon = (message = '', description = '', type = INFO) => {
-    notification[type]({
+const openNotificationWithIcon = (message = '', description:string = '', type = INFO) => {
+    Reflect.get(notification, type)({
         message,
         description,
         duration: 6,
@@ -25,11 +25,11 @@ const openNotificationWithIcon = (message = '', description = '', type = INFO) =
 
 export default openNotificationWithIcon
 
-export const successByNotice = content => openNotificationWithIcon(SUCCESS, content)
-export const successByMessage = content => messageNotice(SUCCESS, content)
+export const successByNotice = (content:string) => openNotificationWithIcon(SUCCESS, content)
+export const successByMessage = (content:string) => messageNotice(SUCCESS, content)
 
-export const warningByNotice = content => openNotificationWithIcon(WARNING, content)
-export const warningByMessage = content => messageNotice(WARNING, content)
+export const warningByNotice = (content:string) => openNotificationWithIcon(WARNING, content)
+export const warningByMessage = (content:string) => messageNotice(WARNING, content)
 
 export const timeoutByNotice = () => openNotificationWithIcon(WARNING, TIMEOUT_INFO)
 export const timeoutByMessage = () => messageNotice(WARNING, TIMEOUT_INFO)

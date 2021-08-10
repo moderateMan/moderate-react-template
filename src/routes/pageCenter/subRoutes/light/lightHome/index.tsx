@@ -27,7 +27,6 @@ type LightHomeStatesT = {
   pageSize?: number;
 };
 
-@inject("lightHomeStore", "global")
 @observer
 class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
   constructor(props: LightHomePropsT) {
@@ -182,4 +181,7 @@ class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
   }
 }
 
-export default injectInternational("light")(LightHome);
+export default inject(
+  "lightHomeStore",
+  "global"
+)(injectInternational("light")(LightHome));

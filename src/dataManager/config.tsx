@@ -2,6 +2,13 @@ import {
     Global,
     LightHomeStore
 } from './stores/index';
+import {
+    lightOperateApi,
+    lightHomeApi,
+    globalApi,
+    heavyHomeApi,
+    heavyOperateApi,
+} from "@API/index";
 
 export default function config() {
     let common = {

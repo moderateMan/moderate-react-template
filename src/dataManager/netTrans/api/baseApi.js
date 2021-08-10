@@ -1,5 +1,4 @@
-// import request from 'SRC/dataManager/netTrans/request'
-import request from 'SRC/dataManager/netTrans/request'
+import request from '@DATA_MANAGER/netTrans/myReuqest'
 
 export default class BaseApi {
     constructor(props) {

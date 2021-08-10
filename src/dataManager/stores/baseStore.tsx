@@ -14,7 +14,7 @@ let CHECK_TYPE = {
  * @return {Function}     返回一个“去弹跳”了的函数
  */
 
-function debounce<T extends (...args: any) => any>(fn: T,delay: number,...args:Parameters<T>) {
+function debounce<T extends (...args: any) => any>(fn: T,delay: number) {
   // 定时器，用来 setTimeout
   let timer: any;
   return function () {
