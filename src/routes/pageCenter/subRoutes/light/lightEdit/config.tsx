@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./index.scss";
 import { Select, Switch } from "antd";
-import ComputeNum from "COMMON/components/computeNum";
+import ComputeNum from "@COMMON/components/computeNum";
 let Option = Select.Option;
 
 export default function config() {
@@ -97,14 +97,14 @@ export default function config() {
                             inputConfig,
                             optionArr,
                             setFieldsValue,
-                        }) => {
+                        }:any) => {
                             return (
                                 <Select
                                     {...inputConfig}
                                 >
                                     {optionArr &&
                                         optionArr.length > 0 &&
-                                        optionArr.map((item) => {
+                                        optionArr.map((item:any) => {
                                             return (
                                                 <Option
                                                     value={item[0]}
@@ -118,7 +118,7 @@ export default function config() {
                             );
                         },
                     },
-                    render: (value) => {
+                    render: (value:number) => {
                         return {
                             [0]: intlData["light_option"] + "A",
                             [1]: intlData["light_option"] + "B",
@@ -148,7 +148,7 @@ export default function config() {
                         },
                         type: "Select",
                     },
-                    render: (value) => {
+                    render: (value:number) => {
                         return {
                             [0]: intlData["light_option"] + "A",
                             [1]: intlData["light_option"] + "B",
@@ -161,7 +161,7 @@ export default function config() {
                     key: "exclude",
                     editable: true,
                     width: "100px",
-                    render: (value) => {
+                    render: (value:any) => {
                         return <Switch checked={value}></Switch>;
                     },
                     formConfig: {
@@ -179,7 +179,7 @@ export default function config() {
                     width: "100px",
                     formConfig: {
                         isCustomFormItem: true,
-                        render: ({ getFieldValue, setFieldsValue }) => {
+                        render: ({ getFieldValue }:any) => {
                             let lightType = getFieldValue("lightType"),
                                 baseSelect = getFieldValue("baseSelect"),
                                 exclude = getFieldValue("exclude");
@@ -191,7 +191,7 @@ export default function config() {
                             return <ComputeNum values={values} handler={this.calcWeight}></ComputeNum>;
                         },
                     },
-                    render: (value, record) => {
+                    render: (value:any, record:any) => {
                         value = value ? value : this.calcWeight(record)
                         return <div>{value}</div>;
                     },

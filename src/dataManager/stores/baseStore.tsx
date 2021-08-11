@@ -32,7 +32,7 @@ function debounce<T extends (...args: any) => any>(fn: T,delay: number) {
 }
 
 
-type BaseStorePropsT = {
+export type BaseStorePropsT = {
   api?: any;
   apiParamsCheck?: any;
   apiOption?: any;

@@ -25,7 +25,7 @@ export type iGlobal = {
   locale: string;
   changeParams: (data: any) => void;
   docTreeMap?: any[];
-  formatMessage?():string
+  formatMessage?(params:any):string
 };
 
 export default Global;

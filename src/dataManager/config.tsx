@@ -1,13 +1,12 @@
 import {
     Global,
-    LightHomeStore
+    LightHomeStore,
+    LightOperateStore
 } from './stores/index';
 import {
     lightOperateApi,
     lightHomeApi,
     globalApi,
-    heavyHomeApi,
-    heavyOperateApi,
 } from "@API/index";
 
 export default function config() {
@@ -18,7 +17,8 @@ export default function config() {
         global: {
             storeClass: Global,
             params: {
-                ...common
+                ...common,
+                api: globalApi
             }
         },
         lightHomeStore: {
@@ -26,6 +26,13 @@ export default function config() {
             params: {
                 ...common,
                 api: lightHomeApi
+            }
+        },
+        lightOperateStore: {
+            storeClass: LightOperateStore,
+            params: {
+                ...common,
+                api: lightOperateApi
             }
         }
     }

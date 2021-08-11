@@ -93,6 +93,14 @@ export const routesMap:routesMapType = {
     ),
         key: uuid()
     },
+    lightAdd: {
+        name: "commonTitle_lightAdd",
+        path: "/pageCenter/light/add",
+        component: lazyImport(() =>
+            import('@ROUTES/pageCenter/subRoutes/light/lightEdit')
+        ),
+        key: uuid()
+    },
     heavyHome: {
         name: "commonTitle_heavy",
         path: "/pageCenter/heavyPage",
@@ -122,6 +130,9 @@ export const menusMap = {
     [DOC_ID]: { ...routesMap.document },
     [LIGHT_ID]: {
         ...routesMap.lightHome,
+        routes: [
+            routesMap.lightAdd,
+        ]
     },
     [FAST_ID]: { ...routesMap.start },
 }

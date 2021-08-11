@@ -109,12 +109,12 @@ class PageCenter extends Component<thisProps, States> {
       menuConfig.forEach((item) => {
         const { menuId, parentId } = item || {};
         if (menuId && menusMapConfigTemp.has(menuId)) {
-          const menuInfo = menusMapConfigTemp.get(menuId);
+          const menuInfo: any = menusMapConfigTemp.get(menuId);
           menuInfo.menuId = menuId;
           if (parentId === 0) {
             config.push(menuInfo);
           } else {
-            let configTemp = menusMapConfigTemp.get(parentId);
+            let configTemp: any = menusMapConfigTemp.get(parentId);
             if (!configTemp) {
               console.warn(`本地没有相应路由配置(parentId:${parentId})`);
               return;
@@ -140,7 +140,7 @@ class PageCenter extends Component<thisProps, States> {
           });
           this.docList = docList;
           this.docTreeMap = docTreeMap;
-          
+
           changeParams({
             docList: docList,
             docTreeMap: docTreeMap,
