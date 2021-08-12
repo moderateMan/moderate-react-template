@@ -1,6 +1,6 @@
 import request from "@DATA_MANAGER/netTrans/myReuqest";
 type BaseApiPropsT = {
-  config: { [key: string]: any };
+  config: { [key: string]: string };
 };
 type RequestPostParams = {
   name: string;

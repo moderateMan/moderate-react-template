@@ -2,8 +2,12 @@ import React, { Fragment } from "react";
 import { Select } from "antd";
 const { Option } = Select;
 
-class SearchSelect extends React.Component {
-    constructor(props) {
+type PropsT = {
+    [key:string]:any
+}
+
+class SearchSelect extends React.Component<PropsT> {
+    constructor(props:PropsT) {
         super(props);
     }
     state = {
@@ -11,7 +15,7 @@ class SearchSelect extends React.Component {
         tempdata: "",
     };
 
-    handleSearch = (value) => {
+    handleSearch = (value:any) => {
         const {
             dataSource = [],
             isLocation,
@@ -23,7 +27,7 @@ class SearchSelect extends React.Component {
             if (requestSearchData) {
                 requestSearchData({
                     locationName: value
-                }).then((data) => {
+                }).then((data:any) => {
                     dataTemp = data.locationList;
                     isHasAll &&
                         dataTemp.push(
@@ -32,7 +36,7 @@ class SearchSelect extends React.Component {
                     this.setState({ data: dataTemp, tempdata: value });
                 });
             } else {
-                dataTemp = dataSource.filter((item, index) => {
+                dataTemp = dataSource.filter((item:any) => {
                     let targetValue = isLocation ? item : item.name;
                     return (
                         targetValue?.toLowerCase().indexOf(value.toLowerCase()) >
@@ -50,7 +54,7 @@ class SearchSelect extends React.Component {
         }
     };
 
-    handleChange = (value) => {
+    handleChange = (value:any) => {
         const { handleChange } = this.props;
         this.setState({ tempdata: value });
         handleChange && handleChange(value);
@@ -71,7 +75,7 @@ class SearchSelect extends React.Component {
             isSearch,
             getFieldValue,
         } = this.props;
-        const options = this.state.data.map((d) => {
+        const options = this.state.data.map((d:any) => {
             let value = isLocation ? d : d.name;
             return (
                 <Option value={value} key={value}>

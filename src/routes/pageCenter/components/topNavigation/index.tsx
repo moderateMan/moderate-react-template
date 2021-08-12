@@ -9,23 +9,21 @@ import {
 } from "react-router-dom";
 import { Breadcrumb } from "antd";
 import { injectIntl, WrappedComponentProps } from "react-intl";
-import { menusMapConfig } from "@ROUTES/config";
-let urlSearchRecord = {};
-
+import { menusMapConfig, RoutesMapItemT } from "@ROUTES/config";
+let urlSearchRecord: {
+  [key: string]: any;
+} = {};
+//TODOCME
 type TopNavigationPropsT = {
-  menuConfig: any;
+  menuConfig: {
+    parentId: string;
+    [key: string]: any;
+  }[];
 } & RouteComponentProps &
   WrappedComponentProps;
 
-type TargetDataItemBT = {
-  path: string;
-  children: any[];
-  routes: any[];
-  isNoFormat: boolean;
-  name: string;
-};
-type TargetDataItemAT = TargetDataItemBT[] & TargetDataItemBT;
-type TargetDataT = TargetDataItemAT[];
+type TargetDataItemT = RoutesMapItemT;
+type TargetDataT = RoutesMapItemT[];
 const TopNavigation: React.FC<TopNavigationPropsT> = (props) => {
   const {
     location: { pathname, search },
@@ -37,9 +35,12 @@ const TopNavigation: React.FC<TopNavigationPropsT> = (props) => {
   let nestPathName = "";
   let nestPath = "";
   let matchData: match<{ path: string; exact: string; strict: string }> | null;
-  function findItemName(targetData: TargetDataT, targetUrl: string) {
-    let value: TargetDataItemAT;
-    let temp: TargetDataItemBT;
+  function findItemName(
+    targetData: TargetDataT | Map<string, RoutesMapItemT>,
+    targetUrl: string
+  ) {
+    let value: TargetDataItemT | [string, RoutesMapItemT];
+    let temp: TargetDataItemT;
     for (value of targetData) {
       if (Array.isArray(value)) {
         temp = value[1];
@@ -53,7 +54,7 @@ const TopNavigation: React.FC<TopNavigationPropsT> = (props) => {
         strict: true,
       });
       if (matchData) {
-        let itemName = value.name;
+        let itemName = temp.name;
         if (!isNoFormat) {
           /* 国际化 */
           itemName = formatMessage({
@@ -63,7 +64,7 @@ const TopNavigation: React.FC<TopNavigationPropsT> = (props) => {
 
         return itemName;
       } else {
-        let temp = [...children, ...routes];
+        let temp: TargetDataT = [...children, ...routes] as TargetDataT;
         if (temp.length) {
           let findValue: string = findItemName(temp, targetUrl);
           if (findValue) return findValue;
@@ -78,18 +79,20 @@ const TopNavigation: React.FC<TopNavigationPropsT> = (props) => {
       exact: true,
       strict: true,
     });
-    if (matchData || pathnameTemp === menuItem.path) {
+    if (matchData && pathnameTemp === menuItem.path) {
       pathnameTemp = matchData.path.split("/:")[0];
       menuConfig.find((item) => {
         if (menuId === item.menuId && item.parentId) {
           let parent = menusMapConfig.get(item.parentId);
-          const { name, isNoFormat } = parent;
-          nestPathName = isNoFormat
-            ? name
-            : formatMessage({
-                id: parent.name,
-              });
-          nestPath = parent.path;
+          if (parent) {
+            const { name, isNoFormat } = parent;
+            nestPathName = isNoFormat
+              ? name
+              : formatMessage({
+                  id: parent.name,
+                });
+            nestPath = parent.path;
+          }
         }
       });
       break;
@@ -115,7 +118,8 @@ const TopNavigation: React.FC<TopNavigationPropsT> = (props) => {
     const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
     let itemName = findItemName(menusMapConfig, url);
     if (
-      !itemName & (index === pathSnippets.length - 1) &&
+      !itemName &&
+      index === pathSnippets.length - 1 &&
       matchData &&
       matchData.path.indexOf("/:")
     ) {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 
-// 3合1，Hoc，hook，wrapper
+// 3合1，wrapper,Hoc，hook
 const propTypes = {
     /** 执行动画 */
     action: PropTypes.bool,
@@ -20,8 +20,8 @@ const defaultProps = {
  * @visibleName Transition 过渡动画
  */
 
-let getTransition = (show) => {
-    return (props) => {
+let getTransition = (show:any) => {
+    return (props:any) => {
         const {
             className,
             action,
@@ -37,7 +37,6 @@ let getTransition = (show) => {
             style={
                 {
                     position: 'relative',
-                    overflow: 'hidden'
                 }
             }
         >
@@ -56,16 +55,16 @@ let getTransition = (show) => {
     }
 }
 
-function Transition(props) {
+function Transition(props:any) {
     let show;
-    if (!props || "children" in props) {
+    if ( "children" in props) {
         show = props.children;
         return getTransition(show)(props)
     } else {
         let WrappedComponent = props;
         let isReactElement = WrappedComponent?.$$typeof === Symbol.for('react.element');
         show = isReactElement ? WrappedComponent : <WrappedComponent />;
-        return getTransition(show)
+        return getTransition(show)(null)
     }
 }
 

@@ -1,24 +1,18 @@
 import React, { Fragment } from "react";
-import CommonFormItem from "COMMON/components/formItem";
-import PropTypes from "prop-types";
+import CommonFormItem from "@COMMON/components/formItem";
 import "./index.scss";
 import { Col, Row } from "antd";
 
-class CommonFormTable extends React.Component {
-    static propTypes = {
-        form: PropTypes.object, //当前form对象
-        dataSource: PropTypes.array, //table-dataSorce数据源
-    };
-
-    static defaultProps = {
-        form: {},
-        dataSource: [],
-    };
-    constructor(props) {
+type CommonFormTablePT = {
+    [key:string]:any
+}
+class CommonFormTable extends React.Component<CommonFormTablePT> {
+    rowConfig:any;
+    constructor(props:CommonFormTablePT) {
         super(props);
         this.rowConfig = {};
     }
-    count(data) {
+    count(data:any) {
         this.rowConfig = {};
         for (let item of data) {
             const { rowIndex = 0 } = item;
@@ -36,10 +30,10 @@ class CommonFormTable extends React.Component {
         } = this.props;
         let rowArr = [];
         this.count(dataSource);
-        let showTemp = [];
+        let showTemp:any = [];
         for (let key in this.rowConfig) {
             let colArr = this.rowConfig[key];
-            let span = colArr.length === 1 ? 24 : parseInt(24 / colArr.length);
+            let span = colArr.length === 1 ? 24 : parseInt(String(24 / colArr.length));
             rowArr.push(
                 <Row
                     className="formTable"
@@ -47,9 +41,9 @@ class CommonFormTable extends React.Component {
                     key={key}
                     gutter={[30, 0]}
                 >
-                    {colArr.map((item, index) => {
+                    {colArr.map((item:any, index:number) => {
                         if (Array.isArray(item.formConfig.initialValue)) {
-                            item.formConfig.initialValue.forEach((item2) => {
+                            item.formConfig.initialValue.forEach((item2:any) => {
                                 showTemp.push(item2.format("YYYY-MM-DD"));
                             });
                         }

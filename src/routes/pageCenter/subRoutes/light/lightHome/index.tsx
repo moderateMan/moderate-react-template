@@ -10,13 +10,14 @@ import {
 import { observer, inject } from "mobx-react";
 import { toJS } from "mobx";
 import injectInternational from "@COMMON/hocs/intlHoc";
+import { injectIntl,WrappedComponentProps } from "react-intl";
 import applyConfig from "./config";
 import { getPath } from "@ROUTES/index";
 interface Props {
   [prop: string]: any;
 }
 
-type LightHomePropsT = Props & RouteComponentProps;
+type LightHomePropsT = Props & RouteComponentProps&WrappedComponentProps;
 
 type LightHomeStatesT = {
   intlData: any;

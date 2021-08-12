@@ -1,12 +1,6 @@
 import { lazy } from "react";
 
-// const lazyImport = (fn, delay = 300) => lazy(() => {
-//     return new Promise(resolve => {
-//         setTimeout(resolve(fn()), delay)
-//     })
-// })
-
-export const lazyImport = (fn, delay = 300) =>
+export const lazyImport = (fn:()=>Promise<any>, delay = 300) =>
     lazy(() => {
         return Promise.all([
             fn(),

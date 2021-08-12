@@ -1,8 +1,13 @@
 import React, { Fragment } from "react";
-import formItemHoc from "COMMON/hocs/formItemHoc";
+import formItemHoc from "@COMMON/hocs/formItemHoc";
 
-@formItemHoc
-class CommonFormItem extends React.Component {
+type CommonFormItemPT = {
+    form:any
+    data:any
+    getFromItem:any
+}
+
+class CommonFormItem extends React.Component<CommonFormItemPT> {
     render() {
         const { form, data = {}, getFromItem, ...restProps } = this.props;
         return (
@@ -17,4 +22,4 @@ class CommonFormItem extends React.Component {
     }
 }
 
-export default CommonFormItem;
+export default formItemHoc(CommonFormItem);

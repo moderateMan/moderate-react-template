@@ -27,20 +27,22 @@ const { NEST_ID, START_ID,  } = ROUTES_REMOTE_ID;
 const {HEAVY_ID, LIGHT_ID,DOC_ID,INTRO_ID,FAST_ID } = ROUTES_LOCAL_ID;
 
 
-type routesMapItemType = {
-    "name":string,
+export type RoutesMapItemT = {
+    name:string,
     "icon"?:string,
     "path":string,
     "exact"?:boolean,
     "redirect"?:string,
     "key":string,
-    component?:any,
-    isNoFormat?:boolean,
-    search?:{},
-    param?:string
+    "component"?:any,
+    "isNoFormat"?:boolean,
+    "search"?:{},
+    "param"?:string,
+    children?:RoutesMapItemT[];
+    routes?:any[]
 }
 
-type routesMapType =  {[key: string]: routesMapItemType}
+type routesMapType =  {[key: string]: RoutesMapItemT}
 /* 路由的注册数据，新建路由在这配置 */
 export const routesMap:routesMapType = {
     templates: {
@@ -143,5 +145,5 @@ export const defaultRootRoute = {
     }
 }
 
-export const menusMapConfig = mapByObj<any,any>(menusMap)
+export const menusMapConfig = mapByObj<string,RoutesMapItemT>(menusMap)
 

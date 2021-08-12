@@ -1,9 +1,12 @@
 import React from "react";
 import "./index.scss";
 import { Form, Modal } from "antd";
-import CommonFormItem from "COMMON/components/formItem";
+import CommonFormItem from "@COMMON/components/formItem";
 
-class commonModalCollection extends React.Component {
+type PropsT = {
+    [key:string]:any
+}
+class commonModalCollection extends React.Component<PropsT> {
     state = {
         visible: false,
     };
@@ -22,7 +25,7 @@ class commonModalCollection extends React.Component {
         resetFields();
     };
 
-    handleSubmit = (e) => {
+    handleSubmit = (e:any) => {
         const { extraJude } = this.props;
         e.preventDefault();
         const {
@@ -30,7 +33,7 @@ class commonModalCollection extends React.Component {
             form: { validateFields, resetFields },
         } = this.props;
         if (extraJude && !extraJude()) return;
-        validateFields((err, values) => {
+        validateFields((err:any, values:any) => {
             if (err) {
                 return;
             }
@@ -54,7 +57,7 @@ class commonModalCollection extends React.Component {
                     onOk={this.handleSubmit}
                     width={width}
                 >
-                    {config.map((item, index) => {
+                    {config.map((item:any, index:any) => {
                         return (
                             <CommonFormItem
                                 form={form}

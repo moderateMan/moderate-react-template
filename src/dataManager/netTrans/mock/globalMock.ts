@@ -1,5 +1,6 @@
 import BaseMock from './baseMock'
-import menuRemoteConfig from "ROUTES/menuRemoteConfig.json";
+import type BaseApi from "../api/baseApi";
+import menuRemoteConfig from "@ROUTES/menuRemoteConfig.json";
 
 let config = {
     getMenuApi: {
@@ -23,6 +24,6 @@ let config = {
     },
 }
 
-export default function mock(api) {
+export default function mock(api:BaseApi) {
     new BaseMock({ config, apiConfig: api.getUrlConfig() })
 }

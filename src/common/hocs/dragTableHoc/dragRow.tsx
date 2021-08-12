@@ -2,7 +2,10 @@ import React from "react";
 import "./index.css";
 import { DragSource, DropTarget } from "react-dnd";
 let dragingIndex = -1;
-class BodyRow extends React.Component {
+type PropsPT = {
+    [key:string]:any
+}
+class BodyRow extends React.Component<PropsPT> {
     render() {
         const {
             isOver,
@@ -32,7 +35,7 @@ class BodyRow extends React.Component {
 }
 
 const rowSource = {
-    beginDrag(props) {
+    beginDrag(props:any) {
         dragingIndex = props.index;
         return {
             index: props.index,
@@ -41,7 +44,7 @@ const rowSource = {
 };
 
 const rowTarget = {
-    drop(props, monitor) {
+    drop(props:any, monitor:any) {
         const dragIndex = monitor.getItem().index;
         const hoverIndex = props.index;
         if (dragIndex === hoverIndex) {

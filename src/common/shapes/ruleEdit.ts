@@ -1,4 +1,4 @@
-import { uuid } from "COMMON/utils";
+import { uuid } from "@COMMON/utils";
 export const showPartAItem = () => {
     return {
         nodeId: 1,

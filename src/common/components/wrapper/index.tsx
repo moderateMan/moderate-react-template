@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import "./index.scss";
 /**定义Option组件*/
-class CommonWrapper extends Component {
+
+type CommonSearchTablePropsT = {
+    [key: string]: any;
+  };
+class CommonWrapper extends Component<CommonSearchTablePropsT> {
     render() {
         const { children, title } = this.props;
         return (
