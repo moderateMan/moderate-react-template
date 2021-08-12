@@ -55,7 +55,7 @@ class PageCenter extends Component<thisProps, States> {
   tempObj = {
     name: "commonTitle_doc",
     icon: "read",
-    path: "/pageCenter/document",
+    path: "/pageCenter/doc",
     isNoFormat: true,
   };
   docList: string[] = [];

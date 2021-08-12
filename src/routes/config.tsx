@@ -78,7 +78,7 @@ export const routesMap:routesMapType = {
             docPath:"_start.md"
         },
         component: lazyImport(() =>
-            import('@ROUTES/pageCenter/subRoutes/document')
+            import('@ROUTES/pageCenter/subRoutes/mdView')
         ),
         key: uuid()
     },
@@ -110,11 +110,11 @@ export const routesMap:routesMapType = {
         key: uuid()
     },
     document: {
-        path: "/pageCenter/document/:id",
+        path: "/pageCenter/doc/:id",
         name: "commonTitle_doc",
         icon: "read",
         component: lazyImport(() =>
-            import('@ROUTES/pageCenter/subRoutes/document')
+            import('@ROUTES/pageCenter/subRoutes/mdView')
         ),
         key: uuid()
     }
@@ -143,5 +143,5 @@ export const defaultRootRoute = {
     }
 }
 
-export const menusMapConfig = mapByObj(menusMap)
+export const menusMapConfig = mapByObj<any,any>(menusMap)
 

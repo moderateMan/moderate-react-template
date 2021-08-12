@@ -22,6 +22,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "./",
+    "downlevelIteration":true,
+    "importHelpers": true,
     "paths": {
       "@DATA_MANAGER/*": ["src/dataManager/*"],
       "@STORE/*": ["src/dataManager/stores/*"],

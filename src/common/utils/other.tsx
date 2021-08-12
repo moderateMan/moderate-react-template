@@ -82,7 +82,7 @@ function formatTimeLength(num: any) {
 }
 
 /* 根据对象创建Map对象 */
-export function mapByObj(obj = {}) {
+export function mapByObj<T1,T2>(obj = {}) {
   let temp: any[] = [];
   let key: string;
   for (key in obj) {
@@ -90,7 +90,7 @@ export function mapByObj(obj = {}) {
     temp.push([keyTemp, obj[key as keyof typeof obj]]);
   }
 
-  return new Map(temp);
+  return new Map<T1,T2>(temp);
 }
 
 /* 剔除对象的空属性 */
