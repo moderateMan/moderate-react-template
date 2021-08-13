@@ -1,4 +1,5 @@
 import { observable, action } from "mobx";
+
 import BaseStore from './baseStore'
 
 class LightHomeStore extends BaseStore {

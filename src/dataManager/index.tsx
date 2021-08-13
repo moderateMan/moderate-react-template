@@ -31,3 +31,26 @@ class Stores implements iStores {
 }
 
 export default new Stores();
+
+import { lightHomeStoreN, globalN } from "./storesNatur/index";
+
+import { createStore, createInject,StoreModule } from "natur";
+import { 
+  thunkMiddleware,
+  promiseMiddleware, 
+  fillObjectRestDataMiddleware,
+  shallowEqualMiddleware, 
+  filterUndefinedMiddleware,
+} from 'natur/dist/middlewares';
+
+export type StoreModuleN = StoreModule;
+export const naturStores = createStore({ globalN,lightHomeStoreN}, {},{
+  middlewares: [
+    thunkMiddleware, // action支持返回函数，并获取最新数据
+    promiseMiddleware, // action支持异步操作
+    fillObjectRestDataMiddleware, // 增量更新/覆盖更新
+    shallowEqualMiddleware, // 新旧state浅层对比优化
+    filterUndefinedMiddleware, // 过滤无返回值的action
+  ],
+});
+export const injectNaturStore = createInject({ storeGetter: () => naturStores });
