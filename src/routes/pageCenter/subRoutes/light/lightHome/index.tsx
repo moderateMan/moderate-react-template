@@ -1,23 +1,25 @@
 import React, { Component } from "react";
-import { Modal, message, Button, Form } from "antd";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { Button, Row, Col } from "antd";
+import { RouteComponentProps } from "react-router-dom";
 import "./index.scss";
 import {
   CommonTable,
   CommonWrapper,
   CommonSearchTable,
 } from "@COMMON/components";
-import { observer, inject } from "mobx-react";
-import { toJS } from "mobx";
+
 import injectInternational from "@COMMON/hocs/intlHoc";
-import { injectIntl,WrappedComponentProps } from "react-intl";
+import { WrappedComponentProps } from "react-intl";
 import applyConfig from "./config";
 import { getPath } from "@ROUTES/index";
-interface Props {
-  [prop: string]: any;
-}
 
-type LightHomePropsT = Props & RouteComponentProps&WrappedComponentProps;
+
+
+type PropsT = {
+  [prop: string]: any;
+} & typeof injecter.type;
+
+type LightHomePropsT = PropsT & RouteComponentProps & WrappedComponentProps;
 
 type LightHomeStatesT = {
   intlData: any;
@@ -28,7 +30,10 @@ type LightHomeStatesT = {
   pageSize?: number;
 };
 
-@observer
+
+import { injectNaturStore } from "@DATA_MANAGER/index";
+let injecter = injectNaturStore("lightHomeStoreN");
+
 class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
   constructor(props: LightHomePropsT) {
     super(props);
@@ -36,14 +41,18 @@ class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
   }
   selectedRows: any;
   refreshConfig: any;
-  componentDidMount() {
-    // this.handleRefreshPage({
-    //     pageIndex: 1,
-    //     pageSize: this.state.pageSize,
-    // });
-    this.refreshConfig();
-    // this.props.form.validateFields();
-  }
+
+  componentDidMount() {}
+
+  handleTestNaturAsyncAction = () => {
+    debugger;
+    this.props.lightHomeStoreN.actions.asyncAction("测试异步响应！");
+  };
+
+  handleTestNaturSyncAction = () => {
+    debugger;
+    this.props.lightHomeStoreN.actions.syncAction("测试同步响应！");
+  };
 
   componentWillUnmount() {}
 
@@ -110,35 +119,51 @@ class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
   };
 
   componentDidUpdate() {
-    const { intlData } = this.props;
-    if (this.state.intlData !== intlData) {
-      this.setState({ intlData }, () => {
-        this.refreshConfig();
-      });
-    }
+    // const { intlData } = this.props;
+    // if (this.state.intlData !== intlData) {
+    //   this.setState({ intlData }, () => {
+    //     this.refreshConfig();
+    //   });
+    // }
   }
   render() {
-    const {
-      form,
-      lightHomeStore: { lightArr, pageSum = 5 },
-      intlData,
-    } = this.props;
-    const {
-      searchItemArr,
-      columns,
-      pageIndex,
-      btnInTableConfig,
-      pageSize = 0,
-    } = this.state;
+    // const {
+    //   form,
+    //   lightHomeStore: { lightArr, pageSum = 5 },
+    //   intlData,
+    // } = this.props;
+    // const {
+    //   searchItemArr,
+    //   columns,
+    //   pageIndex,
+    //   btnInTableConfig,
+    //   pageSize = 0,
+    // } = this.state;
     return (
       <div>
         <CommonWrapper>
-          <CommonSearchTable
+          {/* <CommonSearchTable
             dataSource={searchItemArr}
             handleSearch={this.handleSearch}
-          />
+          /> */}
+          <div style={{ marginBottom: 100 }}>
+            Natur的仓库-lightHomeStore中的数据
+            {this.props.lightHomeStoreN?.state?.testValue || "..."}
+          </div>
+          <Row>
+            <Col span={12}>
+              <Button onClick={this.handleTestNaturAsyncAction}>
+                测试Natur的异步Action
+              </Button>
+            </Col>
+            <Col span={12}>
+              <Button onClick={this.handleTestNaturSyncAction}>
+                测试Natur的同步Action
+              </Button>
+            </Col>
+          </Row>
         </CommonWrapper>
-        <CommonWrapper title={intlData["light_listTitle"]}>
+        {/* <CommonWrapper title={intlData["light_listTitle"]}>
           <CommonTable
             btnInTableConfig={btnInTableConfig}
             handleTableSelect={this.handleTableSelect}
@@ -176,13 +201,10 @@ class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
             data={toJS(lightArr) || []}
             columns={columns}
           />
-        </CommonWrapper>
+        </CommonWrapper> */}
       </div>
     );
   }
 }
 
-export default inject(
-  "lightHomeStore",
-  "global"
-)(injectInternational("light")(LightHome));
+export default injecter(injectInternational("light")(LightHome));
