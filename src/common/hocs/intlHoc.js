@@ -1,7 +1,7 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
 import { injectIntl } from "react-intl";
-import language from "SRC/language";
+import language from "@SRC/language/index"
 
 function intlHoc(id) {
     return function (WrappedComponent) {

@@ -41,8 +41,8 @@ class language {
             }
         }
         return {
-            zh,
-            en,
+            "zh":zh,
+            "en":en,
         };
     }
 

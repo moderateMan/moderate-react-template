@@ -1,17 +1,15 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
-import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { Input, Button, Select, Radio, Col, Row } from "antd";
+import { Form, Input, Button, Select, Radio, Col, Row } from "antd";
 import { FormattedMessage, injectIntl } from "react-intl";
 import styles from './index.module.scss'
-import { CommonAnimateWha as AnimateWrapper} from "COMMON/components";
-import { ACCESS_TOKEN } from "COMMON/constants";
-import Storage from "COMMON/storage";
+import { AnimateWrapper } from "COMMON/components/animateWha";
+import { ACCESS_TOKEN } from "@COMMON/constants";
+import Storage from "@COMMON/storage";
 import "./index.scss";
 import openNotificationWithIcon from "COMMON/utils/notification";
-import FetchRequest from 'SRC/dataManager/netTrans/request'
-import { getPath } from "ROUTES";
+import FetchRequest from '@DATA_MANAGER/netTrans/myReuqest'
+import { getPath } from "@ROUTES/index";
 let gameFloag = 0;
 const FormItem = Form.Item;
 let isDev = process.env.NODE_ENV === 'development' || process.env.ELECTRON === 'electron';
@@ -24,7 +22,7 @@ class LoginPage extends React.Component {
     this.isStart = false;
     this.state = {
       codeImage: "",
-      collapsed: true
+      collapsed: false
     };
   }
   /**
@@ -47,7 +45,6 @@ class LoginPage extends React.Component {
       form: { validateFields },
       global: { loginFn },
     } = this.props;
-    
     // validateFields({ force: true }, (error, values) => {
     //   if (!error) {
     //     const { username, password, code, language } = values;
@@ -56,17 +53,16 @@ class LoginPage extends React.Component {
     //     });
     //   }
     // });
-   
+
   };
 
   //登录之后的回调
   loginCallback = () => {
     const {
-      form: { validateFields },
       global: { loginFn },
     } = this.props;
     loginFn("123", "123", "aaaa", "zh").then(() => {
-      this.props.history.push(getPath("intro"));
+      this.props.history.push(getPath("start"));
     });
   };
 
@@ -86,7 +82,7 @@ class LoginPage extends React.Component {
   componentDidMount() {
     let token = Storage.getStorage(ACCESS_TOKEN);
     if (token) {
-      return this.props.history.push(getPath("lightHome"));
+      return this.props.history.push(getPath("start"));
     }
     this.changeCodeImage();
     if (isDev) {
@@ -367,7 +363,6 @@ class LoginPage extends React.Component {
    */
   render() {
     const {
-      form: { getFieldDecorator },
       global: { locale, changeLocale },
       intl: { formatMessage },
     } = this.props;
@@ -395,12 +390,10 @@ class LoginPage extends React.Component {
           action={collapsed}> <Button shape='round' type="primary" onClick={this.loginCallback} className="loginBtn">
             开始吧
           </Button></AnimateWrapper>}
-
       </div>
     );
   }
 }
 
-const Login = Form.create()(LoginPage);
 
-export default Login;
+export default LoginPage;

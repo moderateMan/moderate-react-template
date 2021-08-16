@@ -28,6 +28,7 @@ const typescriptFormatter = require("react-dev-utils/typescriptFormatter");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const WebpackBar = require("webpackbar");
+const NyanProgressPlugin = require('nyan-progress-webpack-plugin');
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
 const postcssNormalize = require("postcss-normalize");
@@ -380,6 +381,11 @@ module.exports = function (webpackEnv) {
                 NET_TRANS: path.resolve("src/dataManager/netTrans"),
                 STORE: path.resolve("src/dataManager/stores"),
                 DATA_MANAGER: path.resolve("src/dataManager"),
+                "@DATA_MANAGER":path.resolve("src/dataManager"),
+                "@COMMON":path.resolve("src/common"),
+                "@ROUTES":path.resolve("src/routes"),
+                "@SRC": path.resolve("src"),
+                "@API": path.resolve("src/dataManager/netTrans/api"),
                 DOCS: path.resolve("src/docs"),
             },
             plugins: [
@@ -513,7 +519,7 @@ module.exports = function (webpackEnv) {
                         //         cacheCompression: false,
 
                         //         // Babel sourcemaps are needed for debugging into node_modules
-                        //         // code.  Without the options below, s like VSCode
+                        //         // code.  Without the options below, debuggers like VSCode
                         //         // show incorrect code and set breakpoints on the wrong lines.
                         //         sourceMaps: shouldUseSourceMap,
                         //         inputSourceMap: shouldUseSourceMap,
@@ -811,7 +817,7 @@ module.exports = function (webpackEnv) {
                     },
                 }
             }),
-            new WebpackBar(),
+            new NyanProgressPlugin(),
             new BundleAnalyzerPlugin({
                 openAnalyzer: false,
             }),

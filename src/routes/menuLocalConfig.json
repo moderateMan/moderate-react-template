@@ -1,1 +1,7 @@
-[{"menuId":2004,"parentId":1002},{"menuId":2005,"parentId":1002},{"menuId":2001,"parentId":1001},{"menuId":2002,"parentId":1001},{"menuId":2003,"parentId":0}]
+[
+  { "menuId": 2004, "parentId": 1002 },
+  { "menuId": 2005, "parentId": 1002 },
+  { "menuId": 2001, "parentId": 1001 },
+  { "menuId": 2002, "parentId": 1001 },
+  { "menuId": 2003, "parentId": 0 }
+]

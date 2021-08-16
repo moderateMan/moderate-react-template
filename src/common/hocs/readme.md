@@ -27,7 +27,7 @@
                         },
                     ],
                     type: "Checkbox",//extra-指定为何种组件来作为输入
-                    inputConfig: //extra-定制化标签的Attr
+                    inputAttrConfig: //extra-定制化标签的Attr
                     {
                         placeholder:
                             "这里是关于这个POS的一些描述，可以很长也可以很短，但是限制60个字段......",
