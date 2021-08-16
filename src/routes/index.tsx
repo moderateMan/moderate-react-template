@@ -22,19 +22,21 @@ type authRouteProps = {
   path?: string;
   component?: any;
 };
-
-function AuthRoute(props: authRouteProps) {
+type AuthRoutePropsT = {
+  isLoginRoute?: boolean;
+  [key: string]: any;
+};
+function AuthRoute(props: AuthRoutePropsT) {
   const { isLoginRoute, ...rest } = props;
   const {
     global: { isLogin },
   } = store;
   let token = Storage.getStorage(ACCESS_TOKEN);
-  // if (isLogin || isLoginRoute || token) {
-  //   return <Route {...rest} />;
-  // } else {
-  //   return <Redirect to="/login" />;
-  // }
-  return <Route {...rest} />;
+  if (isLogin || isLoginRoute || token) {
+    return <Route {...rest} />;
+  } else {
+    return <Redirect to="/login" />;
+  }
 }
 
 type routesMapItemType = {
@@ -265,7 +267,21 @@ function Routes() {
   }, []);
   return (
     <Switch>
-      <Route path="/pageCenter" component={PageCenter}></Route>
+      <AuthRoute isLoginRoute={true} exact={true} path="/" component={Login} />
+      <AuthRoute isLoginRoute={true} path="/login" component={Login} />
+      <AuthRoute path="/pageCenter" component={PageCenter} />
+      <Route>
+        <Empty
+          style={{
+            position: "absolute",
+            marginTop: "30%",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+          }}
+        />
+      </Route>
     </Switch>
   );
 }

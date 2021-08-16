@@ -31,7 +31,7 @@
       "@ROUTES/*":["src/routes/*"],
       "@SRC/*":["src/*"],
       "@API/*":["src/dataManager/netTrans/api/*"]
-    }
+    },
   },
   "include": [
     "src"
