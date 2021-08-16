@@ -1,0 +1,7 @@
+{
+  //全局变量
+  "globals": {
+    "wx": true,
+    "cc": true
+  }
+}

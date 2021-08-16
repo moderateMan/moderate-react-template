@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { observer, inject } from "mobx-react";
 import { Form, Input, Button, Select, Radio, Col, Row } from "antd";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+
 import {
   FormattedMessage,
   injectIntl,
@@ -15,6 +16,7 @@ import "./index.scss";
 import openNotificationWithIcon from "@COMMON/utils/notification";
 import FetchRequest from "@DATA_MANAGER/netTrans/myReuqest";
 import { getPath } from "@ROUTES/index";
+declare const cc: any
 let gameFloag = 0;
 const FormItem = Form.Item;
 let isDev =
@@ -27,6 +29,8 @@ type LoginProps = {
 let Login: React.FC<LoginProps> = (props) => {
   const [codeImage, setCodeImage] = useState<string>("");
   const [isStart,setIsStart] = useState<boolean>(false)
+  const [collapsed,setCollapsed] = useState<boolean>(false)
+  
   //验证码图片生成方法
   let textBecomeImg = (code: string) => {
     const canvas = document.createElement("canvas");
@@ -112,7 +116,6 @@ let Login: React.FC<LoginProps> = (props) => {
     var settings = Reflect.get(window,"_CCSettings");
     Reflect.set(window,"_CCSettings",undefined)
     var onProgress:any = null;
-
     var RESOURCES = cc.AssetManager.BuiltinBundleName.RESOURCES;
     var INTERNAL = cc.AssetManager.BuiltinBundleName.INTERNAL;
     var MAIN = cc.AssetManager.BuiltinBundleName.MAIN;
@@ -120,8 +123,8 @@ let Login: React.FC<LoginProps> = (props) => {
       // // // Loading splash scene
       var gameRoot = document.getElementById("gameRoot");
       var splash = document.getElementById("splash");
-      var progressBar = splash.querySelector(".progress-bar span");
-      onProgress = function (finish, total) {
+      var progressBar:any = splash&&splash.querySelector(".progress-bar span");
+      onProgress = function (finish:any, total:any) {
         var percent = (100 * finish) / total;
         if (progressBar) {
           progressBar.style.width = percent.toFixed(2) + "%";
@@ -131,7 +134,7 @@ let Login: React.FC<LoginProps> = (props) => {
       // progressBar.style.width = "0%";
       cc.director.once(cc.Director.EVENT_AFTER_SCENE_LAUNCH, function () {
         // gameRoot.style.display = "block";
-        splash.style.display = "none";
+        splash&&(splash.style.display = "none");
       });
     }
 
@@ -171,7 +174,7 @@ let Login: React.FC<LoginProps> = (props) => {
       }
 
       var launchScene = settings.launchScene;
-      var bundle = cc.assetManager.bundles.find(function (b) {
+      var bundle = cc.assetManager.bundles.find(function (b:any) {
         return b.getSceneInfo(launchScene);
       });
 
@@ -179,7 +182,7 @@ let Login: React.FC<LoginProps> = (props) => {
         launchScene,
         null,
         onProgress,
-        function (err, scene) {
+        function (err:any, scene:any) {
           if (!err) {
             cc.director.runSceneImmediate(scene);
             if (cc.sys.isBrowser) {
@@ -220,18 +223,18 @@ let Login: React.FC<LoginProps> = (props) => {
     settings.hasResourcesBundle && bundleRoot.push(RESOURCES);
 
     var count = 0;
-    function cb(err) {
+    function cb(err:any) {
       if (err) return console.error(err.message, err.stack);
       count++;
       if (count === bundleRoot.length + 1) {
-        cc.assetManager.loadBundle(MAIN, function (err) {
+        cc.assetManager.loadBundle(MAIN, function (err:any) {
           if (!err) cc.game.run(option, onStart);
         });
       }
     }
 
     cc.assetManager.loadScript(
-      settings.jsList.map(function (x) {
+      settings.jsList.map(function (x:any) {
         return "src/" + x;
       }),
       cb
@@ -264,7 +267,7 @@ let Login: React.FC<LoginProps> = (props) => {
               {
                 loadScript("./web-mobile/cocos2d-js.js", function () {
                   {
-                    self.boot();
+                    boot();
                   }
                 });
               }
@@ -274,15 +277,11 @@ let Login: React.FC<LoginProps> = (props) => {
       } else {
         cc.game.resume();
       }
-      document.addEventListener("completeFromGame", (data) => {
+      document.addEventListener("completeFromGame", (data:any) => {
         if (data.detail.status === 1) {
-          this.setState({
-            collapsed: false,
-          });
+          setCollapsed(false)
         } else {
-          this.setState({
-            collapsed: true,
-          });
+          setCollapsed(true)
         }
       });
     }

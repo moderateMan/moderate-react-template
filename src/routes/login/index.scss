@@ -1,101 +1,101 @@
-// .loginpagewrap {
-//   position: absolute;
-//   width: 100%;
-//   height: 100%;
-//   z-index: 999;
-//   pointer-events: none;
-//   .box {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     bottom: calc(50% - 50px);
-//     width: 300px;
-//     position: absolute;
-//     left: calc(50% - 150px);
-//     .logo {
-//       display: flex;
-//       align-items: center;
-//       height: 32px;
-//       background: rgba(255, 255, 255, 0.2);
-//       margin: 16px;
-//       font-weight: bold;
-//       font-size: larger;
-//       opacity: 1;
-//       -webkit-transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-//         width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-//       transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-//         width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-//       font-size: 30px;
-//       margin-left: 60px;
-//     }
-//     .logoE {
-//       width: 38px;
-//       height: 82px;
-//       background: url("../../assets/images/logo2.png") no-repeat center;
-//       background-size: 100%;
-//       position: absolute;
-//       left: 35px;
-//       top: -18px;
-//     }
-//     p {
-//       text-align: center;
-//       font-size: 38px;
-//       font-family: "cursive";
-//       margin-bottom: 25px;
-//       font-weight: bold;
-//       color: #888;
-//       padding-left: 35px;
-//     }
-//   }
-// }
-// .loginBtn {
-//     position: absolute;
-//     left: calc(50% - 60px);
-//     width: 180px;
-//     height: 60px;
-//     top: 386px;
-//     pointer-events: all;
-//   }
+.loginpagewrap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  pointer-events: none;
+  .box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    bottom: calc(50% - 50px);
+    width: 300px;
+    position: absolute;
+    left: calc(50% - 150px);
+    .logo {
+      display: flex;
+      align-items: center;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 16px;
+      font-weight: bold;
+      font-size: larger;
+      opacity: 1;
+      -webkit-transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+        width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+        width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      font-size: 30px;
+      margin-left: 60px;
+    }
+    .logoE {
+      width: 38px;
+      height: 82px;
+      background: url("../../assets/images/logo2.png") no-repeat center;
+      background-size: 100%;
+      position: absolute;
+      left: 35px;
+      top: -18px;
+    }
+    p {
+      text-align: center;
+      font-size: 38px;
+      font-family: "cursive";
+      margin-bottom: 25px;
+      font-weight: bold;
+      color: #888;
+      padding-left: 35px;
+    }
+  }
+}
+.loginBtn {
+    position: absolute;
+    left: calc(50% - 60px);
+    width: 180px;
+    height: 60px;
+    top: 386px;
+    pointer-events: all;
+  }
 
-// .loginWrap {
-//   margin: 0 auto;
-//   border: 1px #ccc solid;
-//   padding: 7%;
-//   border-radius: 5px;
-//   pointer-events: all;
-//   background-color: rgb(255, 255, 255, 0.3);
+.loginWrap {
+  margin: 0 auto;
+  border: 1px #ccc solid;
+  padding: 7%;
+  border-radius: 5px;
+  pointer-events: all;
+  background-color: rgb(255, 255, 255, 0.3);
   
-//   .login-code {
-//     .ant-form-item-children {
-//       display: flex;
-//       justify-content: space-between;
-//     }
-//   }
+  .login-code {
+    .ant-form-item-children {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
 
-//   .codeImage {
-//     display: inline-block;
-//     height: 32px;
-//     border: 1px solid #d9d9d9;
-//     vertical-align: middle;
-//     cursor: pointer;
-//     line-height: 30px !important;
-//   }
-// }
-// .progress-bar {
-//   background-color: #1a1a1a;
-//   position: absolute;
-//   left: 50%;
-//   top: 80%;
-//   height: 5px;
-//   width: 300px;
-//   margin: 0 -150px;
-//   border-radius: 10px;
-// }
+  .codeImage {
+    display: inline-block;
+    height: 32px;
+    border: 1px solid #d9d9d9;
+    vertical-align: middle;
+    cursor: pointer;
+    line-height: 30px !important;
+  }
+}
+.progress-bar {
+  background-color: #1a1a1a;
+  position: absolute;
+  left: 50%;
+  top: 80%;
+  height: 5px;
+  width: 300px;
+  margin: 0 -150px;
+  border-radius: 10px;
+}
 
-// .progress-bar span {
-//   display: block;
-//   height: 100%;
-//   border-radius: 10px;
-//   transition: width 0.4s ease-in-out;
-//   background-color: #3dc5de;
-// }
+.progress-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.4s ease-in-out;
+  background-color: #3dc5de;
+}

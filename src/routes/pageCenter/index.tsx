@@ -103,7 +103,7 @@ class PageCenter extends Component<thisProps, States> {
     const { global } = this.props;
     let { menuConfig = [], changeParams } = global;
     menuConfig = toJS(menuConfig);
-    let menusMapConfigTemp = new Map(cloneDeep(menusMapConfig));
+    let menusMapConfigTemp = new Map(cloneDeep(Array.from(menusMapConfig)));
     const config: any[] = [];
     if (Array.isArray(menuConfig)) {
       menuConfig.forEach((item) => {

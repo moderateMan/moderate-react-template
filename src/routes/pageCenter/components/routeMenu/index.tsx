@@ -17,8 +17,8 @@ const RouteMenuCom = (props: RouteMenuCom) => {
   useEffect(() => {
     setTreeData(subRoutesConfig);
   }, [subRoutesConfig]);
-  let onDragEnter = (info:any) => {};
-  let onDrop = (info:any) => {
+  let onDragEnter = (info: any) => {};
+  let onDrop = (info: any) => {
     console.log(info);
     const dropKey = info.node.props.eventKey;
     const dragKey = info.dragNode.props.eventKey;
@@ -26,7 +26,7 @@ const RouteMenuCom = (props: RouteMenuCom) => {
     const dropPosition =
       info.dropPosition - Number(dropPos[dropPos.length - 1]);
 
-    const loop = (data:any[], key:any, callback:any) => {
+    const loop = (data: any[], key: any, callback: any) => {
       data.forEach((item, index, arr) => {
         if (item.key === key) {
           return callback(item, index, arr);
@@ -39,8 +39,8 @@ const RouteMenuCom = (props: RouteMenuCom) => {
     const data = [...treeData];
 
     // Find dragObject
-    let dragObj:any;
-    loop(data, dragKey, (item:any, index:any, arr:any) => {
+    let dragObj: any;
+    loop(data, dragKey, (item: any, index: any, arr: any) => {
       arr.splice(index, 1);
       dragObj = item;
     });
@@ -48,25 +48,26 @@ const RouteMenuCom = (props: RouteMenuCom) => {
     //落在一个条目内部
     if (!info.dropToGap) {
       // Drop on the content
-      loop(data, dropKey, (item:any) => {
+      loop(data, dropKey, (item: any) => {
         item.children = item.children || [];
         // where to insert 示例添加到尾部，可以是随意位置
         item.children.push(dragObj);
       });
     } else if (
-      (info.node.props.children&& [].length > 0 )&& // Has children
+      info.node.props.children &&
+      [].length > 0 && // Has children
       info.node.props.expanded && // Is expanded
       dropPosition === 1 // On the bottom gap
     ) {
-      loop(data, dropKey, (item:any) => {
+      loop(data, dropKey, (item: any) => {
         item.children = item.children || [];
         // where to insert 示例添加到头部，可以是随意位置
         item.children.unshift(dragObj);
       });
     } else {
-      let ar:any[] = [];
-      let i:any;
-      loop(data, dropKey, (item:any, index:any, arr:any) => {
+      let ar: any[] = [];
+      let i: any;
+      loop(data, dropKey, (item: any, index: any, arr: any) => {
         ar = arr;
         i = index;
       });
@@ -80,8 +81,8 @@ const RouteMenuCom = (props: RouteMenuCom) => {
     setTreeData(data);
     handleTreeDataChange(data);
   };
-  let loop = (data:any) =>
-    data.map((item:any) => {
+  let loop = (data: any) =>
+    data.map((item: any) => {
       if (item.menuId === DOC_ID) {
         return;
       }
@@ -105,23 +106,29 @@ const RouteMenuCom = (props: RouteMenuCom) => {
       );
     });
   return (
-    <Tree
-      showIcon
-      showLine
-      switcherIcon={<StepBackwardOutlined />}
-      className="draggable-tree"
-      draggable
-      blockNode
+    <div
       style={{
         height: "calc(100% - 64px)",
-        paddingLeft: 15,
-        paddingTop: 5,
       }}
-      onDragEnter={onDragEnter}
-      onDrop={onDrop}
     >
-      {loop(treeData)}
-    </Tree>
+      <Tree
+        showIcon
+        showLine
+        switcherIcon={<StepBackwardOutlined />}
+        className="draggable-tree"
+        draggable
+        blockNode
+        style={{
+          height: "100%",
+          paddingLeft: 15,
+          paddingTop: 5,
+        }}
+        onDragEnter={onDragEnter}
+        onDrop={onDrop}
+      >
+        {loop(treeData)}
+      </Tree>
+    </div>
   );
 };
 

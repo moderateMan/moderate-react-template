@@ -9,12 +9,13 @@ import { CommonAnimateWha as AnimateWrapper } from "@COMMON/components/index";
 import { StarOutlined } from "@ant-design/icons";
 import { Menu, Layout, Button, Modal } from "antd";
 import { ROUTES_REMOTE_ID, ROUTES_LOCAL_ID } from "@ROUTES/config";
-import { getPath } from "@ROUTES/index";
+import { getCurrentPathData } from "@ROUTES/index";
 import injectInternational from "@COMMON/hocs/intlHoc";
 import { useReducerEx } from "@COMMON/hooks/";
-import {  RouteMenu } from "../index";
+import { RouteMenu } from "../index";
 import styles from "./index.module.scss";
 import useStores from "@COMMON/hooks/useStores";
+import request from "@DATA_MANAGER/netTrans/myReuqest";
 import { LinkCustom } from "./components";
 const { SubMenu } = Menu;
 const { Item: MenuItem } = Menu;
@@ -44,7 +45,8 @@ const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
     state;
   const { intl = {}, subRoutesConfig, collapsed, intlData } = props;
   const { formatMessage = () => {} } = intl;
-  const { pathname, search } = window.location;
+  debugger;
+  const { pathname, search } = getCurrentPathData();
   const { menuItem, nestKeys = [] } = findCurrentMenuInfo(
     subRoutesConfig,
     pathname
@@ -229,7 +231,7 @@ const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
     });
   };
   return (
-    <Sider collapsed={collapsed} width={258} theme={"light"}>
+    <Sider collapsed={collapsed}  width={258} theme={"light"}>
       <div className={styles.logoE}></div>
       <div className={styles.logo}>
         <AnimateWrapper
@@ -247,30 +249,45 @@ const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
           {subRoutesConfig.map((menu: any) => renderMenuItem(menu))}
         </Menu>
       )}
-      {/* {process.env.NODE_ENV === "development" && <AnimateWrapper className={styles.fadeEx}
-                toggleClass={styles.show}
-                action={!collapsed}><Button type={"primary"} onClick={() => {
-                    if (isEditMenu) {
-                        Modal.confirm({
-                            // icon: <ApiFill />,
-                            title: "友情提示",
-                            content: "该操作会修改项目中的menuConfig文件，确定么？",
-                            cancelText: "取消",
-                            okText: "确定",
-                            onOk: () => {
-                                dispatch({
-                                    isEditMenu: !isEditMenu
-                                })
-                                request.post("/test", { data: { remoteMenuData, localMenuData } }).then(() => {
-                                })
-                            },
-                        })
-                    } else {
-                        dispatch({
-                            isEditMenu: !isEditMenu
-                        })
-                    }
-                }} style={{ position: "absolute", bottom: 0, left: 0, width: "100%" }}>{isEditMenu ? intlData.save : intlData.commonTitle_SETTING}</Button></AnimateWrapper>} */}
+      {process.env.NODE_ENV === "development" && (
+        <AnimateWrapper
+          className={styles.fadeEx}
+          toggleClass={styles.show}
+          action={!collapsed}
+        >
+          <Button
+            type={"primary"}
+            onClick={() => {
+              if (isEditMenu) {
+                Modal.confirm({
+                  // icon: <ApiFill />,
+                  title: "友情提示",
+                  content: "该操作会修改项目中的menuConfig文件，确定么？",
+                  cancelText: "取消",
+                  okText: "确定",
+                  onOk: () => {
+                    dispatch({
+                      isEditMenu: !isEditMenu,
+                    });
+                    request
+                      .post("/test", {
+                        data: { remoteMenuData, localMenuData },
+                      })
+                      .then(() => {});
+                  },
+                });
+              } else {
+                dispatch({
+                  isEditMenu: !isEditMenu,
+                });
+              }
+            }}
+            style={{ position: "absolute", bottom: 0, left: 0, width: "100%" }}
+          >
+            {isEditMenu ? intlData.save : intlData.commonTitle_SETTING}
+          </Button>
+        </AnimateWrapper>
+      )}
     </Sider>
   );
 };

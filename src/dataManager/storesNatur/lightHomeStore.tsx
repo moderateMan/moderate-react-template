@@ -18,7 +18,6 @@ const lightHomeStoreN = {
     },
     // 这里是同步更新state中的name数据
     syncAction: (testValue: string) => {
-      debugger
       return { testValue: testValue };
     },
   },

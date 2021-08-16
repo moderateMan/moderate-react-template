@@ -112,6 +112,7 @@ const TopNavigation: React.FC<TopNavigationPropsT> = (props) => {
       </Breadcrumb.Item>
     );
   }
+  debugger
   const extraBreadcrumbItems = pathSnippets.map((item, index) => {
     /* 排除最顶层的路由 */
     if (index == 0) return;
@@ -129,7 +130,7 @@ const TopNavigation: React.FC<TopNavigationPropsT> = (props) => {
     let search = urlSearchRecord[item] ? urlSearchRecord[item] : "";
     return (
       <Breadcrumb.Item key={url}>
-        <Link to={url + search}>{itemName || "未知"}</Link>
+        <Link to={url + search}>{itemName || "Moderate of React"}</Link>
       </Breadcrumb.Item>
     );
   });

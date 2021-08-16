@@ -12,10 +12,10 @@ import {
   RouteComponentProps,
 } from "react-router-dom";
 import { inject, observer } from "mobx-react";
-import { injectIntl,WrappedComponentProps } from "react-intl";
+import { injectIntl, WrappedComponentProps } from "react-intl";
 import { Layout } from "antd";
 import CommonLoading from "@COMMON/components/loading";
-// import { TopNavigation } from "../components";
+import { TopNavigation } from "../components";
 import {
   CSSTransition,
   TransitionGroup,
@@ -29,11 +29,12 @@ import "./index.scss";
 const Content = Layout.Content;
 type SubRoutesPropsT = {
   [key: string]: any;
-} & RouteComponentProps&WrappedComponentProps;
+} & RouteComponentProps &
+  WrappedComponentProps;
 
 type SubRoutesPropsTT = {
-    [key: string]: any;
-  }&WrappedComponentProps
+  [key: string]: any;
+} & WrappedComponentProps;
 @inject("global")
 @observer
 class SubRoutes extends Component<SubRoutesPropsT, any> {
@@ -45,7 +46,7 @@ class SubRoutes extends Component<SubRoutesPropsT, any> {
   }
 
   componentDidMount() {
-      const {intl}  = this.props;
+    const { intl } = this.props;
     this.getContentMinHeight();
     window.addEventListener("resize", () => {
       this.getContentMinHeight();
@@ -154,20 +155,15 @@ class SubRoutes extends Component<SubRoutesPropsT, any> {
       location,
       global: { menuConfig, isLoading },
     } = this.props;
-    const { pathname } = window.location;
+    const { pathname,hash,href } = window.location;
     let classNames = "forward-" + "from-right";
     return (
       <Content className="content" id="content">
         <div className="maintainStyle maintain-small-style">
-          {/* <TopNavigation menuConfig={menuConfig} /> */}
+          <TopNavigation menuConfig={menuConfig} />
           <Suspense fallback={<CommonLoading />}>
-            <TransitionGroup
-              className={"router-wrapper"}
-              childFactory={(child) =>
-                React.cloneElement(child, { classNames })
-              }
-            >
-              <CSSTransition timeout={500} key={pathname} unmountOnExit={true}>
+            <TransitionGroup>
+              <CSSTransition classNames={classNames} timeout={500} key={href} unmountOnExit={true}>
                 <Switch location={location} key={pathname}>
                   {this.renderRoute()}
                 </Switch>
@@ -182,4 +178,3 @@ class SubRoutes extends Component<SubRoutesPropsT, any> {
 }
 
 export default injectIntl(withRouter(SubRoutes) as React.ComponentType<any>);
-

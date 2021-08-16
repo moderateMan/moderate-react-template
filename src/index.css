@@ -16,3 +16,34 @@ code {
 #root {
   height: 100%;
 }
+
+
+.game1 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.game2 {
+  position: absolute;
+  top: 140px;
+  right: 0;
+  height: calc(100% - 150px);
+}
+
+#splash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white no-repeat center;
+  background-size: 100%;
+}
+
+#GameCanvas {
+  outline: none;
+  height: 100px;
+}
