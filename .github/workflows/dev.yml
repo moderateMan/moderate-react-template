@@ -26,7 +26,7 @@ jobs:
             - name: set ssh key # 临时设置 ssh key
               run: |
                   mkdir -p ~/.ssh/
-                  echo "${{secrets.MODERATE_SSH_KEY}}" # secret 在这里配置 https://github.com/imooc-lego/biz-editor-server/settings/secrets
+                  echo "${{secrets.MODERATE_SSH_KEY}}" > ~/.ssh/id_rsa # secret 在这里配置 https://github.com/imooc-lego/biz-editor-server/settings/secrets
                   chmod 600 ~/.ssh/id_rsa
                   ssh-keyscan "112.124.31.50" >> ~/.ssh/known_hosts
             - name: deploy # 部署
@@ -35,7 +35,7 @@ jobs:
                     cd /home/work/moderate-cli/moderate-react-template;
                     npm run build
                     cp -r ./build/* /home/work/build
-
+                    
                   "
             - name: delete ssh key # 删除 ssh key
               run: rm -rf ~/.ssh/id_rsa
