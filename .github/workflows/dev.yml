@@ -35,7 +35,6 @@ jobs:
                     cd /home/work/moderate-cli/moderate-react-template;
                     npm run build
                     cp -r ./build/* /home/work/build
-                    
                   "
             - name: delete ssh key # 删除 ssh key
               run: rm -rf ~/.ssh/id_rsa
