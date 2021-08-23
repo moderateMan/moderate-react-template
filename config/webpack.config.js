@@ -817,7 +817,7 @@ module.exports = function (webpackEnv) {
                     },
                 }
             }),
-            new NyanProgressPlugin(),
+            new WebpackBar(),
             new BundleAnalyzerPlugin({
                 openAnalyzer: false,
             }),
