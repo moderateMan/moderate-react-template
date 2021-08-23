@@ -8,6 +8,7 @@ import {
     lightOperateApi,
 } from '@API/index'
 
+
 globalMock(globalApi);
 lightHomeMock(lightHomeApi);
 lightOperateMock(lightOperateApi);

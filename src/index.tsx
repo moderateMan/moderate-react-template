@@ -23,7 +23,7 @@ class Root extends Component<iProps> {
     return (
       <IntlProvider locale={"zh"} messages={data[locale as keyof typeof data]}>
         <ConfigProvider>
-          <App />
+          <App/>
         </ConfigProvider>
       </IntlProvider>
     );
@@ -32,6 +32,20 @@ class Root extends Component<iProps> {
 
 ReactDOM.render(
   <Provider {...stores}>
+    <div id="gameRoot" className="game1" style={{ display: "none" }}>
+      <canvas
+        id="GameCanvas"
+        onContextMenu={(event) => {
+          event.preventDefault();
+        }}
+        tabIndex={0}
+      ></canvas>
+      <div id="splash">
+        <div className="progress-bar stripes">
+          <span style={{ width: "0%" }}></span>
+        </div>
+      </div>
+    </div>
     <Root />
   </Provider>,
   document.getElementById("root")

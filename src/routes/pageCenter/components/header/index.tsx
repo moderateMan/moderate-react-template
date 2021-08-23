@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { AlibabaOutlined, HomeOutlined } from "@ant-design/icons";
+import {
+  AlibabaOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from "@ant-design/icons";
 import {
   Avatar,
   Layout,
@@ -38,15 +42,17 @@ type TopHeaderPropT = {
   [key: string]: any;
 };
 type TopHeaderStateT = {
-    confirmDirty:any;
-    userId:any;
-    modalVisible:boolean;
-}
+  confirmDirty: any;
+  userId: any;
+  modalVisible: boolean;
+};
 
 @inject("global")
 @observer
-class TopHeader extends Component<TopHeaderPropT,TopHeaderStateT> {
-  menu: () => React.ReactElement = () => {return <div></div>};
+class TopHeader extends Component<TopHeaderPropT, TopHeaderStateT> {
+  menu: () => React.ReactElement = () => {
+    return <div></div>;
+  };
   constructor(props: TopHeaderPropT) {
     super(props);
     this.state = {
@@ -54,14 +60,6 @@ class TopHeader extends Component<TopHeaderPropT,TopHeaderStateT> {
       confirmDirty: false,
       modalVisible: false,
     };
-  }
-
-  componentDidMount() {
-    const {
-      intlData,
-      global: { changeParams },
-    } = this.props;
-    successByMessage("hahahah")
     this.menu = () => {
       const { intlData } = this.props;
       return (
@@ -71,6 +69,15 @@ class TopHeader extends Component<TopHeaderPropT,TopHeaderStateT> {
         </Menu>
       );
     };
+  }
+
+  componentDidMount() {
+    const {
+      intlData,
+      global: { changeParams },
+    } = this.props;
+    successByMessage("hahahah");
+
     if (Storage.getStorage(IS_SIMPLE)) {
       changeParams({
         modalVisible: true,
@@ -88,7 +95,7 @@ class TopHeader extends Component<TopHeaderPropT,TopHeaderStateT> {
     }
   }
 
-  handleMenuClick = ({ key }:{key:any}) => {
+  handleMenuClick = ({ key }: { key: any }) => {
     const { logout } = this.props;
     let cbArr = {
       [1]: this.showModal,
@@ -112,7 +119,7 @@ class TopHeader extends Component<TopHeaderPropT,TopHeaderStateT> {
     const {
       form: { validateFieldsAndScroll },
     } = this.props;
-    validateFieldsAndScroll((err:any, values:any) => {
+    validateFieldsAndScroll((err: any, values: any) => {
       if (!err) {
         this.editPassword();
       }
@@ -136,7 +143,7 @@ class TopHeader extends Component<TopHeaderPropT,TopHeaderStateT> {
     let encryptData = { body: encrypt(JSON.stringify(data)) };
     if (password !== "123456") {
       FetchRequest.post("/editPassword", encryptData)
-        .then((res:any) => {
+        .then((res: any) => {
           const { code } = res;
           if (code === "200") {
             successByMessage(pwdChangeSuccess);
@@ -165,13 +172,13 @@ class TopHeader extends Component<TopHeaderPropT,TopHeaderStateT> {
   };
 
   /*确认密码blur方法*/
-  handleConfirmBlur = (e:any) => {
+  handleConfirmBlur = (e: any) => {
     const { value } = e.target;
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   };
 
   /*两次密码对比方法*/
-  compareToFirstPassword = (rule:any, value:any, callback:any) => {
+  compareToFirstPassword = (rule: any, value: any, callback: any) => {
     const {
       form: { getFieldValue },
       intl: { formatMessage },
@@ -186,7 +193,7 @@ class TopHeader extends Component<TopHeaderPropT,TopHeaderStateT> {
     }
   };
 
-  validateToNextPassword = (rule:any, value:any, callback:any) => {
+  validateToNextPassword = (rule: any, value: any, callback: any) => {
     const { form } = this.props;
     if (value && this.state.confirmDirty) {
       form.validateFields(["confirm"], { force: true });
@@ -204,12 +211,11 @@ class TopHeader extends Component<TopHeaderPropT,TopHeaderStateT> {
     const { modalVisible } = this.state;
     return (
       <Header className="header_style">
-        <HomeOutlined
-          className="trigger"
-          type={collapsed ? "menu-unfold" : "menu-fold"}
-          onClick={toggle}
-        />
-
+        <span onClick={toggle} className="trigger">
+          {React.createElement(
+            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined
+          )}
+        </span>
         <div className="header_manage">
           <Button
             onClick={this.handleLangSwitch}
@@ -243,7 +249,8 @@ class TopHeader extends Component<TopHeaderPropT,TopHeaderStateT> {
             destroyOnClose
           >
             <Form {...formItemLayout}>
-              <FormItem {...{
+              <FormItem
+                {...{
                   rules: [
                     {
                       required: true,
@@ -258,33 +265,36 @@ class TopHeader extends Component<TopHeaderPropT,TopHeaderStateT> {
                       validator: this.validateToNextPassword,
                     },
                   ],
-                }} label={intlData.header_newPassword} hasFeedback>
+                }}
+                label={intlData.header_newPassword}
+                hasFeedback
+              >
                 <Input.Password placeholder={intlData.header_newPassword} />
               </FormItem>
               <FormItem
                 label={intlData.header_PasswordConfirmation}
                 hasFeedback
                 {...{
-                    rules: [
-                      {
-                        required: true,
-                        whitespace: true,
-                        message: intlData.header_pleaseInputConfirmWord,
-                      },
-                      {
-                        pattern: /(?!\d+$)(?![A-Za-z]+$)(?!\W+$)[\w\W]{8,19}$/,
-                        message: intlData.header_pwdTip,
-                      },
-                      {
-                        validator: this.compareToFirstPassword,
-                      },
-                    ],
-                  }}
+                  rules: [
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: intlData.header_pleaseInputConfirmWord,
+                    },
+                    {
+                      pattern: /(?!\d+$)(?![A-Za-z]+$)(?!\W+$)[\w\W]{8,19}$/,
+                      message: intlData.header_pwdTip,
+                    },
+                    {
+                      validator: this.compareToFirstPassword,
+                    },
+                  ],
+                }}
               >
-               <Input.Password
-                    placeholder={intlData.header_pwdConfirm}
-                    onBlur={this.handleConfirmBlur}
-                  />
+                <Input.Password
+                  placeholder={intlData.header_pwdConfirm}
+                  onBlur={this.handleConfirmBlur}
+                />
               </FormItem>
             </Form>
           </Modal>

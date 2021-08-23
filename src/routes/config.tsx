@@ -59,17 +59,27 @@ export const routesMap:routesMapType = {
         path: "/pageCenter/login",
         exact: true,
         component: lazyImport(() =>
-            import('./login/index')
+            import('./login/indexTemp')
         ),
         key: uuid()
     },
-   
     moderate: {
         path: "/pageCenter/moderate",
         name: "Moderate of React",
         icon: "fire",
         isNoFormat:true,
-        redirect: "/pageCenter/start",
+        key: uuid()
+    },
+    intro: {
+        path: "/pageCenter/intro",
+        name: "commonTitle_intro",
+        icon: "star",
+        search:{
+            docPath:"_intro.md"
+        },
+        component: lazyImport(() =>
+            import('@ROUTES/pageCenter/subRoutes/mdView')
+        ),
         key: uuid()
     },
     start: {
@@ -136,6 +146,7 @@ export const menusMap = {
             routesMap.lightAdd,
         ]
     },
+    [INTRO_ID]: { ...routesMap.intro },
     [FAST_ID]: { ...routesMap.start },
 }
 

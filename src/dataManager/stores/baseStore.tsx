@@ -14,7 +14,7 @@ let CHECK_TYPE = {
  * @return {Function}     返回一个“去弹跳”了的函数
  */
 
-function debounce<T extends (...args: any) => any>(fn: T,delay: number) {
+function debounce<T extends (...args: any) => any>(fn: T, delay: number) {
   // 定时器，用来 setTimeout
   let timer: any;
   return function () {
@@ -30,7 +30,6 @@ function debounce<T extends (...args: any) => any>(fn: T,delay: number) {
     }
   };
 }
-
 
 export type BaseStorePropsT = {
   api?: any;
@@ -58,15 +57,15 @@ type apiFuncT = {
 };
 type apiParamsCheck = {
   [key: string]: apiFuncItemT;
-};
+} | null;
 
 class BaseStore {
   props: BaseStorePropsT;
   api: any;
   apiOption: apiOptionT = {};
   apiFunc: apiFuncT = {};
-  apiParamsCheck: apiParamsCheck = {};
-  constructor(props: BaseStorePropsT={}) {
+  apiParamsCheck: apiParamsCheck = null;
+  constructor(props: BaseStorePropsT = {}) {
     this.props = props;
     const { api, apiParamsCheck, apiOption } = props;
     if (api) {
@@ -95,12 +94,12 @@ class BaseStore {
         reject = () => {},
       }) => {
         this.toCheck({ type: CHECK_TYPE.REQ, params, apiName });
-
         if (isLoading || allLoadingDefault) {
           getGlobal()?.changeParams({
             isLoading: true,
           });
         }
+
         api(params)
           .then((res: { code: string; data: any }) => {
             const { code, data } = res;

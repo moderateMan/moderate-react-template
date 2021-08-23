@@ -9629,6 +9629,13 @@ native-url@^0.2.6:
   dependencies:
     querystring "^0.2.0"
 
+natur@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.nlark.com/natur/download/natur-2.1.6.tgz#3bc18afd71b9ecf0ce570b4099a6eb96f19664c4"
+  integrity sha1-O8GK/XG57PDOVwtAmabrlvGWZMQ=
+  dependencies:
+    hoist-non-react-statics "^3.3.0"
+
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.nlark.com/natural-compare/download/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"

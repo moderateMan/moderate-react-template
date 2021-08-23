@@ -8,45 +8,35 @@ import {
   useHistory,
   useLocation,
 } from "react-router-dom";
+
 import { ACCESS_TOKEN } from "@COMMON/constants";
 import Storage from "@COMMON/storage";
 import store from "@DATA_MANAGER/index";
-import Login from "@ROUTES/login";
+import Login from "@ROUTES/login/index";
 import PageCenter from "@ROUTES/pageCenter";
 import { routesMap } from "./config";
 import { toJS } from "mobx";
 
-type authRouteProps = {
-  isLoginRoute: boolean;
+type AuthRoutePropsT = {
   exact?: boolean;
   path?: string;
   component?: any;
+  isLoginRoute?: boolean;
+  [key: string]: any;
 };
-
-function AuthRoute(props: authRouteProps) {
+function AuthRoute(props: AuthRoutePropsT) {
   const { isLoginRoute, ...rest } = props;
   const {
     global: { isLogin },
   } = store;
   let token = Storage.getStorage(ACCESS_TOKEN);
-  // if (isLogin || isLoginRoute || token) {
-  //   return <Route {...rest} />;
-  // } else {
-  //   return <Redirect to="/login" />;
-  // }
-  return <Route {...rest} />;
+  if (isLogin || isLoginRoute || token) {
+    return <Route {...rest} />;
+  } else {
+    return <Redirect to="/login" />;
+  }
 }
 
-type routesMapItemType = {
-  name: string;
-  icon?: string;
-  path: string;
-  exact?: boolean;
-  redirect?: string;
-  key: string;
-  component?: any;
-  isNoFormat?: boolean;
-};
 type folderItemT = {
   name: string;
   search: {} | string;
@@ -65,10 +55,24 @@ type docListITemT = {
 type docListT = docListITemT[];
 type strDataT = string[];
 
-// 获得pathKey
+export let getCurrentPathData = () => {
+  let data = {
+    pathname:"", 
+    search:""
+  };
+  const {
+    global: { isHash },
+  } = store;
+  if(isHash){
+    data.pathname = window.location.hash.split("?")[0].replace("#","")
+    data.search = window.location.hash.split("?")[1]
+  }
+  return data;
+};
+
 export function getPath(
   pathKey: string | object,
-  options?: {}
+  options?: { [key: string]: any }
 ): LocationDescriptor<LocationState> {
   let temp: LocationDescriptor<LocationState> = {
     pathname: "",
@@ -79,10 +83,9 @@ export function getPath(
   }
   let route;
   if (typeof pathKey === "object") {
-    let queryData = Object.entries(pathKey)[0] as (keyof routesMapItemType)[];
-    route = Object.values(routesMap).find((item) => {
-      let pKey = queryData[0];
-      return item[pKey] == queryData[1];
+    let queryData = Object.entries(pathKey)[0];
+    route = Object.values(routesMap).find((item: any) => {
+      return item[queryData[0]] == queryData[1];
     });
   } else {
     route = pathKey in routesMap ? routesMap[pathKey] : null;
@@ -91,7 +94,6 @@ export function getPath(
     console.warn("该路由并没有配置！");
     return temp;
   }
-
   const { search, redirect, path, param } = route;
   let searchTemp = "";
   if (typeof search === "object") {
@@ -102,13 +104,16 @@ export function getPath(
     }
   }
   let pathnameTemp;
-  //  redirect的条目排除
   if (redirect) {
     pathnameTemp = `${redirect}${param ? "/" + param : ""}`;
   } else {
     pathnameTemp = `${path.split("/:")[0]}${param ? "/" + param : ""}`;
   }
 
+  temp = {
+    pathname: pathnameTemp,
+    search: searchTemp,
+  };
   if (typeof options === "object") {
     temp = {
       ...temp,
@@ -265,7 +270,21 @@ function Routes() {
   }, []);
   return (
     <Switch>
-      <Route path="/pageCenter" component={PageCenter}></Route>
+      <AuthRoute isLoginRoute={true} exact={true} path="/" component={Login} />
+      <AuthRoute isLoginRoute={true} path="/login" component={Login} />
+      <AuthRoute path="/pageCenter" component={PageCenter} />
+      <Route>
+        <Empty
+          style={{
+            position: "absolute",
+            marginTop: "30%",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+          }}
+        />
+      </Route>
     </Switch>
   );
 }
