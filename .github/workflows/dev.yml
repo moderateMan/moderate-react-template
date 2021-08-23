@@ -32,7 +32,11 @@ jobs:
             - name: deploy # 部署
               run: |
                   ssh work@112.124.31.50 "
-                    cd /home/work/moderate-cli/moderate-react-template&npm run build;
+                    cd /home/work/moderate-cli/moderate-react-template;
+                    npm set registry https://registry.npm.taobao.org
+                    npm install
+                    npm run build
+                    cp -r ./build/* /home/work/build
                   "
             - name: delete ssh key # 删除 ssh key
               run: rm -rf ~/.ssh/id_rsa
