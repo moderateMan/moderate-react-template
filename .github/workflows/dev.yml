@@ -35,6 +35,7 @@ jobs:
                     cd /home/work/moderate-cli/moderate-react-template;
                     yarn;
                     yarn run build;
+                    
                   "
             - name: delete ssh key # 删除 ssh key
               run: rm -rf ~/.ssh/id_rsa
