@@ -31,10 +31,9 @@ jobs:
                   ssh-keyscan "${{secrets.MODERATE_SSH_IP}}" >> ~/.ssh/known_hosts
             - name: deploy # 部署
               run: |
-                  ssh work@${{secrets.MODERATE_SSH_IP}} "
+                  ssh work@39.105.181.48 "
                     cd /home/work/moderate/moderate-react-template;
                     npm run build;
-                  
                     "
             - name: delete ssh key # 删除 ssh key
               run: rm -rf ~/.ssh/id_rsa
