@@ -818,9 +818,9 @@ module.exports = function (webpackEnv) {
                 }
             }),
             new WebpackBar(),
-            new BundleAnalyzerPlugin({
-                openAnalyzer: false,
-            }),
+            // new BundleAnalyzerPlugin({
+            //     openAnalyzer: false,
+            // }),
             new CompressionPlugin({
                 algorithm: "gzip",
                 test: /\.js$|\.css$|\.html$/,
