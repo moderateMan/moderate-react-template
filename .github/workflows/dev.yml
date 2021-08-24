@@ -33,8 +33,7 @@ jobs:
               run: |
                   ssh work@39.105.181.48 "
                     cd /home/work/moderate/moderate-react-template;
-                    git checkout dev&git pull;
-                    yarn build;
+                    git pull;
                     "
             - name: delete ssh key # 删除 ssh key
               run: rm -rf ~/.ssh/id_rsa
