@@ -14,11 +14,7 @@ import {
     const { NODE_ENV, MOCK, ELECTRON } = process.env;
     const isEnvElectron = process.env.ELECTRON === "electron";
     console.log("ELECTRON"+isEnvElectron)
-    if (NODE_ENV === "development" || ELECTRON === "electron") {
-        if (MOCK != "none") {
-            require('MOCK');
-        }
-    }
+    require('MOCK');
 }
 
 export default function config() {
