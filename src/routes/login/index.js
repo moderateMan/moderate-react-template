@@ -63,7 +63,7 @@ class LoginPage extends React.Component {
       global: { loginFn },
     } = this.props;
     loginFn("123", "123", "aaaa", "zh").then(() => {
-      this.props.history.push(getPath("intro"));
+      this.props.history.push(getPath("start"));
     });
   };
 
