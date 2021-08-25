@@ -16,6 +16,7 @@ on:
             - 'docker-compose.yml'
             - 'bin/*'
             - 'docs/*'
+            - 'config/*'
 
 jobs:
     deploy-dev:
@@ -35,7 +36,7 @@ jobs:
                     cd /home/work/moderate/moderate-react-template;
                     git pull;
                     yarn build
-                    
+
                     "
             - name: delete ssh key # 删除 ssh key
               run: rm -rf ~/.ssh/id_rsa
