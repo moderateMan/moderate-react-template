@@ -106,7 +106,7 @@ const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
     openKeys: collapsed ? [] : openKeys,
     style: {
       height: "calc(100% - 64px)",
-      overflow: "auto",
+      overflowX: "hidden",
       paddingBottom: 100,
     },
     onSelect: ({ key }: { key: string[] }) => {
@@ -231,7 +231,7 @@ const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
     });
   };
   return (
-    <Sider collapsed={collapsed}  width={258} theme={"light"}>
+    <Sider className={styles.content} collapsed={collapsed}  width={258} theme={"light"}>
       <div className={styles.logoE}></div>
       <div className={styles.logo}>
         <AnimateWrapper

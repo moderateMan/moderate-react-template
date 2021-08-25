@@ -46,3 +46,32 @@
   left: 25px;
   top: 8px;
 }
+
+.content{
+  /*滚动条整体部分,必须要设置*/
+::-webkit-scrollbar{
+  width: 4px;
+  height: 4px;
+  background-color: transparent;
+}
+/*滚动条的轨道*/
+::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+/*滚动条的滑块按钮*/
+::-webkit-scrollbar-thumb{
+  border-radius: 2px;
+  background-color: rgba(126, 123, 141, 0.719);
+}
+/*滚动条的上下两端的按钮*/
+::-webkit-scrollbar-button{
+  height: 0;
+  background-color: rgb(7,61,92);
+}
+ 
+::-webkit-scrollbar-corner{
+  background-color: transparent;
+}
+}
+
+
