@@ -40,6 +40,8 @@ Moderate，意思为适中的，适度的，用这个作为代号，主要取决
 
 🍎 __Lerna结合Commander开发脚手架工具，更具扩展可能__。
 
+🐱‍🏍 __支持TypeScript或JavaScript开发__
+
 
 # 快速上手
 
