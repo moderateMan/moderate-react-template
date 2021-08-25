@@ -12,7 +12,8 @@ import FetchRequest from '@DATA_MANAGER/netTrans/myReuqest'
 import { getPath } from "@ROUTES/index";
 let gameFloag = 0;
 const FormItem = Form.Item;
-let isDev = process.env.NODE_ENV === 'development' || process.env.ELECTRON === 'electron';
+let isDev = true;
+// let isDev = process.env.NODE_ENV === 'development' || process.env.ELECTRON === 'electron';
 @injectIntl
 @inject("global")
 @observer
