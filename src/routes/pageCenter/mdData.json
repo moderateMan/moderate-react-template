@@ -1,0 +1,223 @@
+[
+    {
+        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs",
+        "title": "docs",
+        "type": "directory",
+        "deep": 0,
+        "children": [
+            {
+                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/1-概览.md",
+                "name": "1-概览.md",
+                "type": "file"
+            },
+            {
+                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/MD文档功能集成",
+                "title": "MD文档功能集成",
+                "type": "directory",
+                "deep": 1,
+                "children": [
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/MD文档功能集成/概览.md",
+                        "name": "概览.md",
+                        "type": "file"
+                    }
+                ]
+            },
+            {
+                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/_intro.md",
+                "name": "_intro.md",
+                "type": "file"
+            },
+            {
+                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/_start.md",
+                "name": "_start.md",
+                "type": "file"
+            },
+            {
+                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/cocos游戏引擎",
+                "title": "cocos游戏引擎",
+                "type": "directory",
+                "deep": 1,
+                "children": [
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/cocos游戏引擎/概览.md",
+                        "name": "概览.md",
+                        "type": "file"
+                    }
+                ]
+            },
+            {
+                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/docConfig.json",
+                "name": "docConfig.json",
+                "type": "file"
+            },
+            {
+                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/other",
+                "title": "other",
+                "type": "directory",
+                "deep": 1,
+                "children": [
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/other/this 全面分析.md",
+                        "name": "this 全面分析.md",
+                        "type": "file"
+                    },
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/other/前端知识体系.md",
+                        "name": "前端知识体系.md",
+                        "type": "file"
+                    }
+                ]
+            },
+            {
+                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/公共库",
+                "title": "公共库",
+                "type": "directory",
+                "deep": 1,
+                "children": [
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/公共库/概览.md",
+                        "name": "概览.md",
+                        "type": "file"
+                    }
+                ]
+            },
+            {
+                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/国际化",
+                "title": "国际化",
+                "type": "directory",
+                "deep": 1,
+                "children": [
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/国际化/开发攻略.md",
+                        "name": "开发攻略.md",
+                        "type": "file"
+                    }
+                ]
+            },
+            {
+                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/开发规范",
+                "title": "开发规范",
+                "type": "directory",
+                "deep": 1,
+                "children": [
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/开发规范/概览.md",
+                        "name": "概览.md",
+                        "type": "file"
+                    },
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/开发规范/相关",
+                        "title": "相关",
+                        "type": "directory",
+                        "deep": 2,
+                        "children": [
+                            {
+                                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/开发规范/相关/公共库规范.md",
+                                "name": "公共库规范.md",
+                                "type": "file"
+                            },
+                            {
+                                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/开发规范/相关/通用规范.md",
+                                "name": "通用规范.md",
+                                "type": "file"
+                            },
+                            {
+                                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/开发规范/相关/页面和组件规范.md",
+                                "name": "页面和组件规范.md",
+                                "type": "file"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/数据管理器",
+                "title": "数据管理器",
+                "type": "directory",
+                "deep": 1,
+                "children": [
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/数据管理器/1-配置.md",
+                        "name": "1-配置.md",
+                        "type": "file"
+                    },
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/数据管理器/当纠结是用组件state还是仓库state时候，你可能需要的是一个思路.md",
+                        "name": "当纠结是用组件state还是仓库state时候，你可能需要的是一个思路.md",
+                        "type": "file"
+                    },
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/数据管理器/概览.md",
+                        "name": "概览.md",
+                        "type": "file"
+                    },
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/数据管理器/相关",
+                        "title": "相关",
+                        "type": "directory",
+                        "deep": 2,
+                        "children": [
+                            {
+                                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/数据管理器/相关/api接口.md",
+                                "name": "api接口.md",
+                                "type": "file"
+                            },
+                            {
+                                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/数据管理器/相关/mock模拟.md",
+                                "name": "mock模拟.md",
+                                "type": "file"
+                            },
+                            {
+                                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/数据管理器/相关/schema参数校验.md",
+                                "name": "schema参数校验.md",
+                                "type": "file"
+                            },
+                            {
+                                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/数据管理器/相关/stores仓库.md",
+                                "name": "stores仓库.md",
+                                "type": "file"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/路由",
+                "title": "路由",
+                "type": "directory",
+                "deep": 1,
+                "children": [
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/路由/开发攻略.md",
+                        "name": "开发攻略.md",
+                        "type": "file"
+                    },
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/路由/概览.md",
+                        "name": "概览.md",
+                        "type": "file"
+                    },
+                    {
+                        "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/路由/配置",
+                        "title": "配置",
+                        "type": "directory",
+                        "deep": 2,
+                        "children": [
+                            {
+                                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/路由/配置/动态结构配置.md",
+                                "name": "动态结构配置.md",
+                                "type": "file"
+                            },
+                            {
+                                "path": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-template/src/docs/路由/配置/静态内容配置.md",
+                                "name": "静态内容配置.md",
+                                "type": "file"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

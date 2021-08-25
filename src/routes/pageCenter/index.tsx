@@ -11,6 +11,7 @@ import { menusMapConfig } from "@ROUTES/config";
 import { getPath } from "@ROUTES/index";
 import request from "@DATA_MANAGER/netTrans/myReuqest";
 import "./index.scss";
+import mdData from './mdData.json'
 import { toJS } from "mobx";
 
 interface Props {
@@ -127,34 +128,36 @@ class PageCenter extends Component<thisProps, States> {
         }
       });
     }
-
-    if (process.env.NODE_ENV === "development") {
-      await request.post("/getMd", { data: {} }).then((data: any) => {
-        const { children } = data[0];
-        if (children) {
-          const { docList = [], docTreeMap = {} } = this.createDocMenuData({
-            item: data[0],
-            docList: [],
-            docTreeMap: {},
-            parentKey: 0,
-          });
-          this.docList = docList;
-          this.docTreeMap = docTreeMap;
-
-          changeParams({
-            docList: docList,
-            docTreeMap: docTreeMap,
-          });
-        }
-        let temp = config.find((item) => {
-          return item.menuId === 2003;
+    let processMdData = (data: any) => {
+      const { children } = data[0];
+      if (children) {
+        const { docList = [], docTreeMap = {} } = this.createDocMenuData({
+          item: data[0],
+          docList: [],
+          docTreeMap: {},
+          parentKey: 0,
         });
-        if (temp) {
-          let children;
-          if (!temp["children"]) children = temp["children"] = [];
-          temp.children = this.docList;
-        }
+        this.docList = docList;
+        this.docTreeMap = docTreeMap;
+
+        changeParams({
+          docList: docList,
+          docTreeMap: docTreeMap,
+        });
+      }
+      let temp = config.find((item) => {
+        return item.menuId === 2003;
       });
+      if (temp) {
+        let children;
+        if (!temp["children"]) children = temp["children"] = [];
+        temp.children = this.docList;
+      }
+    }
+    if (process.env.NODE_ENV === "development") {
+      await request.post("/getMd", { data: {} }).then(processMdData);
+    }else{
+      processMdData(mdData)
     }
     return config;
   };
