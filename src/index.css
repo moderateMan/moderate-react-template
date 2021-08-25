@@ -46,4 +46,6 @@ code {
 #GameCanvas {
   outline: none;
   height: 100px;
+  width: 100%;
+  height: 100%;
 }
