@@ -35,6 +35,7 @@ jobs:
                   ssh work@39.105.181.48 "
                     cd /home/work/moderate/moderate-react-template;
                     git pull;
+                    yarn;
                     yarn build
 
                     "
