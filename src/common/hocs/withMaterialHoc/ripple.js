@@ -4,7 +4,6 @@ import { useSpring, animated } from 'react-spring';
 
 function calcEventRelativePos(event) {
   const rect = event.target.getBoundingClientRect();
-  debugger
   return {
     x: event.clientX - 0,
     y: event.clientY - rect.top,

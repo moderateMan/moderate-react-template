@@ -19,7 +19,6 @@ type dataT = {
  * @returns {Object} [menuItem,nestKeys]
  */
 export const findCurrentMenuInfo = (menu = [], pathname: string) => {
-  debugger
   let data: dataT = {
     menuItem: null,
     nestKeys: [],

@@ -45,7 +45,6 @@ const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
     state;
   const { intl = {}, subRoutesConfig, collapsed, intlData } = props;
   const { formatMessage = () => {} } = intl;
-  debugger;
   const { pathname, search } = getCurrentPathData();
   const { menuItem, nestKeys = [] } = findCurrentMenuInfo(
     subRoutesConfig,

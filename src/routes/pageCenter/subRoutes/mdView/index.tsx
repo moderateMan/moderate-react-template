@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,memo } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { Switch } from "antd";
 import useStores from "@COMMON/hooks/useStores";
-import { observer } from "mobx-react";
+import { observer,inject } from "mobx-react";
 import { getUrlParam } from "@COMMON/utils";
 import CommonWrapper from "@COMMON/components/wrapper";
 import WithMdHoc from "@COMMON/hocs/withMdHoc";
+import type {Global} from "@STORE/index"
 
 type DocPropsT = {
   wrapperByMd: any;
+  global:Global
 } & RouteComponentProps;
 
 type MatchT = {
@@ -17,14 +19,16 @@ type MatchT = {
   };
 };
 
-let document: React.FC<DocPropsT> = observer((props) => {
-  const { global } = useStores();
-  const { changeParams, isRandomTheme } = global;
+let document: React.FC<DocPropsT> = inject("global")(observer((props) => {
+  // const { global } = useStores();
+  // const { changeParams, isRandomTheme } = global;
   const {
     wrapperByMd: WrapperByMd,
     match,
     location: { search },
+    global
   } = props;
+  const { changeParams, isRandomTheme } = global;
   const [md, setMd] = useState<{ default: string }>({ default: "" });
   let {
     params: { id },
@@ -58,6 +62,6 @@ let document: React.FC<DocPropsT> = observer((props) => {
       </CommonWrapper>
     </div>
   );
-});
+}));
 
-export default WithMdHoc(document);
+export default WithMdHoc(memo(document));

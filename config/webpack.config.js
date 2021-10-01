@@ -381,9 +381,9 @@ module.exports = function (webpackEnv) {
                 NET_TRANS: path.resolve("src/dataManager/netTrans"),
                 STORE: path.resolve("src/dataManager/stores"),
                 DATA_MANAGER: path.resolve("src/dataManager"),
-                "@DATA_MANAGER":path.resolve("src/dataManager"),
-                "@COMMON":path.resolve("src/common"),
-                "@ROUTES":path.resolve("src/routes"),
+                "@DATA_MANAGER": path.resolve("src/dataManager"),
+                "@COMMON": path.resolve("src/common"),
+                "@ROUTES": path.resolve("src/routes"),
                 "@SRC": path.resolve("src"),
                 "@API": path.resolve("src/dataManager/netTrans/api"),
                 DOCS: path.resolve("src/docs"),
@@ -827,7 +827,6 @@ module.exports = function (webpackEnv) {
                 threshold: 10240,
                 minRatio: 0.8,
             }),
-            new LodashModuleReplacementPlugin(),
         ].filter(Boolean),
         // Some libraries import Node modules but don't use them in the browser.
         // Tell webpack to provide empty mocks for them so importing them works.

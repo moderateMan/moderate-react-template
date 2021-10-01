@@ -19,8 +19,7 @@ interface Props {
 
 type LightHomePropsT = Props & RouteComponentProps&WrappedComponentProps;
 
-type LightHomeStatesT = {
-  intlData: any;
+type LightHomeStatesT = {  intlData: any;
   searchItemArr?: any[];
   columns?: any[];
   pageIndex?: number;

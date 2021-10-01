@@ -82,7 +82,7 @@ function formatTimeLength(num: any) {
 }
 
 /* 根据对象创建Map对象 */
-export function mapByObj<T1,T2>(obj = {}) {
+export function mapByObj<T1, T2>(obj = {}) {
   let temp: any[] = [];
   let key: string;
   for (key in obj) {
@@ -90,16 +90,16 @@ export function mapByObj<T1,T2>(obj = {}) {
     temp.push([keyTemp, obj[key as keyof typeof obj]]);
   }
 
-  return new Map<T1,T2>(temp);
+  return new Map<T1, T2>(temp);
 }
 
 /* 剔除对象的空属性 */
 export function filterParams(obj: object) {
-  var _newObj:{[key:string]:any} = {};
+  var _newObj: { [key: string]: any } = {};
   for (var key in obj) {
     /* 判断对象中是否有这个属性 */
     if (obj.hasOwnProperty(key)) {
-      let value:any = obj[key as keyof typeof obj];
+      let value: any = obj[key as keyof typeof obj];
       if (isEmpty(value) && !Array.isArray(value)) continue;
       _newObj[key] =
         typeof value === "object"
@@ -113,9 +113,9 @@ export function filterParams(obj: object) {
 }
 
 /* 剔除数组中的空值 */
-export function ArrayFilterParams(arr:any) {
-  var err:any = [];
-  arr.forEach((item:any, index:number) => {
+export function ArrayFilterParams(arr: any) {
+  var err: any = [];
+  arr.forEach((item: any, index: number) => {
     if (isEmpty(item)) return;
     err.push(
       typeof item === "object"
@@ -129,7 +129,9 @@ export function ArrayFilterParams(arr:any) {
 }
 
 /* 为空情况 */
-export function isEmpty(obj:any) {
+export function isEmpty(obj: any) {
   const empty_arr = ["", undefined, null];
   return empty_arr.indexOf(obj) > -1 || obj.toString().trim() === "";
 }
+
+

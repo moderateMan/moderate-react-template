@@ -52,6 +52,18 @@ let config = {
         en: "Document",
         zh: "上手文档",
     },
+    commonTitle_strategy: {
+        en: "Strategy",
+        zh: "攻略",
+    },
+    commonTitle_graphics: {
+        en: "Graphics engine",
+        zh: "图形引擎",
+    },
+    commonTitle_flow: {
+        en: "Flow",
+        zh: "流程图",
+    },
     commonTitle_SETTING: {
         en: "To set route",
         zh: "调整路由",

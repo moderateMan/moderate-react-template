@@ -19,12 +19,15 @@ export const ROUTES_LOCAL_ID = {
     DOC_ID: 2003,
     INTRO_ID:2004,
     FAST_ID:2005,
+    STRATEGY_ID:2006,
+    GRAPHICS_ID:2007,
+    FLOW_ID:2008,
 };
 
 
 const {LOGIN_TOP,PAGEC_CENTER_TOP} = TOP_ROUTE_ID;
 const { NEST_ID, START_ID,  } = ROUTES_REMOTE_ID;
-const {HEAVY_ID, LIGHT_ID,DOC_ID,INTRO_ID,FAST_ID } = ROUTES_LOCAL_ID;
+const {HEAVY_ID, LIGHT_ID,DOC_ID,INTRO_ID,FAST_ID,STRATEGY_ID,GRAPHICS_ID,FLOW_ID } = ROUTES_LOCAL_ID;
 
 
 export type RoutesMapItemT = {
@@ -42,7 +45,9 @@ export type RoutesMapItemT = {
     routes?:any[]
 }
 
-type routesMapType =  {[key: string]: RoutesMapItemT}
+type routesMapType =  {
+    [key: string]: RoutesMapItemT
+}
 /* 路由的注册数据，新建路由在这配置 */
 export const routesMap:routesMapType = {
     templates: {
@@ -129,8 +134,33 @@ export const routesMap:routesMapType = {
             import('@ROUTES/pageCenter/subRoutes/mdView')
         ),
         key: uuid()
+    },
+    strategy: {
+        path: "/pageCenter/strategy",
+        name: "commonTitle_strategy",
+        icon: "read",
+        component: lazyImport(() =>
+            import('@ROUTES/pageCenter/subRoutes/strategy/main')
+        ),
+        key: uuid()
+    },
+    grahics: {
+        name: "commonTitle_graphics",
+        icon: "thunderbolt",
+        path: "/pageCenter/grahics",
+        exact: true,
+        redirect: "/pageCenter/grahics/flow",
+        key: uuid()
+    },
+    flow: {
+        path: "/pageCenter/grahics/flow",
+        name: "commonTitle_flow",
+        icon: "read",
+        component: lazyImport(() =>
+            import('@ROUTES/pageCenter/subRoutes/grahicsEngine/flow')
+        ),
+        key: uuid()
     }
-   
 }
 
 /* 路由匹配menu的注册数据，新建后台驱动的menu在这配置 */
@@ -148,6 +178,9 @@ export const menusMap = {
     },
     [INTRO_ID]: { ...routesMap.intro },
     [FAST_ID]: { ...routesMap.start },
+    [STRATEGY_ID]: { ...routesMap.strategy },
+    [GRAPHICS_ID]: { ...routesMap.grahics },
+    [FLOW_ID]: { ...routesMap.flow },
 }
 
 export const defaultRootRoute = {

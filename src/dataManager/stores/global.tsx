@@ -11,6 +11,7 @@ class Global extends BaseStore implements iGlobal {
   @observable isLogin: boolean = false;
   @observable locale: string = "zh";
   @observable isHash: boolean = true;
+  @observable isRandomTheme: boolean = false;
   @action
   loginFn = (
     userName: string | number,

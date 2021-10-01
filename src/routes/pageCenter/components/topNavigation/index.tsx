@@ -112,7 +112,6 @@ const TopNavigation: React.FC<TopNavigationPropsT> = (props) => {
       </Breadcrumb.Item>
     );
   }
-  debugger
   const extraBreadcrumbItems = pathSnippets.map((item, index) => {
     /* 排除最顶层的路由 */
     if (index == 0) return;
