@@ -6,14 +6,17 @@ import { Modal } from "antd";
 const { confirm } = Modal;
 import Routes from "./routes";
 import { iGlobal } from "@DATA_MANAGER/stores";
-
 import "./App.css";
+import './global.d'
+
+window.GAME_FLAG = "";
 
 type iProps = {
   global?: iGlobal;
 } & WrappedComponentProps;
 
 const App: React.FC<iProps> = (props) => {
+  
   const { global } = props;
   const { isHash } = global!;
   let getConfirmation = (message: string, callback: (ok: boolean) => void) => {

@@ -4,7 +4,7 @@
 import axios from "axios";
 import Storage from "@COMMON/storage";
 import dataManager from "@DATA_MANAGER/index";
-import openNotificationWithIcon from "@COMMON/utils/notification";
+import {openNotificationWithIcon} from "@COMMON/utils";
 import { ACCESS_TOKEN } from "@COMMON/constants";
 const { NODE_ENV, MOCK } = process.env;
 

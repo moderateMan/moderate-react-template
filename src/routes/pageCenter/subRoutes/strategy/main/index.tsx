@@ -3,7 +3,6 @@ import { Graph, Shape, NodeView, Addon, Node } from "@antv/x6";
 import { insertCss } from "insert-css";
 import nodeCtr from "./ctr/nodeCtr";
 import styles from "./index.module.scss";
-import { Form, Select, Switch, Input, Button } from "antd";
 import MyRect from "./shape/myRect";
 import { NODE_TYPE, getNodePos, getDist } from "./common";
 import { getUrlParam, uuid ,game} from "@COMMON/utils";
@@ -54,7 +53,9 @@ export default class Example extends React.Component<PropsT, StatesT> {
     this.formInstance = React.createRef();
     const { search } = props.location;
     this.flowId = getUrlParam(search, "id");
-    game("helloworld")
+    game("helloworld").then(()=>{
+        
+    })
   }
 
   componentDidMount() {
@@ -188,6 +189,13 @@ export default class Example extends React.Component<PropsT, StatesT> {
     `);
   };
 
+  componentWillUnmount(){
+    let root = document.getElementById("root")!
+    let gameRoot = document.getElementById("gameRoot")!
+    gameRoot.style.display = "none";
+    gameRoot.className ="gameLogin"
+    root.appendChild(gameRoot) 
+  }
   initStenCil() {
     // #region 初始化 stencil
     let self = this;
@@ -354,12 +362,6 @@ export default class Example extends React.Component<PropsT, StatesT> {
     history.back();
   };
   toRecoveryView() {
-    // let gameRoot = document.getElementById("gameRoot")!;
-    // gameRoot.style.display = "block";
-    // gameRoot.style.zIndex = "100"
-    // if(cc){
-    //   cc.game.resume()
-    // }
     this.graph.clearCells();
     let startPos = {
       x: 50,
@@ -563,7 +565,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
   render() {
     return (
       <div className={styles.app}>
-        <div className={styles.content_left}>
+        <div id="strategy_left" className={styles.content_left}>
           <div
             className={styles.content_left_top}
             id="containerS"

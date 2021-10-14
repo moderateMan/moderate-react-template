@@ -1,3 +1,19 @@
+let processGameCssMd = ()=>{
+  let strategy_left = document.getElementById("strategy_left")
+  let gameRoot = document.getElementById("gameRoot")
+  gameRoot.className ="gameMd"
+  strategy_left.appendChild(gameRoot) 
+}
+
+let processGameCssLogin = ()=>{
+  document.getElementById("gameRoot").className ="gameLogin"
+}
+
+let processGameCss = {
+  "helloworld":processGameCssMd,
+  "hello":processGameCssLogin
+}
+
 let gameFloag = 0;
 const boot = (handleStart,sceneName) => {
     var settings = window._CCSettings;
@@ -9,7 +25,6 @@ const boot = (handleStart,sceneName) => {
     var MAIN = cc.AssetManager.BuiltinBundleName.MAIN;
     function setLoadingDisplay() {
       // // // Loading splash scene
-      var gameRoot = document.getElementById("gameRoot");
       var splash = document.getElementById("splash");
       var progressBar = splash.querySelector(".progress-bar span");
       onProgress = function (finish, total) {
@@ -24,6 +39,7 @@ const boot = (handleStart,sceneName) => {
     }
 
     var onStart = function () {
+    window.GAME_FLAG = sceneName;
     if(handleStart){
         handleStart()
     }
@@ -135,8 +151,17 @@ const boot = (handleStart,sceneName) => {
 
 
 export const game = function (sceneName) {
-    return new Promise((resolve) => {
-        document.getElementById("gameRoot").style.display = "block";
+    return (new Promise((resolve) => {
+        if(window.GAME_FLAG){
+          cc.director.loadScene(sceneName,()=>{
+            debugger
+            if(sceneName === "hello"){
+              cc.game.restart()
+            }
+            resolve()
+          })
+          return 
+        }
         function loadScript(moduleName, cb) {
             function scriptLoaded() {
                 document.body.removeChild(domScript);
@@ -180,6 +205,15 @@ export const game = function (sceneName) {
             cc.game.resume()
             resolve()
         }
+    })).then(()=>{
+      return new Promise((resolve)=>{
+        document.getElementById("gameRoot").style.display = "block";
+        processGameCss[sceneName]()
+        var ev = new Event("resize", {"bubbles":true, "cancelable":true});
+        window.dispatchEvent(ev);
+        resolve()
+        cc.game.resume()
+      })
     })
 }
 

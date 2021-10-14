@@ -19,7 +19,7 @@ export const messageNotice = (type:keyof MessageNoticeTypeAllT=WARNING, content 
  * @param description
  * @param type
  */
-const openNotificationWithIcon = (message = '', description:string = '', type = INFO) => {
+ export const openNotificationWithIcon = (message = '', description:string = '', type = INFO) => {
     Reflect.get(notification, type)({
         message,
         description,
@@ -28,7 +28,6 @@ const openNotificationWithIcon = (message = '', description:string = '', type = 
     })
 }
 
-export default openNotificationWithIcon
 
 export const successByNotice = (content:string) => openNotificationWithIcon(SUCCESS, content)
 export const successByMessage = (content:string) => messageNotice(SUCCESS, content)

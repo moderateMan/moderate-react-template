@@ -72,7 +72,7 @@ export const routesMap: routesMapType = {
     name: "commonTitle_login",
     path: "/pageCenter/login",
     exact: true,
-    component: lazyImport(() => import("./login/indexTemp")),
+    component: lazyImport(() => import("./login/index")),
     key: uuid(),
   },
   moderate: {
