@@ -367,14 +367,6 @@ class LoginPage extends React.Component {
       intl: { formatMessage },
     } = this.props;
     const { codeImage, collapsed } = this.state;
-    const usernamePlaceholder = formatMessage({ id: "login.username" });
-    const usernameEmpty = formatMessage({ id: "login.usernameEmpty" });
-    const passwordPlaceholder = formatMessage({ id: "login.password" });
-    const passwordEmpty = formatMessage({ id: "login.passwordEmpty" });
-    const codePlaceholder = formatMessage({ id: "login.code" });
-    const maxLength = formatMessage({ id: "login.maxLength" });
-    const pwdMaxLength = formatMessage({ id: "header_pwdMaxLength" });
-    const codeEmpty = formatMessage({ id: "login.codeEmpty" });
     return (
       <div className="loginpagewrap">
         <div className="box">

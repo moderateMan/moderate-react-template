@@ -16554,6 +16554,74 @@ window.__require = function e(t, n, r) {
     });
     cc._RF.pop();
   }, {} ],
+  bottom_img: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "6590bOSs4BAOKzs4LSYVSEf", "bottom_img");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        self.node.opacity = 0;
+        this.recationArr = [ {
+          start: .4,
+          end: .6,
+          action: function action(data) {
+            var progress = data.progress;
+            self.node.setContentSize(cc.size(self.node.getContentSize().width, 1500 * progress));
+            self.node.opacity = 255 * progress;
+          }
+        } ];
+      },
+      end: function end() {
+        this._super();
+        this.node.opacity = 255;
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  bottom: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "dca91l4wYZJjqD8HuIv3+jm", "bottom");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        self.node.opacity = 0;
+        this.recationArr = [ {
+          start: 0,
+          end: .3,
+          action: function action(data) {
+            var progress = data.progress;
+            self.node.setContentSize(cc.size(self.node.getContentSize().width, 1500 * progress));
+            self.node.opacity = 255 * progress;
+          }
+        } ];
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
   btn: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "b29d0HEnNpOrrZQXuk99f2e", "btn");
@@ -16636,6 +16704,620 @@ window.__require = function e(t, n, r) {
     });
     cc._RF.pop();
   }, {} ],
+  "code-5": [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "3765d/nYYdBfaimZOgrhsZO", "code-5");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        this.recationArr = [ {
+          start: 0,
+          end: .2,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data = data, progress = _data.progress;
+            self.node.opacity = 255 * progress;
+          }
+        }, {
+          start: .8,
+          end: 1,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data2 = data, progress = _data2.progress;
+            self.node.opacity = 255 - 255 * progress;
+          }
+        } ];
+      },
+      live: function live() {
+        this._super();
+        self.node.opacity = 0;
+      },
+      end: function end() {
+        this._super();
+        self.node.opacity = 0;
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  "code1-1": [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "be8beO6caBOqargZJK/XYgM", "code1-1");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {
+        endPos: cc.Vec2
+      },
+      onLoad: function onLoad() {
+        var _this = this;
+        this._super();
+        var self = this;
+        this.recationArr = [ {
+          start: 0,
+          end: .3,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data = data, progress = _data.progress;
+            _this.node.opacity = 255 * progress;
+          }
+        }, {
+          start: .7,
+          end: .9,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data2 = data, progress = _data2.progress;
+            _this.node.position = cc.v2(_this.startPosition.x + (self.endPos.x - _this.startPosition.x) * progress, _this.startPosition.y + (self.endPos.y - _this.startPosition.y) * progress);
+          }
+        } ];
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  code1: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "1ebd3uakNdN0ryQiUMESv+w", "code1");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        var _this = this;
+        this._super();
+        var self = this;
+        this.recationArr = [ {
+          start: 0,
+          end: .3,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data = data, progress = _data.progress;
+            _this.node.opacity = 255 * progress;
+          }
+        }, {
+          start: .6,
+          end: .7,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data2 = data, progress = _data2.progress;
+            _this.node.opacity = 255 - 255 * progress;
+          }
+        } ];
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  code2_1: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "784ad+m4MtI+bY3a0Uj7TrX", "code2_1");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {
+        endPos: cc.Vec2,
+        code: cc.String,
+        curr: cc.Node,
+        offset: cc.Vec2,
+        customStart: cc.Float
+      },
+      onLoad: function onLoad() {
+        var _this = this;
+        this.shakeFlag = false;
+        this._super();
+        this.codeArr = this.code.split("");
+        var self = this;
+        this.recationArr = [ {
+          start: (.4 + this.customStart) / 2,
+          end: (.4 + this.customStart + .1) / 2,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data = data, progress = _data.progress;
+            var richText = self.getComponent(cc.RichText);
+            var endId = parseInt(progress * _this.codeArr.length);
+            var tempArr = _this.codeArr.slice(0, endId);
+            self.curr.setContentSize(cc.size(6, .7 * richText.node.getContentSize().height));
+            tempArr = tempArr.map(function(item) {
+              if (self.code.includes("methods") && "methods".indexOf(item) > -1) return "<color=#1e88df>" + item + "</color>";
+              if (self.code.includes("return") && "return".indexOf(item) > -1) return "<color=#AD582E>" + item + "</color>";
+              if (self.code.includes("data") && "data".indexOf(item) > -1) return "<color=#5ab23c>" + item + "</color>";
+              return item;
+            });
+            richText.string = tempArr.join("");
+            self.curr.x = self.node.x + richText.node.width;
+            self.curr.y = richText.node.y - 2;
+          }
+        }, {
+          start: .7,
+          end: .8,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data2 = data, progress = _data2.progress;
+            var height = self.node.getContentSize().height;
+            _this.node.y = self.startPosition.y - height * _this.offset.y * progress;
+          }
+        } ];
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  code2_2: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "ddd84XH4MhJ+YLHLmN+lW+4", "code2_2");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    function _extends() {
+      _extends = Object.assign || function(target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+        }
+        return target;
+      };
+      return _extends.apply(this, arguments);
+    }
+    var DRAW_TYPE = cc.Enum({
+      TYPE_DEFAULT: 1,
+      TYPE_CIRCLE: 2
+    });
+    var strokeColor = new cc.Color(255, 235, 4);
+    cc.Class({
+      extends: _entity["default"],
+      properties: {
+        endPos: cc.Vec2,
+        code: cc.String,
+        ctx1: cc.Graphics,
+        ctx2: cc.Graphics,
+        ctx3: cc.Graphics,
+        ctx4: cc.Graphics,
+        targetNode: cc.Node,
+        targetNodeEnd: cc.Node,
+        targetNode2: cc.Node
+      },
+      getPointFromCodeNode: function getPointFromCodeNode(node, letterIndex, unit, customOffsetX) {
+        void 0 === customOffsetX && (customOffsetX = 0);
+        var condeStr = node.getComponent(cc.RichText);
+        var codeLen = condeStr.string.length;
+        var width = node.width;
+        var height = node.height;
+        var nodeY = node.y;
+        var nodeX = node.x;
+        var unitX = unit || width / codeLen;
+        var unitY = height / 2;
+        var pointArr = [];
+        var centerPoint = {
+          x: nodeX + letterIndex * unitX - unitX / 2,
+          y: nodeY
+        };
+        var offsetCommon = {
+          oX: 5,
+          oY: -5
+        };
+        var offsetArr = [ {
+          oX: -unitX / 2,
+          oY: -unitY
+        }, {
+          oX: -unitX / 2,
+          oY: unitY
+        }, {
+          oX: unitX / 2,
+          oY: unitY
+        }, {
+          oX: unitX / 2,
+          oY: -unitY
+        } ];
+        for (var i = 0; i < 4; i++) {
+          var offset = offsetArr[i];
+          var pointTemp = cc.v2(centerPoint.x + offset.oX + offsetCommon.oX + customOffsetX, centerPoint.y + offset.oY + offsetCommon.oY);
+          pointArr.push(pointTemp);
+        }
+        return pointArr;
+      },
+      handleDrawLine: function handleDrawLine(data) {
+        var _this = this;
+        var ctx = data.ctx, pointArr = data.pointArr, progress = data.progress, _data$drawType = data.drawType, drawType = void 0 === _data$drawType ? DRAW_TYPE.TYPE_DEFAULT : _data$drawType, _data$isLoop = data.isLoop, isLoop = void 0 === _data$isLoop || _data$isLoop;
+        ctx.clear();
+        var vlineArr = [];
+        var pointArrLen = pointArr.length;
+        pointArr.forEach(function(item, index) {
+          var start = item;
+          var end;
+          end = index === pointArrLen - 1 ? pointArr[0] : pointArr[index + 1];
+          vlineArr.push(end.sub(start));
+        });
+        isLoop || (vlineArr = vlineArr.slice(0, vlineArr.length - 1));
+        var vlineMagArr = vlineArr.map(function(item) {
+          return item.mag();
+        });
+        var totalMag = vlineMagArr.reduce(function(total, current) {
+          return total + current;
+        }, 0);
+        var basePoint = [ pointArr[0] ];
+        var targetLength = 0;
+        vlineMagArr.forEach(function(itemMag, index) {
+          targetLength += itemMag;
+          targetLength / totalMag < progress && basePoint.push(pointArr[index + 1]);
+        });
+        var processBaseLine = function processBaseLine(params) {
+          var type = params.type, point = params.point, index = params.index;
+          type === DRAW_TYPE.TYPE_CIRCLE ? _this.drawPointLine(_extends({}, data, {
+            start: basePoint[index - 1],
+            end: point,
+            progress: 1,
+            isAdd: true
+          })) : drawType === DRAW_TYPE.TYPE_DEFAULT && ctx.lineTo(point.x, point.y);
+        };
+        var processDrawLine = function processDrawLine(params) {
+          var type = params.type;
+          type === DRAW_TYPE.TYPE_CIRCLE ? _this.drawPointLine(_extends({}, data, targetPoint, {
+            progress: progressTemp
+          })) : drawType === DRAW_TYPE.TYPE_DEFAULT && _this.drawLine(_extends({}, data, targetPoint, {
+            progress: progressTemp
+          }));
+        };
+        basePoint.forEach(function(point, index) {
+          0 === index ? ctx.moveTo(point.x, point.y) : processBaseLine({
+            type: drawType,
+            point: point,
+            index: index
+          });
+        });
+        var targetPointIndex = basePoint.length;
+        var targetPoint;
+        targetPoint = targetPointIndex < pointArr.length ? {
+          start: pointArr[targetPointIndex - 1],
+          end: pointArr[targetPointIndex]
+        } : {
+          start: pointArr[targetPointIndex - 1],
+          end: pointArr[0]
+        };
+        var progressTemp = (progress * totalMag - vlineMagArr.slice(0, targetPointIndex - 1).reduce(function(total, current) {
+          return total + current;
+        }, 0)) / vlineMagArr[targetPointIndex - 1];
+        processDrawLine(_extends({}, data, targetPoint, {
+          progress: progressTemp,
+          type: drawType
+        }));
+      },
+      drawPointLine: function drawPointLine(_ref) {
+        var ctx = _ref.ctx, start = _ref.start, end = _ref.end, progress = _ref.progress, space = _ref.space, radius = _ref.radius, isAdd = _ref.isAdd, fillColor = _ref.fillColor;
+        var unit = 2 * radius + space;
+        var vline = end.sub(start);
+        var vlineLen = vline.mag();
+        var sumPart = parseInt(vlineLen / unit);
+        var drawCount = parseInt(sumPart * progress);
+        for (var i = 1; i < drawCount; i++) {
+          var c = vline.mul(i / sumPart);
+          ctx.circle(c.x + start.x, c.y + start.y, radius);
+          ctx.fillColor = fillColor;
+          ctx.fill();
+        }
+        if (1 == progress && isAdd) {
+          ctx.circle(end.x, end.y, radius);
+          ctx.fillColor = fillColor;
+          ctx.fill();
+        }
+      },
+      drawLine: function drawLine(_ref2) {
+        var ctx = _ref2.ctx, start = _ref2.start, end = _ref2.end, progress = _ref2.progress, space = _ref2.space, radius = _ref2.radius, isAdd = _ref2.isAdd, strokeColor = _ref2.strokeColor;
+        ctx.strokeColor = strokeColor;
+        ctx.lineWidth = 5;
+        var unit = space;
+        var vline = end.sub(start);
+        var vlineLen = vline.mag();
+        var sumPart = parseInt(vlineLen / unit);
+        var drawCount = parseInt(sumPart * progress);
+        for (var i = 1; i < drawCount; i++) {
+          var c = vline.mul(i / sumPart);
+          ctx.lineTo(c.x + start.x, c.y + start.y);
+        }
+        1 == progress && isAdd && ctx.lineTo(end.x, end.y);
+        ctx.stroke();
+      },
+      onLoad: function onLoad() {
+        var _this2 = this;
+        this._super();
+        var pointArr = this.getPointFromCodeNode(this.targetNode, 16);
+        var pointArr2 = [ pointArr[0], cc.v2(this.targetNode.x, pointArr[0].y), cc.v2(this.targetNode.x, this.targetNodeEnd.y + 15) ];
+        var pointArr3 = this.getPointFromCodeNode(this.targetNodeEnd, 1, 21, -8);
+        pointArr3 = [ pointArr3[1], pointArr3[0], pointArr3[3], pointArr3[2] ];
+        var pointArr4 = [ cc.v2(this.targetNode2.x + .6 * this.targetNode2.width, this.targetNode2.y), cc.v2(this.targetNode2.x + 1.5 * this.targetNode2.width, this.targetNode2.y), cc.v2(this.targetNode2.x + 1.5 * this.targetNode2.width, this.targetNodeEnd.y - 100), cc.v2(this.targetNode2.x + 30, this.targetNodeEnd.y - 100), cc.v2(this.targetNode2.x + 30, this.targetNode2.y) ];
+        this.codeArr = this.code.split(" ");
+        var self = this;
+        this.recationArr = [ {
+          start: 0,
+          end: .04,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data = data, progress = _data.progress;
+            _this2.handleDrawLine({
+              ctx: _this2.ctx1,
+              pointArr: pointArr,
+              progress: progress,
+              space: 3,
+              radius: 2,
+              isAdd: true,
+              strokeColor: strokeColor
+            });
+          }
+        }, {
+          start: .04,
+          end: .12,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data2 = data, progress = _data2.progress;
+            _this2.handleDrawLine({
+              ctx: _this2.ctx2,
+              pointArr: pointArr2,
+              progress: progress,
+              space: 4,
+              radius: 3,
+              isAdd: true,
+              strokeColor: strokeColor,
+              drawType: 2,
+              isLoop: false,
+              fillColor: new cc.Color(255, 235, 4)
+            });
+          }
+        }, {
+          start: .12,
+          end: .16,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data3 = data, progress = _data3.progress;
+            _this2.handleDrawLine({
+              ctx: _this2.ctx3,
+              pointArr: pointArr3,
+              progress: progress,
+              space: 3,
+              radius: 2,
+              isAdd: true,
+              strokeColor: strokeColor
+            });
+          }
+        }, {
+          start: .16,
+          end: .2,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data4 = data, progress = _data4.progress;
+            _this2.handleDrawLine({
+              ctx: _this2.ctx1,
+              pointArr: pointArr,
+              progress: 1,
+              space: 3,
+              radius: 2,
+              isAdd: true,
+              strokeColor: new cc.Color(255, 235, 4, 255 - 255 * progress)
+            });
+            _this2.handleDrawLine({
+              ctx: _this2.ctx2,
+              pointArr: pointArr2,
+              progress: 1,
+              space: 4,
+              radius: 3,
+              isAdd: true,
+              strokeColor: strokeColor,
+              drawType: 2,
+              isLoop: false,
+              fillColor: new cc.Color(255, 235, 4, 255 - 255 * progress)
+            });
+            _this2.handleDrawLine({
+              ctx: _this2.ctx3,
+              pointArr: pointArr3,
+              progress: 1,
+              space: 3,
+              radius: 2,
+              isAdd: true,
+              strokeColor: new cc.Color(255, 235, 4, 255 - 255 * progress)
+            });
+          }
+        }, {
+          start: .9,
+          end: 1,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data5 = data, progress = _data5.progress;
+            _this2.handleDrawLine({
+              ctx: _this2.ctx4,
+              pointArr: pointArr4,
+              progress: progress,
+              space: 3,
+              radius: 2,
+              isAdd: true,
+              isLoop: false,
+              strokeColor: new cc.Color(255, 235, 255)
+            });
+          }
+        } ];
+      },
+      live: function live() {
+        this._super();
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  code2: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "d9e0dKHLVtBoJi34AurNQN2", "code2");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {
+        endPos: cc.Vec2
+      },
+      onLoad: function onLoad() {
+        var _this = this;
+        this._super();
+        var self = this;
+        this.recationArr = [ {
+          start: 0,
+          end: .3,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data = data, progress = _data.progress;
+            _this.node.position = cc.v2(self.startPosition.x + 112 * progress, self.startPosition.y - 47 * progress);
+            1 === progress && (_this.startPosition = _this.node.position);
+          }
+        }, {
+          start: .7,
+          end: .9,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data2 = data, progress = _data2.progress;
+            _this.node.position = cc.v2(_this.startPosition.x + (self.endPos.x - _this.startPosition.x) * progress, _this.startPosition.y + (self.endPos.y - _this.startPosition.y) * progress);
+          }
+        } ];
+      },
+      live: function live() {
+        this.isLive = true;
+        this.node.active = true;
+      },
+      end: function end() {
+        this.isLive = false;
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  code3: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "62287ojpKVLUIkOibw+5qRZ", "code3");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        var _this = this;
+        this._super();
+        var self = this;
+        this.recationArr = [ {
+          start: 0,
+          end: 1,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data = data, progress = _data.progress;
+            _this.node.position = cc.v2(self.startPosition.x, self.startPosition.y - 130 * progress);
+          }
+        } ];
+      },
+      live: function live() {
+        this.isLive = true;
+        this.node.active = true;
+      },
+      end: function end() {
+        this.isLive = false;
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  code6: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "63bafu+S4VGzqszc4kX9QDG", "code6");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        var _this = this;
+        this._super();
+        var self = this;
+        this.recationArr = [ {
+          start: 0,
+          end: .7,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data = data, progress = _data.progress;
+            _this.node.opacity = 255 * progress;
+          }
+        } ];
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
   config: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "53981bWnZNMhblpI6xX6VI3", "config");
@@ -16742,13 +17424,17 @@ window.__require = function e(t, n, r) {
           if (test > 600) {
             this.isClick = true;
             var event = new CustomEvent("completeFromGame", {
-              detail:{status: 1}
+              detail: {
+                status: 1
+              }
             });
             document.dispatchEvent(event);
           } else {
             this.isClick = false;
             var event = new CustomEvent("completeFromGame", {
-              detail:{status: 2}
+              detail: {
+                status: 1
+              }
             });
             document.dispatchEvent(event);
           }
@@ -16901,12 +17587,336 @@ window.__require = function e(t, n, r) {
           this.m_Camera.setPosition(0, 0);
           this.unschedule(self.shake);
           var event = new CustomEvent("completeFromGame", {
-            status: 1
+            detail: {
+              status: 1
+            }
           });
           document.dispatchEvent(event);
         }, 1);
       }
     });
+    cc._RF.pop();
+  }, {} ],
+  entity0: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "735fb2WtkBA9qjSkHeOC95T", "entity0");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      ctor: function ctor() {},
+      onLoad: function onLoad() {
+        this._super();
+      },
+      live: function live() {
+        this._super();
+        this.node.active = true;
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../base/entity": "entity"
+  } ],
+  entity1: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "f3625eawbVJyZoPlI0NH8hE", "entity1");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        self.startPosition = self.node.position;
+        this.recationArr = [];
+      },
+      ctor: function ctor() {},
+      end: function end() {
+        this._super();
+        this.node.opacity = 0;
+      },
+      live: function live() {
+        this._super();
+        this.node.opacity = 255;
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../base/entity": "entity"
+  } ],
+  entity2: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "afac0nrvKFK97qLCSINMt7t", "entity2");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {
+        curr: cc.Node,
+        fadeNode: cc.Node
+      },
+      onLoad: function onLoad() {
+        var _this = this;
+        this._super();
+        this.shakeFlag = false;
+        this.isStop = false;
+        var self = this;
+        self.startPosition = self.node.position;
+        this.recationArr = [ {
+          start: 0,
+          end: .7,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            _this.isStop = false;
+            _this.curr.active = true;
+          }
+        }, {
+          start: .7,
+          end: 1,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            _this.isStop = true;
+            _this.curr.active = false;
+          }
+        } ];
+      },
+      update: function update() {
+        this._super();
+        if (this.isStop) this.curr.active = false; else if (this.shakeFlag) {
+          var now = Date.now();
+          if (now - this.shakeFlag > 500) {
+            this.shakeFlag = now;
+            this.curr.active = !this.curr.active;
+          }
+        } else this.shakeFlag = Date.now();
+      },
+      process: function process(props) {
+        if (0 === this._super(props)) return;
+        if (this.isStop) this.curr.active = false; else {
+          this.shakeFlag = 0;
+          this.curr.active = true;
+        }
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../base/entity": "entity"
+  } ],
+  entityEnd: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "135a5G4tcBOQ7npcyXrN2o5", "entityEnd");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {
+        lenPercent: cc.Float
+      },
+      onLoad: function onLoad() {
+        var _this = this;
+        this._super();
+        var self = this;
+        self.node.opacity = 0;
+        this.recationArr = [ {
+          start: 0,
+          end: .05,
+          action: function action(data) {
+            _this.node.opacity = 255 * Math.min(self.progressValue / data.actionLen, 1);
+          }
+        } ];
+      },
+      end: function end() {
+        this._super();
+        this.node.opacity = 0;
+      },
+      live: function live() {
+        this._super();
+        this.node.active = true;
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../base/entity": "entity"
+  } ],
+  entity: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "3822b7+9N1E07OWxGAZpNd5", "entity");
+    "use strict";
+    exports.__esModule = true;
+    exports["default"] = void 0;
+    function _extends() {
+      _extends = Object.assign || function(target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+        }
+        return target;
+      };
+      return _extends.apply(this, arguments);
+    }
+    var _default = cc.Class({
+      extends: cc.Component,
+      properties: {
+        lenPercent: cc.Float,
+        startPercent: cc.Float,
+        isAutoStart: cc.Boolean,
+        entityArr: {
+          default: [],
+          type: cc.Node
+        }
+      },
+      ctor: function ctor() {
+        this.isLive = false;
+        this.startTime = void 0;
+        this.endTime = void 0;
+        this.internalDuration = 0;
+        this.externalDuration = 0;
+        this.progressValue = 0;
+        this.entryData = [];
+        this.recationArr = [];
+        this.startPosition = cc.v2();
+        this.entityArrEx = [];
+      },
+      start: function start() {
+        this.startPosition = this.node.position;
+      },
+      onLoad: function onLoad() {
+        this.node.comName = this.__classname__;
+        this.internalDuration = this.node.getContentSize().height;
+        this.lenPercent + this.startPercent > 1 && (this.lenPercent = 1 - this.startPercent);
+        this.isAutoStart && (this.startPercent += Math.abs(this.node.position.y / this.node.parent.getContentSize().height));
+      },
+      onEnable: function onEnable() {
+        var _this = this;
+        var self = this;
+        this.entityArr.length && (this.entityArrEx = this.entityArr.map(function(item, index) {
+          var entity = item.getComponent(item._name);
+          entity.isAutoStart;
+          _this.entryData.push(entity.initData({
+            startTime: _this.getStarTime(entity.startPercent),
+            totaTime: self.internalDuration
+          }));
+          return entity;
+        }));
+      },
+      getStarTime: function getStarTime(value) {
+        return value <= 1 ? value * this.internalDuration : value;
+      },
+      initData: function initData(_ref) {
+        var totaTime = _ref.totaTime, startTime = _ref.startTime;
+        this.startTime = startTime;
+        this.externalDuration = this.lenPercent <= 1 ? totaTime * this.lenPercent : this.lenPercent;
+        this.endTime = Math.min(totaTime, this.startTime + this.externalDuration);
+        return {
+          startTime: this.startTime,
+          internalDuration: this.internalDuration,
+          endTime: this.endTime
+        };
+      },
+      getCurrentTime: function getCurrentTime(percent) {
+        return this.startTime + (percent <= 1 ? this.externalDuration * percent : percent);
+      },
+      live: function live() {
+        this.isLive = true;
+      },
+      calcProgress: function calcProgress() {
+        this.progressValue = (this.timeLine - this.startTime) / this.externalDuration;
+      },
+      calcReactionProgress: function calcReactionProgress(_ref2) {
+        var start = _ref2.start, end = _ref2.end;
+        start = start <= 1 ? this.internalDuration * start : start;
+        end = end <= 1 ? this.internalDuration * end : end;
+        return Math.min((this.progressValue * this.internalDuration - start) / (end - start), 1);
+      },
+      process: function process(_ref3) {
+        var _this2 = this;
+        var timeLine = _ref3.timeLine;
+        if (this.timeLine === timeLine) return 0;
+        this.timeLine = timeLine;
+        this.calcProgress();
+        this.internalTimeLine = this.progressValue * this.internalDuration;
+        var actionArr = this.recationArr.filter(function(item) {
+          if (item) {
+            var isOk = timeLine > _this2.getCurrentTime(item.start) && timeLine <= _this2.getCurrentTime(item.end) || !item.start && !item.end;
+            if (isOk) item.isAction = true; else {
+              item.isAction && item.action(_this2.calcActionData(item, true));
+              item.isAction = false;
+            }
+            return isOk;
+          }
+        });
+        actionArr.forEach(function(item) {
+          item.action(_this2.calcActionData(item));
+        });
+      },
+      update: function update() {
+        var self = this;
+        this.actionEntityArr = this.entityArrEx.filter(function(entity) {
+          if (self.internalTimeLine > entity.startTime && self.internalTimeLine <= entity.endTime) {
+            entity.isLive || entity.live();
+            entity.process({
+              timeLine: self.progressValue * self.internalDuration
+            });
+            return true;
+          }
+          entity.isLive && entity.end();
+          return false;
+        });
+      },
+      calcActionData: function calcActionData(item, isEnd) {
+        var params = {};
+        var actionLen = item.end - item.start || 1;
+        var progress;
+        progress = Math.min((this.progressValue - item.start) / actionLen, 1);
+        if (isEnd) {
+          var isEndForce = window.GLOBAL.dir > 0;
+          var isEndForceStart = window.GLOBAL.dir < 0;
+          isEndForce ? progress = 1 : isEndForceStart && (progress = 0);
+          params = {
+            isEndForce: isEndForce,
+            isEndForceStart: isEndForceStart
+          };
+        }
+        params = _extends({
+          actionLen: actionLen,
+          progress: progress
+        }, params, item);
+        return params;
+      },
+      end: function end() {
+        var _this3 = this;
+        this.isLive = false;
+        this.recationArr.forEach(function(item) {
+          if (item.isAction) {
+            item.isAction = false;
+            item.action(_this3.calcActionData(item, true));
+          }
+        });
+      }
+    });
+    exports["default"] = _default;
+    module.exports = exports["default"];
     cc._RF.pop();
   }, {} ],
   "event-names": [ function(require, module, exports) {
@@ -17324,6 +18334,129 @@ window.__require = function e(t, n, r) {
     };
     cc._RF.pop();
   }, {} ],
+  gameMain: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "b75bdwwJb9DypoW1WR7I178", "gameMain");
+    "use strict";
+    window.GLOBAL = {
+      width: cc.view.getFrameSize().width,
+      height: cc.view.getFrameSize().height
+    };
+    cc.Class({
+      extends: cc.Component,
+      properties: {
+        ball: cc.Node,
+        entityArr: {
+          type: cc.Node,
+          default: []
+        },
+        totalLength: cc.Number,
+        helloPage: cc.Node,
+        titleNode: cc.Node,
+        musicBtnOn: cc.Node,
+        musicBtnOff: cc.Node,
+        audioSource: {
+          type: cc.AudioSource,
+          default: null
+        },
+        test: cc.AudioClip
+      },
+      ctor: function ctor() {
+        this.dir = 0;
+        this.currentTemp = 0;
+        this.actionEntityArr = [];
+        this.entryData = [];
+        this.isMusicOn = true;
+      },
+      start: function start() {
+        setTimeout(function() {
+          cc.director.loadScene("login");
+        }, 5e3);
+      },
+      onLoad: function onLoad() {
+        this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartCallback, this, true);
+        this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMoveCallback, this, true);
+        this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEndCallback, this, true);
+      },
+      onEnable: function onEnable() {
+        var _this = this;
+        var self = this;
+        this.entityArr.length && (this.entityArr = this.entityArr.map(function(item, index) {
+          var entity = item.getComponent(item._name);
+          entity.isAutoStart;
+          _this.entryData.push(entity.initData({
+            startTime: _this.getStarTime(entity.startPercent),
+            totaTime: _this.totalLength
+          }));
+          return entity;
+        }));
+      },
+      getStarTime: function getStarTime(value) {
+        return value <= 1 ? value * this.totalLength : value;
+      },
+      onTouchStartCallback: function onTouchStartCallback() {
+        if (this.helloPage.active) return;
+        this.dir = 0;
+        this.ball.stopAllActions();
+      },
+      onTouchMoveCallback: function onTouchMoveCallback(e) {
+        if (this.helloPage.active) return;
+        this.ball.position = this.ball.position.add(cc.v2(0, e.getDelta().y));
+        Math.abs(e.getDelta().y) < 5 ? this.dir = 0 : this.dir = e.getDelta().y;
+        window.GLOBAL.dir = this.dir;
+      },
+      onTouchEndCallback: function onTouchEndCallback() {
+        if (this.helloPage.active) return;
+        cc.tween(this.ball).to(1, {
+          position: {
+            value: this.ball.position.add(cc.v2(0, this.dir > 0 ? Math.max(15 * this.dir, this.dir / Math.abs(this.dir) * 200) : Math.min(15 * this.dir, this.dir / Math.abs(this.dir) * 200))),
+            progress: function progress(start, end, current, t) {
+              var a = start.lerp(end, 1 - Math.pow(1 - t, 2), current);
+              return a;
+            }
+          }
+        }).start();
+      },
+      update: function update() {
+        var _this2 = this;
+        if (this.ball.position.y <= 0) {
+          this.ball.position = cc.v2(0, 0);
+          this.ball.stopAllActions();
+        } else if (this.ball.position.y > this.totalLength) {
+          this.ball.position = cc.v2(0, this.totalLength);
+          this.ball.stopAllActions();
+        }
+        this.time = Math.min(Math.max(this.ball.position.y, 0), this.totalLength);
+        var self = this;
+        this.actionEntityArr = this.entityArr.filter(function(entity) {
+          if (self.time >= entity.startTime && self.time <= entity.endTime) {
+            if (!entity.isLive) {
+              _this2.titleNode.getComponent("titleNode").showInfoById(entity.node._name);
+              entity.live();
+            }
+            entity.process({
+              timeLine: self.time
+            });
+            return true;
+          }
+          entity.isLive && entity.end();
+          return false;
+        });
+      },
+      handleClick: function handleClick() {
+        this.helloPage.active = false;
+      },
+      handleMusicClick: function handleMusicClick() {
+        this.musicBtnOn.active = this.isMusicOn;
+        this.musicBtnOff.active = !this.isMusicOn;
+        if (this.isMusicOn) {
+          this.isMusicOn = false;
+          var audioID = cc.audioEngine.play(this.test, false, .5);
+        }
+      }
+    });
+    cc._RF.pop();
+  }, {} ],
   gameServer: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "36c3aOHvfpHV4GA5N8dcegH", "gameServer");
@@ -17527,6 +18660,173 @@ window.__require = function e(t, n, r) {
     cc._RF.pop();
   }, {
     "./event-names.js": "event-names"
+  } ],
+  info1: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "d84e97q6+BPjZsG0r+Vhc4m", "info1");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        self.node.opacity = 0;
+        this.recationArr = [ {
+          start: .1,
+          end: .3,
+          action: function action(data) {
+            var progress = data.isEndForce ? 1 : Math.min((self.progressValue - data.start) / data.actionLen, 1);
+            self.node.opacity = 255 * progress;
+          }
+        }, {
+          start: .45,
+          end: 1,
+          isAction: false,
+          action: function action(data) {
+            var progress = data.isEndForce ? 1 : Math.min((self.progressValue - data.start) / data.actionLen, 1);
+            self.node.opacity = 255 - 255 * progress;
+          }
+        } ];
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  info2: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "01677CmX/BBIZg/WZKvVJaX", "info2");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {
+        titleNode: cc.Node
+      },
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        self.node.opacity = 0;
+        this.recationArr = [ {
+          start: 0,
+          end: .5,
+          action: function action(data) {
+            var progress = data.progress;
+            self.node.opacity = 255 * progress;
+          }
+        } ];
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  infoCell: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "5b114RBOVNMRoA4/pxoSfdI", "infoCell");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {
+        endPos: cc.Vec2,
+        customStart: cc.Float,
+        isMove: cc.Boolean
+      },
+      onLoad: function onLoad() {
+        var _this = this;
+        this._super();
+        var self = this;
+        this.isMove ? this.recationArr = [ {
+          start: this.customStart,
+          end: this.customStart + .05,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data = data, progress = _data.progress;
+            _this.node.position = cc.v2(_this.startPosition.x + (self.endPos.x - _this.startPosition.x) * progress, _this.node.y);
+          }
+        }, {
+          start: .7,
+          end: .8,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data2 = data, progress = _data2.progress;
+            var height = self.node.getContentSize().height;
+            _this.node.y = self.startPosition.y - height * progress;
+          }
+        } ] : this.recationArr = [ {
+          start: this.customStart,
+          end: this.customStart + .05,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data3 = data, progress = _data3.progress;
+            _this.node.position = cc.v2(_this.startPosition.x + (self.endPos.x - _this.startPosition.x) * progress, _this.startPosition.y + (self.endPos.y - _this.startPosition.y) * progress);
+          }
+        } ];
+      },
+      live: function live() {
+        this.isLive = true;
+        this.node.active = true;
+      },
+      end: function end() {
+        this.isLive = false;
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  info: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "743fbo2P75OiIfMpN5MrijI", "info");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        this.recationArr = [ {
+          start: 0,
+          end: .6,
+          action: function action(data) {
+            var progress = data.progress;
+            self.node.opacity = 255 * progress;
+          }
+        } ];
+      },
+      start: function start() {},
+      live: function live() {
+        this.isLive = true;
+        this.node.active = true;
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
   } ],
   jelly: [ function(require, module, exports) {
     "use strict";
@@ -17816,6 +19116,87 @@ window.__require = function e(t, n, r) {
   }, {
     WxSDKAPI: "WxSDKAPI"
   } ],
+  logo: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "7f758eTFKZBLJmE/XHc4ukQ", "logo");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        this.node.opacity = 0;
+        var action = cc.fadeIn(1);
+        this.node.runAction(action);
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  man: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "9d429EznJ1GUIlXfAlYX3lo", "man");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        this.recationArr = [ {
+          start: 0,
+          end: .5,
+          action: function action(data) {
+            var progress = data.progress;
+            self.node.scale = 1.1 * progress;
+          }
+        }, {
+          start: 0,
+          end: .4,
+          action: function action(data) {
+            var progress = data.progress;
+            self.node.opacity = 255 * progress;
+          }
+        } ];
+      },
+      initData: function initData(_ref) {
+        var totaTime = _ref.totaTime, startTime = _ref.startTime;
+        this.startTime = startTime;
+        this.externalDuration = totaTime * this.lenPercent;
+        this.endTime = this.startTime + this.externalDuration;
+        return {
+          startTime: this.startTime,
+          internalDuration: this.internalDuration,
+          endTime: this.endTime
+        };
+      },
+      start: function start() {},
+      live: function live() {
+        this.isLive = true;
+        this.node.active = true;
+      },
+      end: function end() {
+        this.isLive = false;
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
   matchLayer: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "15c6bTcLwZF7rneXrTK+6kG", "matchLayer");
@@ -17837,6 +19218,32 @@ window.__require = function e(t, n, r) {
     });
     cc._RF.pop();
   }, {} ],
+  name: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "6d040qxlFJD9o9Mth6A4Jat", "name");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        self.node.opacity = 0;
+        this.recationArr = [];
+        var action = cc.fadeIn(1);
+        this.node.runAction(action);
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
   nardove: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "85d55J9j8lKe5TeLh4YqRwK", "nardove");
@@ -17934,6 +19341,196 @@ window.__require = function e(t, n, r) {
     });
     cc._RF.pop();
   }, {} ],
+  plane0_1: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "b159f4I7hZHPoPNaoYrDc7i", "plane0_1");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {
+        plane: cc.Node
+      },
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        var action = cc.moveBy(1, cc.v2(this.node.getContentSize().width + 500, 500));
+        var action2 = cc.spawn(action, cc.scaleTo(1, 2));
+        this.node.runAction(cc.sequence(cc.delayTime(2), action2, cc.callFunc(function() {
+          self.node.active = false;
+          self.node.parent.active = false;
+          self.plane.runAction(cc.moveTo(1, cc.v2(0, 0)));
+        })));
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  plane0_2: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "b8d39CY2EpOt7UlJYxZhPZb", "plane0_2");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        var action = cc.moveBy(1.5, cc.v2(this.node.getContentSize().width + 100, 200));
+        this.node.runAction(action);
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  plane1_2: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "39eee3X9KpBLYDUsupcIrYr", "plane1_2");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        this.recationArr = [ {
+          start: 0,
+          end: 1,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data = data, _data$isEndForce = _data.isEndForce, isEndForce = void 0 !== _data$isEndForce && _data$isEndForce;
+            var reactionProgress = isEndForce ? 1 : self.calcReactionProgress({
+              start: 0,
+              end: 1
+            });
+            var scale = reactionProgress;
+            self.node.scale = scale;
+          }
+        } ];
+      },
+      start: function start() {},
+      live: function live() {
+        this.isLive = true;
+        this.node.active = true;
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  planeEnd: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "f672dRaPOlKwLr84DEYiCc3", "planeEnd");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        this.recationArr = [ {
+          start: 0,
+          end: .4,
+          action: function action(data) {
+            var progress = data.isEndForce ? 1 : Math.min((self.progressValue - data.start) / data.actionLen, 1);
+            self.node.position = cc.v2(self.startPosition.x + progress * self.node.getContentSize().width * 2.2, self.startPosition.y + progress * self.node.getContentSize().height * 2.2);
+          }
+        }, {
+          start: .2,
+          end: .4,
+          isAction: false,
+          action: function action(data) {
+            var progress = data.isEndForce ? 1 : Math.min((self.progressValue - data.start) / data.actionLen, 1);
+            self.node.scale = 1 + 2 * progress;
+            self.node.opacity = 255 - 255 * progress;
+          }
+        } ];
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
+  plane: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "3f698IjYcBJ7oULHdLpl+YU", "plane");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {
+        show1: cc.Node,
+        show2: cc.Node
+      },
+      onLoad: function onLoad() {
+        var _this = this;
+        this._super();
+        var self = this;
+        this.recationArr = [ {
+          start: 0,
+          end: 1,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data = data, progress = _data.progress;
+            _this.node.position = cc.v2(self.startPosition.x - progress * self.node.parent.getContentSize().width * .5, self.startPosition.y + progress * self.node.parent.getContentSize().height * .03);
+          }
+        }, {
+          start: 0,
+          end: .5,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data2 = data, progress = _data2.progress;
+            _this.show2.scale = 1.5 * progress;
+          }
+        }, {
+          start: .5,
+          end: 1,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data3 = data, progress = _data3.progress;
+            _this.show2.scale = 1.5 - progress;
+          }
+        } ];
+      },
+      update: function update() {
+        this.show1.active = this.progressValue > .7;
+        this.show2.active = this.progressValue <= .7;
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
   player: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "588cdzd0VRCe74JdVLDcoOO", "player");
@@ -18110,12 +19707,103 @@ window.__require = function e(t, n, r) {
     "./R.path": "R.path",
     "./utils/R.utils": "R.utils"
   } ],
+  showFade: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "2f2e0wZjLFMeZSgP6+fF8QX", "showFade");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {
+        refreshBtn: cc.Button
+      },
+      onLoad: function onLoad() {
+        var _this = this;
+        this.time = 0;
+        this._super();
+        this.recationArr = [ {
+          start: .8,
+          end: 1,
+          action: function action(data) {
+            void 0 === data && (data = {});
+            var _data = data, progress = _data.progress;
+            _this.meterial.effect.setProperty("time", 1.2 * progress);
+          }
+        } ];
+      },
+      start: function start() {
+        var labelC = this.node.getComponent(cc.Sprite);
+        this.meterial = labelC.getMaterial(0);
+        var a = 1;
+      },
+      refreshOnce: function refreshOnce() {
+        this.refreshBtn.interactable = false;
+        this.schedule(this.myUpdate, 0, cc.macro.REPEAT_FOREVER, 0);
+      },
+      myUpdate: function myUpdate() {
+        this.time += .01;
+        this.meterial.effect.setProperty("time", this.time);
+        if (this.time > 1.2) {
+          this.unschedule(this.myUpdate);
+          this.refreshBtn.interactable = true;
+          this.time = 0;
+          this.meterial.effect.setProperty("time", this.time);
+        }
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
   "socket.io": [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "b81a3G9wUBHdpawr2N3Ak59", "socket.io");
     "use strict";
     cc._RF.pop();
   }, {} ],
+  sun: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "cf6da1EYDtGP6ON21dW/LNc", "sun");
+    "use strict";
+    var _entity = _interopRequireDefault(require("../../base/entity"));
+    function _interopRequireDefault(obj) {
+      return obj && obj.__esModule ? obj : {
+        default: obj
+      };
+    }
+    cc.Class({
+      extends: _entity["default"],
+      properties: {},
+      onLoad: function onLoad() {
+        this._super();
+        var self = this;
+        self.node.opacity = 0;
+        this.recationArr = [ {
+          start: .2,
+          end: .3,
+          action: function action(data) {
+            var progress = data.isEndForce ? 1 : Math.min((self.progressValue - data.start) / data.actionLen, 1);
+            self.node.opacity = 255 * progress;
+          }
+        }, {
+          start: 0,
+          end: 1,
+          action: function action(data) {
+            var progress = data.isEndForce ? 1 : Math.min((self.progressValue - data.start) / data.actionLen, 1);
+            self.node.position = cc.v2(self.startPosition.x, self.startPosition.y + 300 * progress);
+          }
+        } ];
+      }
+    });
+    cc._RF.pop();
+  }, {
+    "../../base/entity": "entity"
+  } ],
   target: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "354a5AwpIdFcqAGTLw6dc5o", "target");
@@ -18181,6 +19869,36 @@ window.__require = function e(t, n, r) {
     "use strict";
     cc._RF.pop();
   }, {} ],
+  titleNode: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "2d2c2zjV4JAPKU2BIamtqpU", "titleNode");
+    "use strict";
+    cc.Class({
+      extends: cc.Component,
+      properties: {
+        infoArr: {
+          default: [],
+          type: cc.Node
+        }
+      },
+      ctor: function ctor() {
+        this.register = {
+          entity2: 0,
+          entity3: 1,
+          entity8: 2,
+          entity16: 3,
+          entity5: 4
+        };
+      },
+      showInfoById: function showInfoById(entityId) {
+        var _this = this;
+        this.infoArr.forEach(function(item, index) {
+          item.active = index == _this.register[entityId];
+        });
+      }
+    });
+    cc._RF.pop();
+  }, {} ],
   "use_v2.0.x_cc.Toggle_event": [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "605e43g6HFO65F9iSkmeGUy", "use_v2.0.x_cc.Toggle_event");
@@ -18188,4 +19906,4 @@ window.__require = function e(t, n, r) {
     cc.Toggle && (cc.Toggle._triggerEventInScript_check = true);
     cc._RF.pop();
   }, {} ]
-}, {}, [ "jelly", "nardove", "tentacle", "R.group", "R.path", "R.style", "R.transform", "R.animate", "R.simplify", "R.smooth", "R.svg", "raphael", "R.curve", "R.dash", "R.find", "R.length", "R.tesselateBezier", "R.utils", "use_v2.0.x_cc.Toggle_event", "ball_bullet", "bk_check", "fight", "gameEngine_s", "target", "Notification", "ball", "btn", "doodle", "par", "physics-bound", "socket.io", "test", "config", "define", "ballLayer", "charactorLayer", "lanuchLayer", "lobby", "lobbyLayer", "matchLayer", "event-names", "gameServer", "clound", "door", "gameEngine", "player", "WxSDKAPI" ]);
+}, {}, [ "jelly", "nardove", "tentacle", "R.group", "R.path", "R.style", "R.transform", "R.animate", "R.simplify", "R.smooth", "R.svg", "raphael", "R.curve", "R.dash", "R.find", "R.length", "R.tesselateBezier", "R.utils", "use_v2.0.x_cc.Toggle_event", "ball_bullet", "bk_check", "fight", "gameEngine_s", "target", "entity", "Notification", "ball", "btn", "doodle", "par", "physics-bound", "socket.io", "test", "titleNode", "gameMain", "config", "define", "ballLayer", "charactorLayer", "lanuchLayer", "lobby", "lobbyLayer", "matchLayer", "event-names", "gameServer", "clound", "door", "gameEngine", "player", "logo", "name", "plane0_1", "plane0_2", "entity0", "code-5", "code1-1", "code1", "code2", "code3", "code6", "info", "man", "plane", "plane1_2", "entity1", "code2_1", "code2_2", "infoCell", "showFade", "entity2", "bottom", "bottom_img", "info1", "info2", "planeEnd", "sun", "entityEnd", "WxSDKAPI" ]);

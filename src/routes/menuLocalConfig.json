@@ -6,5 +6,6 @@
   { "menuId": 2003, "parentId": 0 },
   { "menuId": 2006, "parentId": 0 },
   { "menuId": 2007, "parentId": 0 },
-  { "menuId": 2008, "parentId": 2007 }
+  { "menuId": 2008, "parentId": 2007 },
+  { "menuId": 2009, "parentId": 2006 }
 ]

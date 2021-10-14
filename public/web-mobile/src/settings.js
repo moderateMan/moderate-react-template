@@ -44,7 +44,7 @@ window._CCSettings = {
             false
         ]
     ],
-    hasResourcesBundle: false,
+    hasResourcesBundle: true,
     hasStartSceneBundle: false,
     remoteBundles: [],
     subpackages: [],

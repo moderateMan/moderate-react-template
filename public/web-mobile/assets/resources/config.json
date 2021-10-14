@@ -1,0 +1,21 @@
+{
+    "paths": {
+        "7cHCBbJp5PAp6L9y6I4zc5": [
+            "audio/test",
+            "cc.AudioClip"
+        ]
+    },
+    "uuids": [
+        "7cHCBbJp5PAp6L9y6I4zc5"
+    ],
+    "scenes": {},
+    "redirect": [],
+    "deps": [],
+    "packs": {},
+    "name": "resources",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

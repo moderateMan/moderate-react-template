@@ -206,7 +206,6 @@ class PageCenter extends Component<thisProps, States> {
     });
     return { docList, docTreeMap };
   };
-
   /**
    * 用户退出方法
    * 调用后台退出方法

@@ -36,12 +36,7 @@ class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
   selectedRows: any;
   refreshConfig: any;
   componentDidMount() {
-    // this.handleRefreshPage({
-    //     pageIndex: 1,
-    //     pageSize: this.state.pageSize,
-    // });
     this.refreshConfig();
-    // this.props.form.validateFields();
   }
 
   componentWillUnmount() {}
@@ -53,42 +48,11 @@ class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
   };
 
   handleRefreshPage = (params: any) => {
-    // const {
-    //     lightHomeStore: { fetchPage },
-    // } = this.props;
-    // const { searchPosName } = this.state;
-    // props.lightName = searchPosName;
-    // fetchPage(params).finally(() => {
-    // });
+   
   };
 
   handlDelete = (params: any) => {
-    // const {
-    //     lightHomeStore: { lightArr, fetchLightDelete },
-    //     intlData,
-    // } = this.props;
-    // if (params.length === 0) {
-    //     return message.warning(intlData["light_warn_select"]);
-    // }
-    // let { pageIndex, pageSize } = this.state;
-    // Modal.confirm({
-    //     icon: <InfoCircleOutlined />,
-    //     title: intlData.modalDeleteTitle,
-    //     content: intlData.modalDeleteContent,
-    //     cancelText: intlData.No,
-    //     okText: intlData.Yes,
-    //     onOk: () => {
-    //         fetchLightDelete(params).then(() => {
-    //             if (params.length === lightArr.length) {
-    //                 pageIndex = pageIndex - 1;
-    //             }
-    //             this.handleRefreshPage({
-    //                 pageIndex: pageIndex || 1,
-    //                 pageSize: pageSize,
-    //             });
-    //         });
-    //     },
-    // });
+    
   };
 
   handleSearch = (values: any) => {

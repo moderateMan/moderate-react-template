@@ -178,3 +178,4 @@ class SubRoutes extends Component<SubRoutesPropsT, any> {
 }
 
 export default injectIntl(withRouter(SubRoutes) as React.ComponentType<any>);
+

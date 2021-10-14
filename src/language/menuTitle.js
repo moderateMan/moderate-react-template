@@ -54,7 +54,11 @@ let config = {
     },
     commonTitle_strategy: {
         en: "Strategy",
-        zh: "攻略",
+        zh: "强话",
+    },
+    commonTitle_strategy_test: {
+        en: "Strategy Moderate",
+        zh: "强话Moderate",
     },
     commonTitle_graphics: {
         en: "Graphics engine",

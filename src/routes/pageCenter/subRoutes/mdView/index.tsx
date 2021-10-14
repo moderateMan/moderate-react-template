@@ -20,8 +20,6 @@ type MatchT = {
 };
 
 let document: React.FC<DocPropsT> = inject("global")(observer((props) => {
-  // const { global } = useStores();
-  // const { changeParams, isRandomTheme } = global;
   const {
     wrapperByMd: WrapperByMd,
     match,
@@ -37,6 +35,9 @@ let document: React.FC<DocPropsT> = inject("global")(observer((props) => {
   useEffect(() => {
     if (docPath) {
       id = docPath;
+    }
+    if(!id){
+      id = "_intro.md"
     }
     import("DOCS/" + id).then((data) => {
       setMd(data);

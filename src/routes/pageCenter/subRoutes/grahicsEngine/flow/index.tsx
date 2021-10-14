@@ -200,7 +200,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
       title: '流程图',
       target: this.graph,
       stencilGraphWidth: 200,
-      stencilGraphHeight: 180,
+      stencilGraphHeight: 240,
       collapsable: false,
       groups: [
         {
@@ -210,9 +210,9 @@ export default class Example extends React.Component<PropsT, StatesT> {
         },
       ],
       layoutOptions: {
-        columns: 2,
-        columnWidth: 80,
-        rowHeight: 55,
+        columns: 1,
+        columnWidth: 150,
+        rowHeight: 80,
       },
       getDragNode: (node) => {
         self.isDragFlag = true
@@ -498,6 +498,11 @@ export default class Example extends React.Component<PropsT, StatesT> {
         })
         let min = Math.min(...posArr)
         let node = nodeMap[min];
+        if (p1.x > getNodePos(node).x) {
+          if(min>100) return
+        }else{
+          if(min>50) return
+        }
         let view = this.graph.findViewByCell(node)
         view?.highlight()
         this.currentNodeId = node.data.idL;

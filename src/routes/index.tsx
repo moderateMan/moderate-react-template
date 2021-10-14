@@ -203,7 +203,6 @@ export function scrollToView(scroller: Element, value: number) {
   if (!scroller) {
     return;
   }
-
   const scroll = value;
   const scrollStart = 0;
   let start: number = 0;

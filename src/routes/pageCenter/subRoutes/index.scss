@@ -13,6 +13,7 @@
 .maintainStyle {
   width: calc(100% - 50px);
   margin: 0 auto;
+  height: calc(100% - 20px);
 
   .ant-card:nth-child(3),
   .ant-card:nth-child(4) {

@@ -3,3 +3,4 @@ export * from "./lazyImport";
 export * from "./notification";
 export * from './findCurrentMenuInfo'
 export * from "./other";
+export * from './game.js'
