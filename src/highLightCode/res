@@ -1,0 +1,42 @@
+conf>>>[object Object]
+[
+  [],
+  [
+    { color_type: 'key_word', content: 'var' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'other', content: 'nancy' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'symbol', content: '=' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'other', content: '"' },
+    { color_type: 'other', content: 'fengming' },
+    { color_type: 'other', content: '"' },
+    { color_type: 'symbol', content: ';' }
+  ],
+  [
+    { color_type: 'key_word', content: 'function' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'other', content: 'check_str_type' },
+    { color_type: 'symbol', content: '(' },
+    { color_type: 'other', content: 'str' },
+    { color_type: 'symbol', content: ')' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'other', content: '{' }
+  ],
+  [
+    { color_type: 'black', content: ' ' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'other', content: 'console' },
+    { color_type: 'symbol', content: '.' },
+    { color_type: 'other', content: 'log' },
+    { color_type: 'symbol', content: '(' },
+    { color_type: 'number', content: '11111' },
+    { color_type: 'symbol', content: ')' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'symbol', content: ';' }
+  ],
+  [ { color_type: 'other', content: '}' } ],
+  []
+]
