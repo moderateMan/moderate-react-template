@@ -179,7 +179,7 @@ function check_str_type(str) {
         // 是否是纯数字
     var patt_number = /\d+/;
     if (patt_number.test(str)) return "number"
-    var patt_string = /\s+/;
+    var patt_string = /\w+/;
     if (patt_string.test(str)) return "string"
 
 
@@ -201,6 +201,10 @@ function check_str_type(str) {
  * 3. 匹配
  *
  * 4. 转换输出格式
+ *
+ * TODO 1. js.json java.json go.json python.json
+ * TODO 2. key number
+ * TODO 3.
  *
  */
 
