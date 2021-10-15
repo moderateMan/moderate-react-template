@@ -11,8 +11,6 @@ import {openNotificationWithIcon,game} from "@COMMON/utils";
 import FetchRequest from '@DATA_MANAGER/netTrans/myReuqest'
 import { getPath } from "@ROUTES/index";
 
-
-
 let isDev = true;
 type PropsT = {
   [key:string]:any
@@ -58,7 +56,6 @@ class LoginPage extends React.Component<PropsT,StateT> {
    * 显示提示信息
    */
   componentDidMount() {
-    game("hello");
     let token = Storage.getStorage(ACCESS_TOKEN);
     if (token) {
       return this.props.history.push(getPath("start"));
@@ -66,6 +63,7 @@ class LoginPage extends React.Component<PropsT,StateT> {
     this.changeCodeImage();
     if (isDev) {
       this.isStart = true;
+      game("hello");
       document.addEventListener("completeFromGame", (data:any) => {
         if (data.detail.status === 1) {
           this.setState({

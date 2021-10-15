@@ -137,7 +137,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
     // 这里协助演示的代码，在实际项目中根据实际情况进行调整
     const container = document.getElementById('container')!;
     const stencilContainer = document.createElement('div');
-    stencilContainer.id = 'stencil';
+    stencilContainer.id = 'stencil2';
     const graphContainer = document.createElement('div');
     graphContainer.id = 'graph-container';
     container.appendChild(stencilContainer);
@@ -148,7 +148,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
         display: flex;
         border: 1px solid #dfe3e8;
       }
-      #stencil {
+      #stencil2 {
         width: 180px;
         height: 100%;
         position: relative;
@@ -253,7 +253,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
         return false;
       },
     });
-    document.getElementById('stencil')!.appendChild(stencil.container);
+    document.getElementById('stencil2')!.appendChild(stencil.container);
     const r1 = this.nodeCtr.addDndNode({ type: NODE_TYPE.A });
     const r2 = this.nodeCtr.addDndNode({ type: NODE_TYPE.B });
     const r3 = this.nodeCtr.addDndNode({ type: NODE_TYPE.C });

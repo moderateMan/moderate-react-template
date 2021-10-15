@@ -5,7 +5,8 @@ import { Node } from '@antv/x6';
 export const NODE_TYPE = {
     A:"1",
     C:"0",
-    B:"2"
+    B:"2",
+    D:"3"
 }
 
 export function getNodePos(node:Node){

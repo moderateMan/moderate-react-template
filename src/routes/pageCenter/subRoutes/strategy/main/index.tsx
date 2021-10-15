@@ -1,11 +1,11 @@
 import React, { RefObject } from "react";
-import { Graph, Shape, NodeView, Addon, Node } from "@antv/x6";
+import { Graph, Shape, NodeView, Addon, Node,Line,Curve,Path } from "@antv/x6";
 import { insertCss } from "insert-css";
 import nodeCtr from "./ctr/nodeCtr";
 import styles from "./index.module.scss";
 import MyRect from "./shape/myRect";
 import { NODE_TYPE, getNodePos, getDist } from "./common";
-import { getUrlParam, uuid ,game} from "@COMMON/utils";
+import { getUrlParam, uuid, game } from "@COMMON/utils";
 import Relation from "./components/relation";
 import MdView from "@ROUTES/pageCenter/subRoutes/mdView/index";
 declare var cc: any;
@@ -38,24 +38,88 @@ export default class Example extends React.Component<PropsT, StatesT> {
 
   constructor(props: PropsT) {
     super(props);
+    let a1 = this.getNodeTempByType(NODE_TYPE.D);
+    let a = this.getNodeTempByType(NODE_TYPE.A);
+    let b = this.getNodeTempByType(NODE_TYPE.C);
+    let c = this.getNodeTempByType(NODE_TYPE.C);
+
+    let testData = [
+      {
+        ...c,
+        children: [a1],
+        connects: [
+          {
+            source: {
+              id: c.id,
+              port: "port_top_1",
+            },
+            target: {
+              id: a1.id,
+              port: "port_bottom_1",
+            },
+          },
+          {
+            source: {
+              id: c.id,
+              port: "port_out_1",
+            },
+            target: {
+              id: a.id,
+              port: "port_in_1",
+            },
+          },
+        ],
+      },
+      {
+        ...a,
+        connects: [
+          {
+            source: {
+              id: a.id,
+              port: "port_top_1",
+            },
+            target: {
+              id: a1.id,
+              port: "port_out_1",
+              connector:{
+                name: 'multi-smooth',
+                  args: {
+                    total:1,
+                    index: -15,
+                  },
+              }
+            },
+          },
+          {
+            source: {
+              id: a.id,
+              port: "port_out_1",
+            },
+            target: {
+              id: b.id,
+              port: "port_in_1",
+            },
+          },
+        ],
+      },
+      b,
+    ];
+
     this.state = {
       isRefresh: 0,
       currentItemId: "",
       isCheckNode: true,
       operatorList: [],
-      nodeList: [
-        this.getNodeTempByType(NODE_TYPE.C),
-        this.getNodeTempByType(NODE_TYPE.B),
-      ],
+      nodeList: testData,
       flowName: "",
     };
     // 创建表单实例
     this.formInstance = React.createRef();
     const { search } = props.location;
     this.flowId = getUrlParam(search, "id");
-    game("helloworld").then(()=>{
-        
-    })
+    // game("helloworld").then(()=>{
+
+    // })
   }
 
   componentDidMount() {
@@ -89,9 +153,9 @@ export default class Example extends React.Component<PropsT, StatesT> {
   getNodeTempByType(type: any) {
     if (type == NODE_TYPE.A) {
       return {
-        idL: uuid(),
+        id: uuid(),
         type: NODE_TYPE.A,
-        name: "审批",
+        name: "回溯",
         auditUserId: 1,
         auditUserEditable: 0,
         formDataEditable: 0,
@@ -99,9 +163,9 @@ export default class Example extends React.Component<PropsT, StatesT> {
       };
     } else if (type == NODE_TYPE.B) {
       return {
-        idL: uuid(),
+        id: uuid(),
         type: NODE_TYPE.B,
-        name: "结束",
+        name: "知识点A-1",
         auditUserId: 1,
         auditUserEditable: 0,
         formDataEditable: 0,
@@ -109,10 +173,21 @@ export default class Example extends React.Component<PropsT, StatesT> {
       };
     } else if (type == NODE_TYPE.C) {
       return {
-        idL: uuid(),
+        id: uuid(),
         type: NODE_TYPE.C,
         offsetY: -10,
-        name: "开始",
+        name: "知识点A",
+        auditUserId: 1,
+        auditUserEditable: 0,
+        formDataEditable: 0,
+        valid: 1,
+      };
+    } else if (type == NODE_TYPE.D) {
+      return {
+        id: uuid(),
+        type: NODE_TYPE.B,
+        offsetY: -10,
+        name: "知识点1",
         auditUserId: 1,
         auditUserEditable: 0,
         formDataEditable: 0,
@@ -120,9 +195,9 @@ export default class Example extends React.Component<PropsT, StatesT> {
       };
     }
     return {
-      idL: uuid(),
+      id: uuid(),
       type: NODE_TYPE.A,
-      name: "审批",
+      name: "回溯",
       auditUserId: 1,
       auditUserEditable: 0,
       formDataEditable: 0,
@@ -187,14 +262,41 @@ export default class Example extends React.Component<PropsT, StatesT> {
         opacity: 0;
       }
     `);
+
+    Graph.registerConnector(
+      'multi-smooth',
+      (
+        sourcePoint,
+        targetPoint,
+        routePoints,
+        options: { raw?: boolean; index?: number; total?: number; gap?: number },
+      ) => {
+        debugger
+        const { index = 0, total = 1, gap = 12 } = options
+        const line = new Line(sourcePoint, targetPoint)
+        const centerIndex = (total - 1) / 2
+        const dist = index - centerIndex
+        const diff = Math.abs(dist)
+        const factor = diff === 0 ? 1 : diff / dist
+        const vertice = line
+          .pointAtLength(line.length() / 2 + gap * factor * Math.ceil(diff))
+          .rotate(90, line.getCenter())
+    
+        const points = [sourcePoint, vertice, targetPoint]
+        const curves = Curve.throughPoints(points)
+        const path = new Path(curves)
+        return options.raw ? path : path.serialize()
+      },
+      true,
+    )
   };
 
-  componentWillUnmount(){
-    let root = document.getElementById("root")!
-    let gameRoot = document.getElementById("gameRoot")!
+  componentWillUnmount() {
+    let root = document.getElementById("root")!;
+    let gameRoot = document.getElementById("gameRoot")!;
     gameRoot.style.display = "none";
-    gameRoot.className ="gameLogin"
-    root.appendChild(gameRoot) 
+    gameRoot.className = "gameLogin";
+    root.appendChild(gameRoot);
   }
   initStenCil() {
     // #region 初始化 stencil
@@ -236,7 +338,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
         let temp = [...nodeList];
         // 落下的时候判断左右
         const id = nodeList.findIndex((item) => {
-          return self.currentNodeId === item.idL;
+          return self.currentNodeId === item.id;
         });
         if (droppingNode.data.type !== NODE_TYPE.A) {
           return false;
@@ -371,17 +473,43 @@ export default class Example extends React.Component<PropsT, StatesT> {
     const { nodeList } = this.state;
     for (let i = 0; i < nodeList.length; i++) {
       let itemData = nodeList[i];
-      const { type } = itemData;
+      const { type, children = [] } = itemData;
       let offsetY = type == NODE_TYPE.C ? -10 : 0;
+      children.forEach((item: any, index: number) => {
+        let node = this.nodeCtr
+          .addDndNode({
+            type: item.type,
+            options: {
+              id:item.id,
+              data: item,
+              label: item.name,
+            },
+          })
+          .position(startPos.x+offsetY, 150  - (index + 1) * 120)
+          .setAttrs({
+            label: {
+              textAnchor: "middle",
+              text: itemData.name,
+              textWrap: {
+                width: 60,
+                height: 32,
+                ellipsis: true,
+              },
+            },
+          });
+        this.graph.addNode(node);
+      });
+
       let node = this.nodeCtr
         .addDndNode({
           type,
           options: {
+            id:itemData.id,
             data: itemData,
             label: itemData.name,
           },
         })
-        .position(startPos.x + i * 120, 150 + offsetY)
+        .position(startPos.x + i * 130, 150 + offsetY)
         .setAttrs({
           label: {
             textAnchor: "middle",
@@ -395,11 +523,16 @@ export default class Example extends React.Component<PropsT, StatesT> {
         });
       this.nodeArr.push(this.graph.addNode(node));
     }
-    for (let i = 0; i < this.nodeArr.length; i++) {
-      if (i < this.nodeArr.length - 1) {
+    for (let i = 0; i < nodeList.length; i++) {
+      let itemData = nodeList[i];
+      const { connects=[] } = itemData;
+      connects.forEach((item:any) => {
+        const { source, target } = item;
+        let connector = target.connector
         this.graph.addEdge({
-          source: { cell: this.nodeArr[i], port: "port_out_1" }, // 源节点和链接桩 ID
-          target: { cell: this.nodeArr[i + 1], port: "port_in_1" }, // 目标节点 ID 和链接桩 ID
+          source: { cell: source.id, port: source.port }, // 源节点和链接桩 ID
+          target: { cell: target.id, port: target.port }, // 目标节点 ID 和链接桩 ID
+          connector,
           attrs: {
             line: {
               stroke: "#5217b1",
@@ -410,8 +543,8 @@ export default class Example extends React.Component<PropsT, StatesT> {
               },
             },
           },
-        });
-      }
+        })
+      });
     }
   }
 
@@ -468,16 +601,16 @@ export default class Example extends React.Component<PropsT, StatesT> {
     this.graph.on("node:click", ({ e, x, y, cell, view }) => {
       view.highlight();
       const {
-        data: { idL, type },
+        data: { id, type },
       } = cell;
       this.setState(
         {
-          currentItemId: idL,
+          currentItemId: id,
           isCheckNode: type == NODE_TYPE.A,
         },
         () => {
           let currentData = this.state.nodeList.find((item) => {
-            return item.idL === this.state.currentItemId;
+            return item.id === this.state.currentItemId;
           });
           this.formInstance?.current?.setFieldsValue(currentData);
         }
@@ -520,7 +653,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
         }
         let view = this.graph.findViewByCell(node);
         view?.highlight();
-        this.currentNodeId = node.data.idL;
+        this.currentNodeId = node.data.id;
         this.isBefore = true;
         if (p1.x > getNodePos(node).x) {
           this.isBefore =
@@ -556,7 +689,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
       }
     }
     this.state.nodeList.find((item) => {
-      if (item.idL === this.state.currentItemId) {
+      if (item.id === this.state.currentItemId) {
         Object.assign(item, values);
       }
     });
