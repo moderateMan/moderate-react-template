@@ -1,9 +1,7 @@
-
-
 /**
- * 
- * @param {文件路径}} file_path 
- * @param {文件内容} data 
+ *
+ * @param {文件路径}} file_path
+ * @param {文件内容} data
  */
 
 function write_file(file_path, data) {
@@ -13,8 +11,8 @@ function write_file(file_path, data) {
 
 
 /**
- * 
- * @param {文件路径} file_path 
+ *
+ * @param {文件路径} file_path
  */
 function read_file(file_path) {
     // console.log("start");
@@ -42,7 +40,7 @@ function read_file(file_path) {
 
 /**
  * 返回 code 内容
- * @param {md 的 ```字符`}} str 
+ * @param {md 的 ```字符`}} str
  */
 function get_code_content(str) {
     str = str.replace(/```.*/, "");
@@ -52,8 +50,8 @@ function get_code_content(str) {
 }
 
 /**
- * 
- * @param {md的源代码}} str 
+ *
+ * @param {md的源代码}} str
  */
 function check_language(str) {
     language_type = "js"
@@ -108,11 +106,9 @@ function reg_main(inp_str) {
 }
 
 
-
-
 /**
- * 
- * @param {一行字符串} str 
+ *
+ * @param {一行字符串} str
  */
 function split_one_line(str) {
 
@@ -123,7 +119,7 @@ function split_one_line(str) {
 
 
     // 数字字母下划线(连续) 或者 不是数字字母下划线(分开)
-    
+
     // let txt_arr = str.match(/\s+|\S+/g);
     let txt_arr = str.match(/[0-9a-zA-Z_]{1,}|[^0-9a-zA-Z_]{1,1}/g);
     // let txt_arr = str.match(/\s+/g);
@@ -133,15 +129,15 @@ function split_one_line(str) {
 }
 
 /**
- * 
- * @param {一个单词或者标识符} str 
+ *
+ * @param {一个单词或者标识符} str
  */
 function check_str_type(str) {
     /**
      * 读取配置文件
-     * 
+     *
      */
-    let conf = read_file("./config/"+check_language(str)+".json")
+    let conf = read_file("./config/" + check_language(str) + ".json")
     // console.log("conf>>>"+conf)
 
     let config = JSON.parse(conf)
@@ -170,24 +166,23 @@ function check_str_type(str) {
     }
 
 
-    
     // 继续判断
     /**
-    实例
-    var patt = /e/;
-    patt.test("The best things in life are free!");
-    字符串中含有 "e"，所以该实例输出为：
+     实例
+     var patt = /e/;
+     patt.test("The best things in life are free!");
+     字符串中含有 "e"，所以该实例输出为：
 
-    true
-    */
+     true
+     */
 
-    // 是否是纯数字
+        // 是否是纯数字
     var patt_number = /\d+/;
     if (patt_number.test(str)) return "number"
     var patt_string = /\s+/;
     if (patt_string.test(str)) return "string"
-        
-    
+
+
     // 是否是纯字母
 
     return "other";
@@ -198,24 +193,22 @@ function check_str_type(str) {
 }
 
 
-
-
-
 /**
  * 1. 定义输入
- * 
+ *
  * 2. 定义库
- * 
+ *
  * 3. 匹配
- * 
+ *
  * 4. 转换输出格式
- * 
+ *
  */
+
+
 // arst
 
 
 // main
-
 
 
 let txt = get_code_content(read_file("README.md"))
