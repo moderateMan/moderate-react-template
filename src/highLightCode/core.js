@@ -21,7 +21,7 @@ function read_file(file_path) {
     let fs = require("fs")
 
     // // 异步读取
-    // fs.readFile('input.md', function (err, data) {
+    // fs.readFile('README.md', function (err, data) {
     //     if (err) {
     //         return console.error(err);
     //     }
@@ -218,7 +218,7 @@ function check_str_type(str) {
 
 
 
-let txt = get_code_content(read_file("readme.md"))
+let txt = get_code_content(read_file("README.md"))
 let res_arr = reg_main(txt);
 console.log(res_arr);
 // let res_arr = "arst"

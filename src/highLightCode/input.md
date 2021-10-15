@@ -1,5 +1,0 @@
-```js
-
-var victor = "fengming"
-
-```
