@@ -1,3 +1,5 @@
+
+
 /**
  *
  * @param {文件路径}} file_path
@@ -18,14 +20,6 @@ function read_file(file_path) {
     // console.log("start");
     let fs = require("fs")
 
-    // // 异步读取
-    // fs.readFile('README.md', function (err, data) {
-    //     if (err) {
-    //         return console.error(err);
-    //     }
-    //     // console.log("start");
-    //     console.log("异步读取: " + data.toString());
-    // });
 
     // 同步读取
     let data = fs.readFileSync(file_path);
@@ -59,18 +53,15 @@ function check_language(str) {
 }
 
 
+/**
+ * 正则匹配主函数
+ * @param inp_str
+ * @returns {*[]}
+ */
 function reg_main(inp_str) {
     // console.log("程序执行完毕。");
 
     let txt = inp_str.replace("victor", "nancy");
-
-    // console.log("txt>>>: " + txt);
-
-    // let patt=new RegExp(pattern,modifiers);
-
-    // let res = "(.*?)\n)".exec("The best things in life are free!");
-    // res.array.forEach(element => {
-    // console.log("element>>>: " + element);
 
     // });
 
@@ -208,11 +199,10 @@ function check_str_type(str) {
  */
 
 
-// arst
 
 
-// main
 
+// exec
 
 let txt = get_code_content(read_file("README.md"))
 let res_arr = reg_main(txt);
