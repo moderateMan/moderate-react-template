@@ -1,0 +1,6 @@
+{
+    "key_word":["var","let","function"],
+    "symbol":["=","-","+","*","/","(",")",".",";"],
+    "black":[" "],
+    "const":["true","false"]
+}
