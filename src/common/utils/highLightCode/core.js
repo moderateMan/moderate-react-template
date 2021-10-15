@@ -14,7 +14,7 @@ function write_file(file_path, data) {
 
 /**
  *
- * @param {文件路径} file_path
+ * @param {string} file_path
  */
 function read_file(file_path) {
     // console.log("start");
@@ -201,8 +201,10 @@ function check_str_type(str) {
 
 
 
-
 // exec
+/**
+ * README.md is this article file
+  */
 
 let txt = get_code_content(read_file("README.md"))
 let res_arr = reg_main(txt);
