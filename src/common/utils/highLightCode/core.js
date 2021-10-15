@@ -62,7 +62,6 @@ function check_language(str) {
 function reg_main(inp_str) {
     // console.log("程序执行完毕。");
 
-    // let str = 
     let txt = inp_str.replace("victor", "nancy");
 
     // console.log("txt>>>: " + txt);
