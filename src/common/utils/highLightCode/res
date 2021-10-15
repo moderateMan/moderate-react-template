@@ -12,6 +12,7 @@
     { color_type: 'other', content: 'fengming' },
     { color_type: 'other', content: '"' },
     { color_type: 'symbol', content: ';' }
+
   ],
   [
     { color_type: 'key_word', content: 'function' },
