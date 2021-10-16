@@ -1,4 +1,4 @@
-
+// TODO 如何expose出去方法
 
 /**
  *
@@ -7,7 +7,7 @@
  */
 
 function write_file(file_path, data) {
-    const fs = require('fs')
+    let fs = require('fs');
     fs.writeFileSync(file_path, data)
 }
 
@@ -17,7 +17,7 @@ function write_file(file_path, data) {
  * @param {string} file_path
  */
 function read_file(file_path) {
-    // console.log("start");
+    console.log("start");
     let fs = require("fs")
 
 
@@ -37,6 +37,7 @@ function read_file(file_path) {
  * @param {md 的 ```字符`}} str
  */
 function get_code_content(str) {
+    // TODO 若有多个 ``` 代码块 该何去何从
     str = str.replace(/```.*/, "");
     str = str.replace(/```/, "");
     // str.replace("```","");
@@ -48,6 +49,8 @@ function get_code_content(str) {
  * @param {md的源代码}} str
  */
 function check_language(str) {
+    // TODO 多语言识别
+    // 文件名拼接
     language_type = "js"
     return language_type;
 }
@@ -61,7 +64,8 @@ function check_language(str) {
 function reg_main(inp_str) {
     // console.log("程序执行完毕。");
 
-    let txt = inp_str.replace("victor", "nancy");
+    // 不用替换了
+    // let txt = inp_str.replace("victor", "nancy");
 
     // });
 
@@ -73,11 +77,13 @@ function reg_main(inp_str) {
     let txt_arr = txt.split("\r\n");
 
     for (let key in txt_arr) {
+        // curr_line 当前行数据
         // console.log("key>>>"+txt_arr[key])
         let curr_line = txt_arr[key]
         let curr_word_arr = split_one_line(curr_line);
         res_arr_currline = [];
         for (let curr_word in curr_word_arr) {
+            // curr_word_arr[curr_word] 当前单词
             let color_type = check_str_type(curr_word_arr[curr_word]);
             inner = {
                 "color_type": color_type,
@@ -108,6 +114,7 @@ function split_one_line(str) {
     // ain,ain,ain
 
 
+    // 分割
     // 数字字母下划线(连续) 或者 不是数字字母下划线(分开)
 
     // let txt_arr = str.match(/\s+|\S+/g);
@@ -207,9 +214,9 @@ function check_str_type(str) {
   */
 
 let txt = get_code_content(read_file("README.md"))
-let res_arr = reg_main(txt);
+// let res_arr = reg_main(txt);
 console.log(res_arr);
-// let res_arr = "arst"
+let res_arr = "arst"
 // write_file("res",res_arr.toString())
 
 
