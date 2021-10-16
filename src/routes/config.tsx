@@ -39,6 +39,11 @@ const {
   FLOW_ID,
 } = ROUTES_LOCAL_ID;
 
+type SearchT = {
+  docPath?:string
+  docKey?:string
+}
+
 export type RoutesMapItemT = {
   name: string;
   icon?: string;
@@ -48,10 +53,11 @@ export type RoutesMapItemT = {
   key: string;
   component?: any;
   isNoFormat?: boolean;
-  search?: {};
+  search?: SearchT;
   param?: string;
-  children?: RoutesMapItemT[];
+  subNodes?: RoutesMapItemT[];
   routes?: any[];
+  [key: string]: any;
 };
 
 type routesMapType = {
@@ -107,7 +113,7 @@ export const routesMap: routesMapType = {
     name: "commonTitle_light",
     icon: "table",
     path: "/pageCenter/light",
-    exact: true,
+    exact: false,
     component: lazyImport(
       () => import("@ROUTES/pageCenter/subRoutes/light/lightHome")
     ),
@@ -130,16 +136,17 @@ export const routesMap: routesMapType = {
     key: uuid(),
   },
   document: {
-    path: "/pageCenter/doc/:id",
+    path: "/pageCenter/doc",
     name: "commonTitle_doc",
     icon: "read",
     component: lazyImport(() => import("@ROUTES/pageCenter/subRoutes/mdView")),
     key: uuid(),
   },
   strategy: {
-    path: "/pageCenter/strategy/:id",
+    path: "/pageCenter/strategy",
     name: "commonTitle_strategy",
     icon: "read",
+    redirect:"/pageCenter/strategy/test",
     key: uuid(),
   },
   strategyTest: {

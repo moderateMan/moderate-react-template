@@ -107,7 +107,7 @@ export function getPath(
   if (redirect) {
     pathnameTemp = `${redirect}${param ? "/" + param : ""}`;
   } else {
-    pathnameTemp = `${path.split("/:")[0]}${param ? "/" + param : ""}`;
+    pathnameTemp = `${Array.isArray(path)?path[0].split("/:")[0]:path.split("/:")[0]}${param ? "/" + param : ""}`;
   }
 
   temp = {

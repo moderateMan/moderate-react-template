@@ -1,54 +1,54 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import { LocationDescriptor, LocationState } from "history";
+import { RouteComponentProps } from "react-router-dom";
 import { cloneDeep } from "lodash";
-import { Layout, Menu, Button, Modal } from "antd";
+import { Layout } from "antd";
 import { MenuSlider, TopHeader } from "./components/";
 import SubRoutes from "./subRoutes";
-import { menusMapConfig } from "@ROUTES/config";
-// import docConfig from "DOCS/docConfig.json";
+import { menusMapConfig, RoutesMapItemT } from "@ROUTES/config";
 import { getPath } from "@ROUTES/index";
 import request from "@DATA_MANAGER/netTrans/myReuqest";
 import "./index.scss";
 import mdData from './mdData.json'
 import { toJS } from "mobx";
+import { Global } from "@DATA_MANAGER/stores";
 
 interface Props {
-  [prop: string]: any;
+  global: Global
+  [key: string]: any;
+}
+
+
+type MdDataT = {
+  path: string;
+  "name"?: string
+  title?: string;
+  type?: string;
+  children?: MdDataT[]
+}
+
+type DocTreeMapItem = {
+  parentKey: string,
+  data: MdDataT
+}
+
+type CreateDocMenuDataFT = {
+  item: MdDataT,
+  docList: RoutesMapItemT[],
+  docTreeMap: {
+    [key: string]: DocTreeMapItem
+  },
+  parentKey: string,
 }
 
 export interface States {
-  subRoutesConfig: any[];
+  subRoutesConfig: RoutesMapItemT[];
   targetOpenKeys: string[];
   collapsed: boolean;
   userName: string | null;
 }
 
 type thisProps = Props & RouteComponentProps;
-
-type folderItemT = {
-  name: string;
-  search: {} | string;
-  param: string;
-  path: string;
-};
-
-type folderT = {
-  children: folderItemT[];
-};
-type docListITemT = {
-  name: string;
-  children: [];
-};
-
-type docListT = docListITemT[];
-type createDocMenuDataPropsT = {
-  item: folderT;
-  docList: docListT;
-  docTreeMap: any[];
-  parentKey: string;
-};
 
 @inject("global")
 @observer
@@ -59,8 +59,10 @@ class PageCenter extends Component<thisProps, States> {
     path: "/pageCenter/doc",
     isNoFormat: true,
   };
-  docList: string[] = [];
-  docTreeMap: any[] = [];
+  docList: RoutesMapItemT[] = [];
+  docTreeMap!: {
+    [key: string]: DocTreeMapItem
+  };
   /**
    * 设置初始化信息
    * userName：后续从台返回信息中取用户名
@@ -69,7 +71,6 @@ class PageCenter extends Component<thisProps, States> {
    */
   constructor(props: thisProps) {
     super(props);
-    this.docTreeMap = [];
     this.state = {
       subRoutesConfig: [],
       targetOpenKeys: [], //控制侧边栏菜单展开的key数组信息
@@ -84,16 +85,13 @@ class PageCenter extends Component<thisProps, States> {
       history,
     } = this.props;
 
-    getMenu().then(async (data: any) => {
-      let config: any[] = await this.createSubRoutesConfig();
+    getMenu({}).then(async () => {
+      let config: RoutesMapItemT[] = await this.createSubRoutesConfig();
       this.setState({
         subRoutesConfig: config,
       });
     });
-    // let config: any[] = await this.createSubRoutesConfig();
-    // this.setState({
-    //   subRoutesConfig: config,
-    // });
+
   }
 
   toggle = () => {
@@ -105,37 +103,39 @@ class PageCenter extends Component<thisProps, States> {
     let { menuConfig = [], changeParams } = global;
     menuConfig = toJS(menuConfig);
     let menusMapConfigTemp = new Map(cloneDeep(Array.from(menusMapConfig)));
-    const config: any[] = [];
+    const config: RoutesMapItemT[] = [];
     if (Array.isArray(menuConfig)) {
       menuConfig.forEach((item) => {
         const { menuId, parentId } = item || {};
         if (menuId && menusMapConfigTemp.has(menuId)) {
-          const menuInfo: any = menusMapConfigTemp.get(menuId);
+          const menuInfo: RoutesMapItemT | undefined = menusMapConfigTemp.get(menuId)!;
           menuInfo.menuId = menuId;
           if (parentId === 0) {
             config.push(menuInfo);
           } else {
-            let configTemp: any = menusMapConfigTemp.get(parentId);
+            let configTemp: RoutesMapItemT | undefined = menusMapConfigTemp.get(parentId);
             if (!configTemp) {
               console.warn(`本地没有相应路由配置(parentId:${parentId})`);
               return;
             }
-            let children = configTemp["children"];
-            children
-              ? children.push(menuInfo)
-              : (configTemp["children"] = [menuInfo]);
+            let subNodes = configTemp.subNodes;
+            subNodes
+              ? subNodes.push(menuInfo)
+              : (configTemp.subNodes = [menuInfo]);
           }
         }
       });
     }
-    let processMdData = (data: any) => {
+
+    // 根据md数据进行分析获得菜单渲染数据
+    let processMdData = (data: MdDataT[]) => {
       const { children } = data[0];
       if (children) {
         const { docList = [], docTreeMap = {} } = this.createDocMenuData({
           item: data[0],
           docList: [],
           docTreeMap: {},
-          parentKey: 0,
+          parentKey: "0",
         });
         this.docList = docList;
         this.docTreeMap = docTreeMap;
@@ -149,23 +149,24 @@ class PageCenter extends Component<thisProps, States> {
         return item.menuId === 2003;
       });
       if (temp) {
-        let children;
-        if (!temp["children"]) children = temp["children"] = [];
-        temp.children = this.docList;
+        temp.subNodes = this.docList;
       }
     }
+
     if (process.env.NODE_ENV === "development") {
-      await request.post("/getMd", { data: {} }).then(processMdData);
-    }else{
+      await request.post("/getMd", { data: {} }).then((res) => {
+        processMdData(res as MdDataT[])
+      });
+    } else {
       processMdData(mdData)
     }
     return config;
   };
 
-  createDocMenuData = (data: any) => {
+  createDocMenuData = (data: CreateDocMenuDataFT) => {
     const { item, docList, docTreeMap, parentKey } = data;
     const { children: list } = item;
-    list.forEach((child: any) => {
+    list!.forEach((child: MdDataT) => {
       const { children, title = "", name = "", type, path } = child;
       if (name.indexOf("_") === 0) {
         return;
@@ -175,7 +176,7 @@ class PageCenter extends Component<thisProps, States> {
       let isFolder = type === "directory";
       if (name.indexOf(".md") != -1 || isFolder) {
         param = name;
-        let temp: any = {
+        let temp: RoutesMapItemT = {
           ...this.tempObj,
           name: title || name,
           param,
@@ -187,17 +188,16 @@ class PageCenter extends Component<thisProps, States> {
           docKey: encodeURIComponent(path),
         };
         if (!isFolder && parentKey) {
-          let docPath =
-            parentKey.replace(/\\/g, "/").split("/docs/")[1] + "/" + name;
-          temp.search.docPath = docPath;
+          temp.search.docPath = parentKey!="0"?
+          parentKey.replace(/\\/g, "/").split("/docs/")[1] + "/" + name:name;
         }
 
         docList.unshift(temp);
         if (children) {
-          temp.children = [];
+          temp.subNodes = [];
           this.createDocMenuData({
             item: child,
-            docList: temp.children,
+            docList: temp.subNodes,
             docTreeMap,
             parentKey: path,
           });

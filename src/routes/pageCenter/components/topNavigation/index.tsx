@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import { Breadcrumb } from "antd";
 import { injectIntl, WrappedComponentProps } from "react-intl";
-import { menusMapConfig, RoutesMapItemT } from "@ROUTES/config";
+import {  RoutesMapItemT,routesMap } from "@ROUTES/config";
 let urlSearchRecord: {
   [key: string]: any;
 } = {};
@@ -26,114 +26,50 @@ type TargetDataItemT = RoutesMapItemT;
 type TargetDataT = RoutesMapItemT[];
 const TopNavigation: React.FC<TopNavigationPropsT> = (props) => {
   const {
-    location: { pathname, search },
+    location: { pathname, search},
     intl: { formatMessage },
     menuConfig,
   } = props;
-  let pathnameTemp = pathname;
-  /* 动态的判断当前的路由所处位置，来确定是否需要添加折叠父节点的path信息 */
-  let nestPathName = "";
-  let nestPath = "";
-  let matchData: match<{ path: string; exact: string; strict: string }> | null;
-  function findItemName(
-    targetData: TargetDataT | Map<string, RoutesMapItemT>,
-    targetUrl: string
-  ) {
-    let value: TargetDataItemT | [string, RoutesMapItemT];
-    let temp: TargetDataItemT;
-    for (value of targetData) {
-      if (Array.isArray(value)) {
-        temp = value[1];
-      } else {
-        temp = value;
-      }
-      const { path, children = [], routes = [], isNoFormat } = temp;
-      let matchData = matchPath(targetUrl, {
-        path: path,
-        exact: true,
-        strict: true,
-      });
-      if (matchData) {
-        let itemName = temp.name;
-        if (!isNoFormat) {
-          /* 国际化 */
-          itemName = formatMessage({
-            id: itemName,
-          });
-        }
+  let breadcrumbItems = []
+  let strArr = pathname.split("/").slice(1)
+  let pathStrArr = [];
+  
+  for(let i = 0;i<strArr.length;i++){
+    if(i>0&&i <= strArr.length-1){
+      let patnStr = `/${strArr.slice(0,i).join("/")}`;
+      pathStrArr.push(patnStr)
+    }
+  }
 
-        return itemName;
-      } else {
-        let temp: TargetDataT = [...children, ...routes] as TargetDataT;
-        if (temp.length) {
-          let findValue: string = findItemName(temp, targetUrl);
-          if (findValue) return findValue;
-        }
+  for(let i=0;i<pathStrArr.length;i++){
+    let str = pathStrArr[i];
+    for(let key in routesMap){
+      let routeData = routesMap[key];
+      const {path,name,isNoFormat} = routeData;
+      let flag = false;
+      let itemName
+      if (!isNoFormat) {
+        /* 国际化 */
+        itemName = name&&formatMessage({
+          id: name,
+        });
+      }
+      let pathTemp = Array.isArray(path)?routeData.path[0].split("/:")[0]:path.split("/:")[0]
+      if(pathTemp === str){
+        flag = true;
+      }
+      if(flag){
+        breadcrumbItems.push(
+          <Breadcrumb.Item key={str}>
+            <Link to={str}>{itemName}</Link>
+          </Breadcrumb.Item>
+        );
+        break;
       }
     }
-    return "";
+   
   }
-  for (const [menuId, menuItem] of menusMapConfig) {
-    matchData = matchPath(pathnameTemp, {
-      path: menuItem.path,
-      exact: true,
-      strict: true,
-    });
-    if (matchData && pathnameTemp === menuItem.path) {
-      pathnameTemp = matchData.path.split("/:")[0];
-      menuConfig.find((item) => {
-        if (menuId === item.menuId && item.parentId) {
-          let parent = menusMapConfig.get(item.parentId);
-          if (parent) {
-            const { name, isNoFormat } = parent;
-            nestPathName = isNoFormat
-              ? name
-              : formatMessage({
-                  id: parent.name,
-                });
-            nestPath = parent.path;
-          }
-        }
-      });
-      break;
-    }
-  }
-  let pathSnippets = pathnameTemp
-    .split("/")
-    .slice(1)
-    .filter((i) => i);
-  urlSearchRecord[pathSnippets[pathSnippets.length - 1]] = search;
-  /* 根据当前的location来得出面包屑导航的显示 */
-  let breadcrumbItems = [];
-  if (nestPathName) {
-    breadcrumbItems.push(
-      <Breadcrumb.Item key={nestPath}>
-        <Link to={nestPath}>{nestPathName}</Link>
-      </Breadcrumb.Item>
-    );
-  }
-  const extraBreadcrumbItems = pathSnippets.map((item, index) => {
-    /* 排除最顶层的路由 */
-    if (index == 0) return;
-    const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
-    let itemName = findItemName(menusMapConfig, url);
-    if (
-      !itemName &&
-      index === pathSnippets.length - 1 &&
-      matchData &&
-      matchData.path.indexOf("/:")
-    ) {
-      itemName = findItemName(menusMapConfig, matchData.url);
-    }
-
-    let search = urlSearchRecord[item] ? urlSearchRecord[item] : "";
-    return (
-      <Breadcrumb.Item key={url}>
-        <Link to={url + search}>{itemName || "Moderate of React"}</Link>
-      </Breadcrumb.Item>
-    );
-  });
-  breadcrumbItems = [...breadcrumbItems, ...extraBreadcrumbItems];
+  
   return (
     <div className="titleWrapper">
       <Breadcrumb>{breadcrumbItems}</Breadcrumb>

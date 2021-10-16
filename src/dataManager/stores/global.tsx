@@ -4,6 +4,11 @@ import Storage from "@COMMON/storage";
 import BaseStore from "./baseStore";
 import encrypt from "@COMMON/aes/encrypt";
 import { ACCESS_TOKEN, USER_NAME } from "@COMMON/constants";
+
+type MenuConfigItemT = {
+  "menuId": number, 
+  "parentId": number
+}
 class Global extends BaseStore implements iGlobal {
   @observable menuConfig: any[] = [];
   @observable current: string = "";

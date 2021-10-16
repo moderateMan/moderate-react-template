@@ -149,13 +149,13 @@ export default class Example extends React.Component<PropsT, StatesT> {
         border: 1px solid #dfe3e8;
       }
       #stencil2 {
-        width: 180px;
+        width:200px;
         height: 100%;
         position: relative;
         border-right: 1px solid #dfe3e8;
       }
       #graph-container {
-        width: calc(100% - 180px);
+        width: calc(100%);
         height: 100%!important;
       }
       .x6-widget-stencil  {
@@ -550,6 +550,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
   render() {
     return (
       <div className={styles.app}>
+        <div style={{display:"flex"}}>
         <div className={styles["app-content"]} id="container" ref={this.refContainer} />
         <div className={styles["app-content-right"]}>
           <div className={styles["app-infoEdit"]}>
@@ -603,7 +604,8 @@ export default class Example extends React.Component<PropsT, StatesT> {
             ref={this.refMiniMapContainer}
           />
         </div>
-        <Button style={{ position: "absolute", bottom: "-30px", right: "0px" }} type='primary' onClick={this.handleSummit}>完成</Button>
+        </div>
+        
       </div>
     );
   }
