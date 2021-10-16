@@ -17432,9 +17432,7 @@ window.__require = function e(t, n, r) {
           } else {
             this.isClick = false;
             var event = new CustomEvent("completeFromGame", {
-              detail: {
-                status: 1
-              }
+              detail:{status: 2}
             });
             document.dispatchEvent(event);
           }
