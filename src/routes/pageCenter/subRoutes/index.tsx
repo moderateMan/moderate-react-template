@@ -78,7 +78,6 @@ class SubRoutes extends Component<SubRoutesPropsT, any> {
         search,
       } = routerItem;
       let routeArr = [...subNodes, ...routes];
-      
       if (routeArr.length&&routesMap.document.path!==path) {
         routeArr = routeArr.map((item) => renderRouterItem(item));
         //判断如果父组件也具备组件，就添加其route
