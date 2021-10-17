@@ -85,6 +85,7 @@ function reg_main(inp_str) {
         for (let curr_word in curr_word_arr) {
             // curr_word_arr[curr_word] 当前单词
             let color_type = check_str_type(curr_word_arr[curr_word]);
+            // inner 为 中间 数据
             inner = {
                 "color_type": color_type,
                 "content": curr_word_arr[curr_word],
@@ -98,7 +99,6 @@ function reg_main(inp_str) {
     }
 
     return res_arr;
-    // console.log(res_arr);
 }
 
 
@@ -108,7 +108,7 @@ function reg_main(inp_str) {
  */
 function split_one_line(str) {
 
-    // demo 
+    // demo >>>
     // let str="The rain in SPAIN stays mainly in the plain"; 
     // let n =str.match(/ain/g);
     // ain,ain,ain
@@ -146,18 +146,13 @@ function check_str_type(str) {
 
         // console.log(item); //AA,BB,CC,DD
 
+        // 遍历 配置文件的 字典
         for (let curr_key in arr) {
             if (str == arr[curr_key]) {
                 return key;
             }
             // }
 
-            // if (str == "victor") {
-            //     return 1;
-            // } else if (str == "nancy") {
-            //     return 2;
-            // } else if (str == "let") {
-            //     return 3;
 
         }
     }
@@ -214,9 +209,9 @@ function check_str_type(str) {
   */
 
 let txt = get_code_content(read_file("README.md"))
-// let res_arr = reg_main(txt);
+let res_arr = reg_main(txt);
 console.log(res_arr);
-let res_arr = "arst"
+// let res_arr = "arst"
 // write_file("res",res_arr.toString())
 
 

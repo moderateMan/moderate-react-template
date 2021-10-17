@@ -1,0 +1,6 @@
+{
+    "key_word":["public","class","void","main"],
+    "symbol":["=","-","+","*","/","(",")","{","}",".",";"],
+    "black":[" "],
+    "const":["true","false"]
+}
