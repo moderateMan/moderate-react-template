@@ -1,12 +1,12 @@
 {
-    "key_word":[
+    "keywords":[
         "break","else","new","var","case","finally",
         "return","void","catch","for","switch","while",
         "continue","function","this","with","default",
         "if","throw","delete","in","try","do",
         "instranceof","typeof"
     ],
-    "symbol":["=","-","+","*","/","(",")","{","}",".",";"],
+    "symbol":["\"","'","=","-","+","*","/","(",")","{","}",".",";"],
     "black":[" "],
     "const":["true","false"]
 }

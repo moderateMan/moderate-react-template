@@ -1,10 +1,11 @@
 {
     "hight_light":{
         "comments": "#7e3648",
-        "strings": "#519657",
+        "string": "#519657",
         "functions": "#7e57c2",
         "keywords": "#8e1da1",
-        "variables":"#e57373",
-        "numbers": "#e62020"
+        "symbol":"#e57373",
+        "black":"#000",
+        "number": "#e62020"
     }
 }

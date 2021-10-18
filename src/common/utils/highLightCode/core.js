@@ -1,14 +1,14 @@
 // 定义全局变量
 
 var language_type = "js";
-
+var theme = "default";
 
 
 // TODO 如何expose出去方法
 
 /**
  *
- * @param {文件路径}} file_path
+ * @param file_path
  * @param {文件内容} data
  */
 
@@ -31,16 +31,14 @@ function read_file(file_path) {
     let data = fs.readFileSync(file_path);
     console.log("同步读取>>>\n" + data.toString());
 
-    let inp_str = data.toString();
-
-    return inp_str;
+    return data.toString();
 
 }
 
 
 /**
  * 返回 code 内容
- * @param {md 的 ```字符`}} str
+ * @param str
  */
 function get_code_content(str) {
     // TODO 若有多个 ``` 代码块 该何去何从
@@ -52,7 +50,7 @@ function get_code_content(str) {
 
 /**
  *
- * @param {md的源代码}} str
+ * @param str
  */
 function check_language(str) {
     // TODO 多语言识别
@@ -72,7 +70,7 @@ function check_language(str) {
     // let arr = [1,2,3];
     // arr.includes(1) // true
     let js_list = ['js','javascript','Js','Javascript','JavaScript','JAVASCRIPT','JS'];
-    if (js_list.includes(language_type) != -1) {
+    if (js_list.includes(language_type) !== -1) {
         return "js"
     }
 
@@ -88,9 +86,7 @@ function check_language(str) {
  * @returns {*[]}
  */
 function reg_main(inp_str,mode) {
-    // console.log("程序执行完毕。");
 
-    // 不用替换了
     // let txt = inp_str.replace("victor", "nancy");
 
     // });
@@ -102,6 +98,7 @@ function reg_main(inp_str,mode) {
     // 分割 每行
     let txt_arr = txt.split("\r\n");
 
+    let res_arr_currline;
     for (let key in txt_arr) {
         // curr_line 当前行数据
         // console.log("key>>>"+txt_arr[key])
@@ -115,21 +112,21 @@ function reg_main(inp_str,mode) {
             // 如果模式为1
             if (mode === 1) {
                 let inner = {
-                    "color_type": color_type,
+                    "color": theme_config[hight_light][color_type],
                     "content": curr_word_arr[curr_word],
                 };
                 res_arr_currline.push(inner);
 
             }
 
-            if (mode === 2){
+            if (mode === 2) {
                 // for...of --ES6语法，
                 // 可以遍历Array、Set、Map、String、TypedArray、arguments等可迭代对象
                 // ，可以使用break、continue
 
-                for(let char of curr_word_arr[curr_word]){
+                for (let char of curr_word_arr[curr_word]) {
                     let inner = {
-                        "color_type": color_type,
+                        "color": theme_config["hight_light"][color_type],
                         "content": char,
                     }
                     res_arr_currline.push(inner);
@@ -193,7 +190,7 @@ function check_str_type(str) {
 
         // 遍历 配置文件的 字典
         for (let curr_key in arr) {
-            if (str == arr[curr_key]) {
+            if (str === arr[curr_key]) {
                 return key;
             }
             // }
@@ -261,7 +258,6 @@ function reg_main_mode2(str) {
  *
  * 4. 转换输出格式
  *
- * TODO 1. js.json java.json go.json python.json
  * TODO 2. key number
  * TODO 3. arst
  *
@@ -271,9 +267,20 @@ function reg_main_mode2(str) {
 
 
 // exec
+
+
+
+
+// 读取主题颜色
+// theme =
+var theme_config = JSON.parse(read_file("./theme/default.json"))
+
 /**
  * README.md is this article file
+ *
   */
+
+
 let ori = read_file("./doc/README.md")
 // let ori = read_file("./doc/README2.md")
 language_type = check_language(ori)
