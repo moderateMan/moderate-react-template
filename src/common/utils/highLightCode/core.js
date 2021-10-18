@@ -84,9 +84,10 @@ function check_language(str) {
 /**
  * 正则匹配主函数
  * @param inp_str
+ * @param mode 模式
  * @returns {*[]}
  */
-function reg_main(inp_str) {
+function reg_main(inp_str,mode) {
     // console.log("程序执行完毕。");
 
     // 不用替换了
@@ -111,12 +112,31 @@ function reg_main(inp_str) {
             // curr_word_arr[curr_word] 当前单词
             let color_type = check_str_type(curr_word_arr[curr_word]);
             // inner 为 中间 数据
-            inner = {
-                "color_type": color_type,
-                "content": curr_word_arr[curr_word],
+            // 如果模式为1
+            if (mode === 1) {
+                let inner = {
+                    "color_type": color_type,
+                    "content": curr_word_arr[curr_word],
+                };
+                res_arr_currline.push(inner);
+
             }
 
-            res_arr_currline.push(inner);
+            if (mode === 2){
+                // for...of --ES6语法，
+                // 可以遍历Array、Set、Map、String、TypedArray、arguments等可迭代对象
+                // ，可以使用break、continue
+
+                for(let char of curr_word_arr[curr_word]){
+                    let inner = {
+                        "color_type": color_type,
+                        "content": char,
+                    }
+                    res_arr_currline.push(inner);
+                }
+            }
+
+
         }
 
         res_arr.push(res_arr_currline)
@@ -213,9 +233,22 @@ function check_str_type(str) {
 
 }
 
+/**
+ * 模式1
+ * @param str
+ * @returns {*[]}
+ */
+function reg_main_mode1(str) {
+    return reg_main(str,1)
+}
 
-function separate_word() {
-
+/**
+ * 模式2
+ * @param str
+ * @returns {*[]}
+ */
+function reg_main_mode2(str) {
+    return reg_main(str,2)
 }
 
 
@@ -241,11 +274,13 @@ function separate_word() {
 /**
  * README.md is this article file
   */
-let ori = read_file("./doc/README2.md")
+let ori = read_file("./doc/README.md")
+// let ori = read_file("./doc/README2.md")
 language_type = check_language(ori)
 let txt = get_code_content(ori)
 
-let res_arr = reg_main(txt);
+// let res_arr = reg_main_mode1(txt);
+let res_arr = reg_main_mode2(txt);
 console.log(res_arr);
 // let res_arr = "arst"
 // write_file("res",res_arr.toString())
