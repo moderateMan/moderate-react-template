@@ -41,6 +41,7 @@ let document: React.FC<DocPropsT> = inject("global")(observer((props) => {
     }
     import("DOCS/" + id).then((data) => {
       setMd(data);
+    }).catch(()=>{
     });
   }, [id, docPath]);
   return (

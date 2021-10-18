@@ -290,7 +290,7 @@ export default class NodeCtr {
           breakWord: true, // 是否截断单词
         }
       },
-      ports: { ...ports2 },
+      ports: { ...ports },
       label: '创建',
       data:options,
       ...options,

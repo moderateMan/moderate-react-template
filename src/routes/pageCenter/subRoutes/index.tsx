@@ -19,15 +19,15 @@ import { TopNavigation } from "../components";
 import {
   CSSTransition,
   TransitionGroup,
-  SwitchTransition,
 } from "react-transition-group";
-import { defaultRootRoute, TOP_ROUTE_ID } from "@ROUTES/config";
+import { RoutesMapItemT,routesMap } from "@ROUTES/config";
 
 import "./index.scss";
 
 /**内容组件，自带默认样式，其下可嵌套任何元素，只能放在 Layout 中*/
 const Content = Layout.Content;
 type SubRoutesPropsT = {
+  subRoutesConfig:RoutesMapItemT[]
   [key: string]: any;
 } & RouteComponentProps &
   WrappedComponentProps;
@@ -66,20 +66,19 @@ class SubRoutes extends Component<SubRoutesPropsT, any> {
 
   renderRoute = () => {
     const { subRoutesConfig } = this.props;
-    const renderRouterItem = (routerItem: any) => {
+    const renderRouterItem = (routerItem: RoutesMapItemT) => {
+      //我找了一天bug。。。居然就这么eazy
       const {
         path,
         component,
         exact,
         redirect,
-        children = [],
+        subNodes = [],
         routes = [],
         search,
       } = routerItem;
-      //children为子menu，一种特殊的嵌套路由
-      //routes为嵌套路由数组
-      let routeArr = [...children, ...routes];
-      if (routeArr.length) {
+      let routeArr = [...subNodes, ...routes];
+      if (routeArr.length&&routesMap.document.path!==path) {
         routeArr = routeArr.map((item) => renderRouterItem(item));
         //判断如果父组件也具备组件，就添加其route
         if (component) {
@@ -129,7 +128,7 @@ class SubRoutes extends Component<SubRoutesPropsT, any> {
             />
           );
         }
-        return <Route exact key={path} path={path} component={component} />;
+        return <Route exact={exact} key={path} path={path} component={component} />;
       }
     };
     let routes = subRoutesConfig.map((routerItem: any) =>

@@ -102,7 +102,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
           },
         ],
       },
-      b,
+      {...b,name:"知识点B"},
     ];
 
     this.state = {
@@ -271,7 +271,6 @@ export default class Example extends React.Component<PropsT, StatesT> {
         routePoints,
         options: { raw?: boolean; index?: number; total?: number; gap?: number },
       ) => {
-        debugger
         const { index = 0, total = 1, gap = 12 } = options
         const line = new Line(sourcePoint, targetPoint)
         const centerIndex = (total - 1) / 2
@@ -281,7 +280,10 @@ export default class Example extends React.Component<PropsT, StatesT> {
         const vertice = line
           .pointAtLength(line.length() / 2 + gap * factor * Math.ceil(diff))
           .rotate(90, line.getCenter())
-    
+        sourcePoint.x+=5
+        sourcePoint.y-=5
+        targetPoint.x+=5
+        targetPoint.y-=5
         const points = [sourcePoint, vertice, targetPoint]
         const curves = Curve.throughPoints(points)
         const path = new Path(curves)
@@ -590,7 +592,6 @@ export default class Example extends React.Component<PropsT, StatesT> {
       this.showPorts(ports, true);
     });
     this.graph.on("node:mouseleave", ({ node }) => {
-      // node.removeTools();
       const container = document.getElementById("graph-containerS")!;
       const ports = container.querySelectorAll(
         ".x6-port-body"

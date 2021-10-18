@@ -123,7 +123,7 @@ const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
     const {
       name,
       icon,
-      children,
+      subNodes,
       path,
       search,
       redirect,
@@ -135,7 +135,7 @@ const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
     /**
      * 判断是否存在子导航
      */
-    if (children && children.length) {
+    if (subNodes && subNodes.length) {
       return (
         <SubMenu
           key={key}
@@ -146,7 +146,7 @@ const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
             </span>
           }
         >
-          {children.map((item: any) => renderMenuItem(item, generation + 1))}
+          {subNodes.map((item: any) => renderMenuItem(item, generation + 1))}
         </SubMenu>
       );
     } else {
@@ -191,15 +191,15 @@ const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
   type tempItem = {
     menuId: number;
     parentId: number;
-    children?: any[];
+    subNodes?: any[];
   };
   type tempT = tempItem[];
   let transTreeData = (data: tempT, parentId: number) => {
     let temp: tempT = [];
     data.forEach((item: tempItem) => {
       const { menuId } = item;
-      if (Array.isArray(item.children)) {
-        temp = [...temp, ...transTreeData(item.children, menuId)];
+      if (Array.isArray(item.subNodes)) {
+        temp = [...temp, ...transTreeData(item.subNodes, menuId)];
       }
       temp.push({ menuId: menuId, parentId: parentId });
     });
