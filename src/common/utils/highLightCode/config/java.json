@@ -1,5 +1,16 @@
 {
-    "key_word":["public","class","void","main"],
+    "key_word":[
+        "abstract",	"boolean",	"break",	"byte",	"case",
+        "catch",	"char",	"const",	"class",	"continue",
+        "default",      	"do",	"double",	"else",	"extends",
+        "final",	"finally",	"float",	"for",	"goto",
+        "if",	"implements",	"import",	"instanceof",	"int",
+        "interface",  	"long",	"native",	"new",	"package",
+        "private",	"protected",	"public",	"return",	"short",
+        "static",	"strictfp",	"super",	"switch",	"this",
+        "throw",	"throws",	"transient",	"try",	"void",
+        "volatile",	"while",	"synchronized"
+        ],
     "symbol":["=","-","+","*","/","(",")","{","}",".",";"],
     "black":[" "],
     "const":["true","false"]

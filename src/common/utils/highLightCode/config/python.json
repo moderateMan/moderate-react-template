@@ -1,0 +1,14 @@
+
+{
+  "key_word":[
+    "and",	"as",	"assert",	"break",	"class",	"continue",
+    "def",	"del",	"elif",	"else",	"except",	"finally",
+    "for",	"from",	"False",	"global",	"if",	"import",
+    "in",	"is",	"lambda",	"nonlocal",	"not",	"None",
+    "or",	"pass",	"raise",	"return",	"try",	"True",
+    "while",	"with",	"yield"
+  ],
+  "symbol":["=","-","+","*","/","(",")","{","}",".",";"],
+  "black":[" "],
+  "const":["True","False","Null"]
+}

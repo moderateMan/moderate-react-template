@@ -153,7 +153,6 @@ function check_str_type(str) {
             }
             // }
 
-
         }
     }
 
@@ -168,7 +167,7 @@ function check_str_type(str) {
      true
      */
 
-        // 是否是纯数字
+    // 是否是纯数字
     var patt_number = /\d+/;
     if (patt_number.test(str)) return "number"
     var patt_string = /\w+/;
@@ -178,9 +177,6 @@ function check_str_type(str) {
     // 是否是纯字母
 
     return "other";
-    // else {
-    // return 0;
-    // }
 
 }
 
