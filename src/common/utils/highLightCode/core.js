@@ -1,3 +1,10 @@
+// 定义全局变量
+
+var language_type = "js";
+
+
+
+
 // TODO 如何expose出去方法
 
 /**
@@ -51,7 +58,17 @@ function get_code_content(str) {
 function check_language(str) {
     // TODO 多语言识别
     // 文件名拼接
-    language_type = "js"
+
+    // 匹配```后面的单词
+    // var str="The rain in SPAIN stays mainly in the plain";
+    // var n=str.match(/ain/g);
+
+    // var language_type = str.match(/```js/g);
+    // var language_type = (str.match(/```(.+)/g));
+    // console.log("language_type>>>",language_type)
+    // language_type = "js"
+    var language_type = str.match(/```(.+)\r\n/)[1];
+    // console.log("language_type>>>",language_type[1])
     return language_type;
 }
 
@@ -134,7 +151,7 @@ function check_str_type(str) {
      * 读取配置文件
      *
      */
-    let conf = read_file("./config/" + check_language(str) + ".json")
+    let conf = read_file("./config/" + language_type + ".json")
     // console.log("conf>>>"+conf)
 
     let config = JSON.parse(conf)
@@ -167,10 +184,18 @@ function check_str_type(str) {
      true
      */
 
+    /**
+     * 正则表达式中以“^”开头；以“$”结尾。
+     1、^：匹配输入字行首。如果设置了RegExp对象的Multiline属性，^也匹配“\n”或“\r”之后的位置。
+
+     2、$：匹配输入行尾。如果设置了RegExp对象的Multiline属性，$也匹配“\n”或“\r”之前的位置。
+     * @type {RegExp}
+     */
+
     // 是否是纯数字
-    var patt_number = /\d+/;
+    var patt_number = /^\d+$/;
     if (patt_number.test(str)) return "number"
-    var patt_string = /\w+/;
+    var patt_string = /^\w+/;
     if (patt_string.test(str)) return "string"
 
 
@@ -192,7 +217,7 @@ function check_str_type(str) {
  *
  * TODO 1. js.json java.json go.json python.json
  * TODO 2. key number
- * TODO 3.
+ * TODO 3. arst
  *
  */
 
@@ -203,8 +228,10 @@ function check_str_type(str) {
 /**
  * README.md is this article file
   */
+let ori = read_file("README.md")
+language_type = check_language(ori)
+let txt = get_code_content(ori)
 
-let txt = get_code_content(read_file("README.md"))
 let res_arr = reg_main(txt);
 console.log(res_arr);
 // let res_arr = "arst"
