@@ -23,13 +23,13 @@ function write_file(file_path, data) {
  * @param {string} file_path
  */
 function read_file(file_path) {
-    console.log("start");
+    // console.log("start");
     let fs = require("fs")
 
 
     // 同步读取
     let data = fs.readFileSync(file_path);
-    console.log("同步读取>>>\n" + data.toString());
+    // console.log("同步读取>>>\n" + data.toString());
 
     return data.toString();
 
@@ -69,7 +69,7 @@ function check_language(str) {
 
     // let arr = [1,2,3];
     // arr.includes(1) // true
-    let js_list = ['js','javascript','Js','Javascript','JavaScript','JAVASCRIPT','JS'];
+    let js_list = ['js', 'javascript', 'Js', 'Javascript', 'JavaScript', 'JAVASCRIPT', 'JS'];
     if (js_list.includes(language_type) !== -1) {
         return "js"
     }
@@ -85,7 +85,7 @@ function check_language(str) {
  * @param mode 模式
  * @returns {*[]}
  */
-function reg_main(inp_str,mode) {
+function reg_main(inp_str, mode) {
 
     // let txt = inp_str.replace("victor", "nancy");
 
@@ -180,7 +180,7 @@ function check_str_type(str) {
     // console.log("conf>>>"+conf)
 
     let config = JSON.parse(conf)
-    console.log("conf>>>" + config)
+    // console.log("conf>>>" + config)
 
 
     for (let key in config) {
@@ -217,7 +217,7 @@ function check_str_type(str) {
      * @type {RegExp}
      */
 
-    // 是否是纯数字
+        // 是否是纯数字
     var patt_number = /^\d+$/;
     if (patt_number.test(str)) return "number"
     var patt_string = /^\w+/;
@@ -230,13 +230,59 @@ function check_str_type(str) {
 
 }
 
+//
+/**
+ * 处理一行
+ * @returns {*[]}
+ */
+function reg_one_line(one_line_txt) {
+
+
+    // 定义 最终结果的数组
+    let res_arr_currline = [];
+
+
+    let curr_word_arr = split_one_line(one_line_txt);
+    for (let curr_word in curr_word_arr) {
+        // curr_word_arr[curr_word] 当前单词
+        let color_type = check_str_type(curr_word_arr[curr_word]);
+        // inner 为 中间 数据
+        // 如果模式为1
+        // if (mode === 1) {
+        //     let inner = {
+        //         "color": theme_config[hight_light][color_type],
+        //         "content": curr_word_arr[curr_word],
+        //     };
+        //     res_arr_currline.push(inner);
+        //
+        // }
+
+        // if (mode === 2) {
+        // for...of --ES6语法，
+        // 可以遍历Array、Set、Map、String、TypedArray、arguments等可迭代对象
+        // ，可以使用break、continue
+
+        for (let char of curr_word_arr[curr_word]) {
+            let inner = {
+                "color": theme_config["hight_light"][color_type],
+                "content": char,
+            }
+            res_arr_currline.push(inner);
+        }
+
+    }
+
+
+    return res_arr_currline;
+}
+
 /**
  * 模式1
  * @param str
  * @returns {*[]}
  */
 function reg_main_mode1(str) {
-    return reg_main(str,1)
+    return reg_main(str, 1)
 }
 
 /**
@@ -245,7 +291,7 @@ function reg_main_mode1(str) {
  * @returns {*[]}
  */
 function reg_main_mode2(str) {
-    return reg_main(str,2)
+    return reg_main(str, 2)
 }
 
 
@@ -269,8 +315,6 @@ function reg_main_mode2(str) {
 // exec
 
 
-
-
 // 读取主题颜色
 // theme =
 var theme_config = JSON.parse(read_file("./theme/default.json"))
@@ -278,19 +322,54 @@ var theme_config = JSON.parse(read_file("./theme/default.json"))
 /**
  * README.md is this article file
  *
-  */
+ */
 
-
+// $###################### _____ init ______ ##################3
 let ori = read_file("./doc/README.md")
 // let ori = read_file("./doc/README2.md")
 language_type = check_language(ori)
-let txt = get_code_content(ori)
+// $###################### _____ init ______ ##################3
 
-// let res_arr = reg_main_mode1(txt);
-let res_arr = reg_main_mode2(txt);
-console.log(res_arr);
+
+
+
+// let txt = get_code_content(ori)
+//
+// // let res_arr = reg_main_mode1(txt);
+// let res_arr = reg_main_mode2(txt);
+// console.log(res_arr);
 // let res_arr = "arst"
 // write_file("res",res_arr.toString())
 
 
 // console.log(get_code_content("```js\n```"))
+
+
+// ###############################################
+
+// 测试一行
+
+console.log(reg_one_line("let a = \"arst123\""));
+
+/**
+ * [
+ { color: '#519657', content: 'l' },
+ { color: '#519657', content: 'e' },
+ { color: '#519657', content: 't' },
+ { color: '#000000', content: ' ' },
+ { color: '#519657', content: 'a' },
+ { color: '#000000', content: ' ' },
+ { color: '#e57373', content: '=' },
+ { color: '#000000', content: ' ' },
+ { color: '#e57373', content: '"' },
+ { color: '#519657', content: 'a' },
+ { color: '#519657', content: 'r' },
+ { color: '#519657', content: 's' },
+ { color: '#519657', content: 't' },
+ { color: '#519657', content: '1' },
+ { color: '#519657', content: '2' },
+ { color: '#519657', content: '3' },
+ { color: '#e57373', content: '"' }
+ ]
+
+ */
