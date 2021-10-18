@@ -4,7 +4,6 @@ var language_type = "js";
 
 
 
-
 // TODO 如何expose出去方法
 
 /**
@@ -69,6 +68,15 @@ function check_language(str) {
     // language_type = "js"
     var language_type = str.match(/```(.+)\r\n/)[1];
     // console.log("language_type>>>",language_type[1])
+
+    // let arr = [1,2,3];
+    // arr.includes(1) // true
+    let js_list = ['js','javascript','Js','Javascript','JavaScript','JAVASCRIPT','JS'];
+    if (js_list.includes(language_type) != -1) {
+        return "js"
+    }
+
+    //循环的方式
     return language_type;
 }
 
@@ -206,6 +214,11 @@ function check_str_type(str) {
 }
 
 
+function separate_word() {
+
+}
+
+
 /**
  * 1. 定义输入
  *
@@ -228,7 +241,7 @@ function check_str_type(str) {
 /**
  * README.md is this article file
   */
-let ori = read_file("README.md")
+let ori = read_file("./doc/README2.md")
 language_type = check_language(ori)
 let txt = get_code_content(ori)
 

@@ -1,0 +1,47 @@
+[
+  [],
+  [
+    { color_type: 'key_word', content: 'def' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'string', content: 'fib' },
+    { color_type: 'symbol', content: '(' },
+    { color_type: 'symbol', content: ')' },
+    { color_type: 'symbol', content: '{' }
+  ],
+  [
+    { color_type: 'black', content: ' ' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'string', content: 'print' },
+    { color_type: 'symbol', content: '(' },
+    { color_type: 'other', content: '"' },
+    { color_type: 'string', content: 'fib' },
+    { color_type: 'other', content: '"' },
+    { color_type: 'symbol', content: ')' }
+  ],
+  [
+    { color_type: 'black', content: ' ' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'key_word', content: 'return' },
+    { color_type: 'key_word', content: 'r' },
+    { color_type: 'key_word', content: 'e' },
+    { color_type: 'key_word', content: 't' },
+    { color_type: 'key_word', content: 'u' },
+    { color_type: 'key_word', content: 'n ' },
+    { color_type: 'black', content: ' ' },
+    { color_type: 'string', content: 'fib' },
+    { color_type: 'symbol', content: '(' },
+    { color_type: 'number', content: '1' },
+    { color_type: 'symbol', content: ')' },
+    { color_type: 'symbol', content: '+' },
+    { color_type: 'string', content: 'fib' },
+    { color_type: 'symbol', content: '(' },
+    { color_type: 'number', content: '2' },
+    { color_type: 'symbol', content: ')' }
+  ],
+  [ { color_type: 'symbol', content: '}' } ],
+  []
+]
