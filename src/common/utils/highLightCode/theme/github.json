@@ -1,10 +1,10 @@
 {
   "hight_light": {
-    "comments": "#7e3648",
-    "string": "#519657",
-    "number": "#e62020",
+    "comments": "#7B7B7B",
+    "string": "#B15BFF",
+    "number": "#007979",
     "functions": "#7e57c2",
-    "keywords": "#8e1da1",
+    "keywords": "#EA0000",
     "symbol": "#e57373",
     "black": "#000000",
     "other": "#000000"

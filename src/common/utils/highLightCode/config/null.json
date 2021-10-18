@@ -1,12 +1,12 @@
 {
-    "key_word":[
-        "break","else","new","var","case","finally",
-        "return","void","catch","for","switch","while",
-        "continue","function","this","with","default",
-        "if","throw","delete","in","try","do",
-        "instranceof","typeof"
-    ],
-    "symbol":["=","-","+","*","/","(",")","{","}",".",";"],
-    "black":[" "],
-    "const":["true","false"]
+  "key_word":[
+      "break","else","new","var","case","finally",
+      "return","void","catch","for","switch","while",
+      "continue","function","this","with","default",
+      "if","throw","delete","in","try","do",
+      "instranceof","typeof"
+  ],
+  "symbol":["=","-","+","*","/","(",")","{","}",".",";"],
+  "black":[" "],
+  "const":["true","false"]
 }
