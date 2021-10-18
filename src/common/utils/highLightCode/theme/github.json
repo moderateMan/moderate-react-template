@@ -3,9 +3,9 @@
     "comments": "#7B7B7B",
     "string": "#B15BFF",
     "number": "#007979",
-    "functions": "#7e57c2",
+    "functions": "#7e57c3",
     "keywords": "#EA0000",
-    "symbol": "#e57373",
+    "symbol": "#e57372",
     "black": "#000000",
     "other": "#000000"
   }
