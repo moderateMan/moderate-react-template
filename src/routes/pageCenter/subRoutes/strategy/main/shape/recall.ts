@@ -8,7 +8,15 @@ import "./tool";
  * @class RecallRect
  * @extends {Myrect}
  */
-export default class RecallRect extends MyRect {}
+export default class RecallRect extends MyRect {
+
+  protected postprocess() {
+    let a = 1
+    setTimeout(()=>{
+      this.zIndex = 100
+    },1000)
+  }
+}
 
 // 链接装配置
 const ports = {
@@ -98,122 +106,128 @@ RecallRect.config({
   inherit: "rect",
   width: 66,
   height: 36,
-  attrs: {
-    body: {
-      strokeWidth: 1,
-      stroke: "#5F95FF",
-      fill: "#EFF4FF",
-      rx: 5,
-    },
-    text: {
-      fontSize: 12,
-      color: "#262626",
-    },
-    text2: {
-      fontSize: 12,
-      color: "#262626",
-      display: "none",
-    },
-  },
-  tools: [
+  markup: [
     {
-      name: "editableCell",
-      args: {
-        x: 100,
-        y: 100,
-      },
-    },
-    {
-      name: "button",
-      args: {
-        markup: [
-          {
-            tagName: "circle",
-            selector: "button",
-            attrs: {
-              r: 10,
-              stroke: "#fe854f",
-              strokeWidth: 2,
-              fill: "white",
-              cursor: "pointer",
-            },
+      tagName: 'g',
+      selector: 'buttonGroup',
+      children: [
+        {
+          tagName: 'rect',
+          selector: 'button',
+          attrs: {
+            'pointer-events': 'visiblePainted',
           },
-          {
-            tagName: "text",
-            textContent: ">",
-            selector: "icon",
-            attrs: {
-              fill: "#fe854f",
-              fontSize: 10,
-              textAnchor: "middle",
-              pointerEvents: "none",
-              y: "0.3em",
-              display: "none",
-            },
-          },
-        ],
-        x: "100%",
-        y: "100%",
-        offset: { x: -5, y: -22 },
-        onClick({ cell }: { cell: Cell }) {
-          type ToolItem = {
-            name: string;
-            args: any;
-          };
-          let tools = cell.getTools()!.items[0] as ToolItem;
-          let markupTemp = tools.args.markup[0];
-          let ddd = markupTemp.attr;
-          markupTemp.fill = "black";
-          markupTemp.r = 1;
-          const {
-            data: { handleNext },
-          } = cell;
-          cell.attr({
-            text: {},
-          });
-          let a = 1;
-          (() => {
-            a++;
-            handleNext && handleNext(cell.data);
-          })();
         },
-      },
+        {
+          tagName: 'path',
+          selector: 'buttonSign',
+          attrs: {
+            fill: 'black',
+            'pointer-events': 'none',
+          },
+        },
+      ],
     },
     {
-      name: "button",
-      args: {
-        markup: [
-          {
-            tagName: "circle",
-            selector: "button",
-            attrs: {
-              r: 10,
-              stroke: "#fe854f",
-              strokeWidth: 2,
-              fill: "white",
-              cursor: "pointer",
-            },
+      tagName: 'g',
+      selector: 'buttonGroup2',
+      children: [
+        {
+          tagName: 'rect',
+          selector: 'button2',
+          attrs: {
+            'pointer-events': 'visiblePainted',
           },
-          {
-            tagName: "text",
-            textContent: "<",
-            selector: "icon",
-            attrs: {
-              fill: "#fe854f",
-              fontSize: 10,
-              textAnchor: "middle",
-              pointerEvents: "none",
-              y: "0.3em",
-            },
+        },
+        {
+          tagName: 'path',
+          selector: 'buttonSign2',
+          attrs: {
+            fill: 'none',
+            'pointer-events': 'none',
           },
-        ],
-        x: "100%",
-        y: "100%",
-        offset: { x: -69, y: -22 },
-        onClick({ cell }: { cell: Cell }) {},
-      },
+        },
+      ],
+    },
+    {
+      tagName: 'rect',
+      selector: 'body',
+    },
+    {
+      tagName: 'text',
+      selector: 'label',
     },
   ],
+  attrs: {
+    body: {
+      refWidth: '100%',
+      refHeight: '100%',
+      strokeWidth: 1,
+      fill: '#ffffff',
+      stroke: '#a0a0a0',
+    },
+    label: {
+      textWrap: {
+        ellipsis: true,
+        width: -10,
+      },
+      textAnchor: 'middle',
+      textVerticalAnchor: 'middle',
+      refX: '50%',
+      refY: '50%',
+      fontSize: 12,
+    },
+    buttonGroup: {
+      refX: '-8',
+      refY: '50%',
+    },
+    button: {
+      fill: '#4C65DD',
+      stroke: 'none',
+      x: -10,
+      y: -10,
+      height: 20,
+      width: 30,
+      rx: 10,
+      ry: 10,
+      cursor: 'pointer',
+      event: 'node:collapse',
+    },
+    buttonSign: {
+      fill:"none",
+      refX: -7,
+      refY: -5,
+      stroke: 'white',
+      strokeWidth: 1.6,
+      display:"block",
+      d: 'M 10 0 L 4 5 L 10 10',
+    },buttonGroup2: {
+      refX: '100%',
+      refY: '50%',
+    },
+    button2: {
+      fill: '#4C65DD',
+      stroke: 'none',
+      x: -10,
+      y: -10,
+      height: 20,
+      width: 30,
+      rx: 10,
+      ry: 10,
+      cursor: 'pointer',
+      event: 'node:collapse',
+    },
+    buttonSign2: {
+      fill:"none",
+      refX: 5,
+      refY: -5,
+      stroke: '#FFFFFF',
+      strokeWidth: 1.6,
+      display:"block",
+      d: 'M 0 0 L 6 5 L 0 10',
+      // d: 'M 1 5 9 5 M 5 1 5 9',
+    },
+  },
   ports: { ...ports },
   label: "审批",
 });

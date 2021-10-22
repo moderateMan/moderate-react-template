@@ -379,7 +379,6 @@ export default class Example extends React.Component<PropsT, StatesT> {
     stencil.load([r3, r1, r2], "group1");
   }
 
-
   getNodeCtr() {
     return this.nodeCtr;
   }
