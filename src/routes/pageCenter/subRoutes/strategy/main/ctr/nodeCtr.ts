@@ -1,304 +1,113 @@
-import { Graph } from '@antv/x6';
-import MyRect from '../shape/myRect';
-import { NODE_TYPE } from '../common/index';
-
+import { Graph } from "@antv/x6";
+import RecallRect from "../shape/recall";
+import FieldRect from "../shape/field";
+import ScopeRect from "../shape/scope";
+import { NODE_TYPE } from "../common/index";
 
 type nodeCtrPropsT = {
   graph: Graph;
 };
-const ports = {
-  groups: {
-    out: {
-      position: 'right',
-      attrs: {
-        circle: {
-          r: 4,
-          magnet: true,
-          stroke: '#5F95FF',
-          strokeWidth: 1,
-          fill: '#fff',
-          style: {
-            visibility: 'hidden',
-          },
-        },
-      },
-    },
-    in: {
-      position: 'left',
-      attrs: {
-        circle: {
-          r: 4,
-          magnet: true,
-          stroke: '#5F95FF',
-          strokeWidth: 1,
-          fill: '#fff',
-          style: {
-            visibility: 'hidden',
-          },
-        },
-      },
-    },
-    top: {
-      position: 'top',
-      attrs: {
-        circle: {
-          r: 4,
-          magnet: true,
-          stroke: '#5F95FF',
-          strokeWidth: 1,
-          fill: '#fff',
-          style: {
-            visibility: 'hidden',
-          },
-        },
-      },
-    },
-    bottom: {
-      position: 'bottom',
-      attrs: {
-        circle: {
-          r: 4,
-          magnet: true,
-          stroke: '#5F95FF',
-          strokeWidth: 1,
-          fill: '#fff',
-          style: {
-            visibility: 'hidden',
-          },
-        },
-      },
-    },
-  },
-  items: [
-    {
-      group: 'in',
-      id: 'port_in_1',
-    },
-    {
-      group: 'out',
-      id: 'port_out_1',
-    },
-    {
-      group: 'top',
-      id: 'port_top_1',
-    },
-    {
-      group: 'bottom',
-      id: 'port_bottom_1',
-    },
-  ],
-};
 
-const ports2 = {
-  groups: {
-    out: {
-      position: 'top',
-      attrs: {
-        circle: {
-          r: 4,
-          magnet: true,
-          stroke: '#5F95FF',
-          strokeWidth: 1,
-          fill: '#fff',
-          style: {
-            visibility: 'hidden',
-          },
-        },
-      },
-    },
-    in: {
-      position: 'bottom',
-      attrs: {
-        circle: {
-          r: 4,
-          magnet: true,
-          stroke: '#5F95FF',
-          strokeWidth: 1,
-          fill: '#fff',
-          style: {
-            visibility: 'hidden',
-          },
-        },
-      },
-    },
-    left: {
-      position: 'left',
-      attrs: {
-        circle: {
-          r: 4,
-          magnet: true,
-          stroke: '#5F95FF',
-          strokeWidth: 1,
-          fill: '#fff',
-          style: {
-            visibility: 'hidden',
-          },
-        },
-      },
-    },
-    right: {
-      position: 'right',
-      attrs: {
-        circle: {
-          r: 4,
-          magnet: true,
-          stroke: '#5F95FF',
-          strokeWidth: 1,
-          fill: '#fff',
-          style: {
-            visibility: 'hidden',
-          },
-        },
-      },
-    },
-  },
-  items: [
-    {
-      group: 'in',
-      id: 'port_in_1',
-    },
-    {
-      group: 'out',
-      id: 'port_out_1',
-    },
-    {
-      group: 'left',
-      id: 'port_left_1',
-    },
-    {
-      group: 'right',
-      id: 'port_right_1',
-    },
-  ],
-};
 export default class NodeCtr {
   private graph!: Graph;
-  private dndNodeF!: any;
+  private createNodeHandler!: any;
   constructor(props: nodeCtrPropsT) {
     this.graph = props.graph;
-    this.dndNodeF = {
-      [NODE_TYPE.A]: this.addNndNodeA,
-      [NODE_TYPE.B]: this.addNndNodeB,
-      [NODE_TYPE.C]: this.addNndNodeC,
-      [NODE_TYPE.D]: this.addNndNodeD,
+    this.createNodeHandler = {
+      [NODE_TYPE.RECALL]: this.createNodeByType,
+      [NODE_TYPE.SCOPE]: this.createNodeByType,
+      [NODE_TYPE.FIELD]: this.createNodeByType,
     };
+    this.toRegisterNode();
   }
 
-  addNode(data?: { options?: any }) {
-    const { options } = data || {};
-    if (options) {
-      return this.graph.addNode(options);
-    } 
-    return this.graph.addNode(this.addNndNodeA());
+  toRegisterNode(){
+    //注册 回溯节点
+    Graph.registerNode(
+      'recall',
+      RecallRect,
+      true
+    )
+    //注册 知识区域
+    Graph.registerNode(
+      'scope',
+      ScopeRect,
+      true
+    )
+    //注册 技术学科
+    Graph.registerNode(
+      'field',
+      FieldRect,
+      true
+    )
   }
 
-  addNndNodeA = (options?: any) => {
-    let optionsTemp = {
-      inherit: 'rect',
-      width: 66,
-      height: 36,
-      attrs: {
-        body: {
-          strokeWidth: 1,
-          stroke: '#5F95FF',
-          fill: '#EFF4FF',
-          rx: 5,
-        },
-        text: {
-          fontSize: 12,
-          color: '#262626',
-        },
-      },
-      ports: { ...ports },
-      label: '审批',
-      data:options,
-      ...options,
-    };
-    return new MyRect(optionsTemp);
-  };
+  addNodeByType({ type, options }: { type: string; options?: any }) {
+    return this.createNodeHandler[type]({ type, options });
+  }
 
-  addNndNodeB = (options?: any) => {
-    let optionsTemp = {
-      inherit: 'rect',
-      width: 75,
-      height: 36,
-      attrs: {
-        body: {
-          strokeWidth: 1,
-          stroke: '#5F95FF',
-          fill: '#EFF4FF',
-          rx: 20,
-        },
-        text: {
-          fontSize: 12,
-          color: '#262626',
-        },
-      },
-      ports: { ...ports },
-      label: '结束',
-      data:options,
+  createNodeByType = ({type,options}:{type:string,options:any})=>{
+    return this.graph.createNode({
+      shape: type,
       ...options,
-    };
-    return new MyRect(optionsTemp);
-  };
-  
-  addNndNodeC = (options?: any) => {
-    let optionsTemp = {
-      inherit: 'circle',
-      width: 56,
-      height: 56,
-      attrs: {
-        body: {
-          strokeWidth: 1,
-          stroke: '#f2763b',
-          fill: '#f1bfbf',
-          rx: 28,
-        },
-        textWrap: {
-          text: 'lorem ipsum dolor sit amet consectetur adipiscing elit',
-          width: -10,      // 宽度减少 10px
-          height: '50%',   // 高度为参照元素高度的一半
-          ellipsis: true,  // 文本超出显示范围时，自动添加省略号
-          breakWord: true, // 是否截断单词
-        }
-      },
-      ports: { ...ports },
-      label: '创建',
-      data:options,
-      ...options,
-    };
-    return new MyRect(optionsTemp);
-  };
+    });
+  }
 
-  addNndNodeD = (options?: any) => {
-    let optionsTemp = {
-      inherit: 'circle',
-      width: 56,
-      height: 56,
-      attrs: {
-        body: {
-          strokeWidth: 1,
-          stroke: '#f2763b',
-          fill: '#f1bfbf',
-          rx: 28,
-        },
-        textWrap: {
-          text: 'lorem ipsum dolor sit amet consectetur adipiscing elit',
-          width: -10,      // 宽度减少 10px
-          height: '50%',   // 高度为参照元素高度的一半
-          ellipsis: true,  // 文本超出显示范围时，自动添加省略号
-          breakWord: true, // 是否截断单词
-        }
-      },
-      ports: { ...ports },
-      label: '创建',
-      data:options,
-      ...options,
-    };
-    return new MyRect(optionsTemp);
-  };
+  addNet(data: { nodeList: any[]; startPos?: any; offset?: any }) {
+    const {nodeList,startPos={x:0,y:0},offset={x:0,y:0}} = data;
+    let arr = [];
+    //建点
+    for (let i = 0; i < nodeList.length; i++) {
+      let itemData = nodeList[i];
+      const { type, children = [] } = itemData;
+      let node = this.createNodeByType({
+          type,
+          options: {
+            id: itemData.id,
+            data: itemData,
+            label: itemData.name,
+          },
+        })
+        .position(startPos.x+offset.x, startPos.y+offset.y*(i+1))
+        .setAttrs({
+          label: {
+            textAnchor: "middle",
+            text: itemData.name,
+            textWrap: {
+              width: 60,
+              height: 32,
+              ellipsis: true,
+            },
+          },
+        });
+        arr.push(this.graph.addNode(node));
+    }
 
-  addDndNode({ type, options }: { type: string; options?: any }) {
-    return type in this.dndNodeF ? this.dndNodeF[type](options||{type}) : this.addNndNodeA(options||{type});
+    //建线
+    for (let i = 0; i < nodeList.length; i++) {
+      let itemData = nodeList[i];
+      const { connects = [] } = itemData;
+      connects.forEach((item: any) => {
+        const { source, target } = item;
+        let connector = target.connector;
+        this.graph.addEdge({
+          source: { cell: source.id, port: source.port }, // 源节点和链接桩 ID
+          target: { cell: target.id, port: target.port }, // 目标节点 ID 和链接桩 ID
+          connector,
+          attrs: {
+            line: {
+              stroke: "#5217b1",
+              strokeWidth: 1,
+              targetMarker: {
+                name: "classic",
+                size: 7,
+              },
+            },
+          },
+        });
+      });
+    }
+
+    return arr;
   }
 }

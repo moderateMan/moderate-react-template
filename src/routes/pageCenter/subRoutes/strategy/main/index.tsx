@@ -1,5 +1,14 @@
 import React, { RefObject } from "react";
-import { Graph, Shape, NodeView, Addon, Node,Line,Curve,Path } from "@antv/x6";
+import {
+  Graph,
+  Shape,
+  NodeView,
+  Addon,
+  Node,
+  Line,
+  Curve,
+  Path,
+} from "@antv/x6";
 import { insertCss } from "insert-css";
 import nodeCtr from "./ctr/nodeCtr";
 import styles from "./index.module.scss";
@@ -35,76 +44,80 @@ export default class Example extends React.Component<PropsT, StatesT> {
   private currentNodeId!: string;
   private isBefore!: boolean;
   private flowId!: string;
+  private subNodeArr: { [key: string]: any } = {};
 
   constructor(props: PropsT) {
     super(props);
-    let a1 = this.getNodeTempByType(NODE_TYPE.D);
-    let a = this.getNodeTempByType(NODE_TYPE.A);
-    let b = this.getNodeTempByType(NODE_TYPE.C);
-    let c = this.getNodeTempByType(NODE_TYPE.C);
+    let recall_1 = this.getNodeOptionByType(NODE_TYPE.RECALL);
+    let a1 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
+    let a2 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
+    let a3 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
+    let a4 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
 
+    let FIELD_1 = this.getNodeOptionByType(NODE_TYPE.FIELD);
+    let FIELD_2 = this.getNodeOptionByType(NODE_TYPE.FIELD);
+    let FIELD_3 = this.getNodeOptionByType(NODE_TYPE.FIELD);
+
+    recall_1.stepNum = 0;
+    recall_1.handleNext = (nodeData: any) => {
+      nodeData.stepNum++;
+      this.toNextStep(recall_1.stepArr[nodeData.stepNum]);
+    };
+    recall_1.stepArr = [
+      { targetId: FIELD_1.id, subArr: [a1] },
+      { targetId: FIELD_1.id, subArr: [a1, a2] },
+      { targetId: FIELD_1.id, subArr: [a1, a2, a3] },
+      { targetId: FIELD_1.id, subArr: [a1, a2, a3, a4] },
+    ];
     let testData = [
       {
-        ...c,
-        children: [a1],
+        ...FIELD_1,
         connects: [
           {
             source: {
-              id: c.id,
-              port: "port_top_1",
-            },
-            target: {
-              id: a1.id,
-              port: "port_bottom_1",
-            },
-          },
-          {
-            source: {
-              id: c.id,
+              id: FIELD_1.id,
               port: "port_out_1",
             },
             target: {
-              id: a.id,
+              id: recall_1.id,
               port: "port_in_1",
             },
           },
         ],
       },
       {
-        ...a,
+        ...recall_1,
         connects: [
           {
             source: {
-              id: a.id,
-              port: "port_top_1",
-            },
-            target: {
-              id: a1.id,
-              port: "port_out_1",
-              connector:{
-                name: 'multi-smooth',
-                  args: {
-                    total:1,
-                    index: -15,
-                  },
-              }
-            },
-          },
-          {
-            source: {
-              id: a.id,
+              id: recall_1.id,
               port: "port_out_1",
             },
             target: {
-              id: b.id,
+              id: FIELD_2.id,
               port: "port_in_1",
             },
           },
         ],
       },
-      {...b,name:"知识点B"},
+      {
+        ...FIELD_2,
+        connects: [
+          {
+            source: {
+              id: FIELD_2.id,
+              port: "port_out_1",
+            },
+            target: {
+              id: FIELD_3.id,
+              port: "port_in_1",
+            },
+          },
+        ],
+        name: "知识点B",
+      },
+      { ...FIELD_3, name: "知识点C" },
     ];
-
     this.state = {
       isRefresh: 0,
       currentItemId: "",
@@ -117,9 +130,11 @@ export default class Example extends React.Component<PropsT, StatesT> {
     this.formInstance = React.createRef();
     const { search } = props.location;
     this.flowId = getUrlParam(search, "id");
-    // game("helloworld").then(()=>{
+    // setTimeout(()=>{
+    //   game("helloworld").then(()=>{
 
-    // })
+    //   })
+    // },3000)
   }
 
   componentDidMount() {
@@ -150,42 +165,28 @@ export default class Example extends React.Component<PropsT, StatesT> {
     });
   }
 
-  getNodeTempByType(type: any) {
-    if (type == NODE_TYPE.A) {
+  getNodeOptionByType(type: any): any {
+    if (type == NODE_TYPE.RECALL) {
       return {
         id: uuid(),
-        type: NODE_TYPE.A,
+        type: NODE_TYPE.RECALL,
         name: "回溯",
-        auditUserId: 1,
-        auditUserEditable: 0,
-        formDataEditable: 0,
-        valid: 1,
       };
-    } else if (type == NODE_TYPE.B) {
+    } else if (type == NODE_TYPE.FIELD) {
       return {
         id: uuid(),
-        type: NODE_TYPE.B,
-        name: "知识点A-1",
-        auditUserId: 1,
-        auditUserEditable: 0,
-        formDataEditable: 0,
-        valid: 1,
-      };
-    } else if (type == NODE_TYPE.C) {
-      return {
-        id: uuid(),
-        type: NODE_TYPE.C,
+        type: NODE_TYPE.FIELD,
         offsetY: -10,
         name: "知识点A",
-        auditUserId: 1,
-        auditUserEditable: 0,
-        formDataEditable: 0,
-        valid: 1,
+        offsetForNode: {
+          x: 10,
+          y: -10,
+        },
       };
-    } else if (type == NODE_TYPE.D) {
+    } else if (type == NODE_TYPE.SCOPE) {
       return {
         id: uuid(),
-        type: NODE_TYPE.B,
+        type: NODE_TYPE.SCOPE,
         offsetY: -10,
         name: "知识点1",
         auditUserId: 1,
@@ -196,8 +197,8 @@ export default class Example extends React.Component<PropsT, StatesT> {
     }
     return {
       id: uuid(),
-      type: NODE_TYPE.A,
-      name: "回溯",
+      type: NODE_TYPE.FIELD,
+      name: "知识点",
       auditUserId: 1,
       auditUserEditable: 0,
       formDataEditable: 0,
@@ -264,33 +265,33 @@ export default class Example extends React.Component<PropsT, StatesT> {
     `);
 
     Graph.registerConnector(
-      'multi-smooth',
+      "multi-smooth",
       (
         sourcePoint,
         targetPoint,
         routePoints,
-        options: { raw?: boolean; index?: number; total?: number; gap?: number },
+        options: { raw?: boolean; index?: number; total?: number; gap?: number }
       ) => {
-        const { index = 0, total = 1, gap = 12 } = options
-        const line = new Line(sourcePoint, targetPoint)
-        const centerIndex = (total - 1) / 2
-        const dist = index - centerIndex
-        const diff = Math.abs(dist)
-        const factor = diff === 0 ? 1 : diff / dist
+        const { index = 0, total = 1, gap = 12 } = options;
+        const line = new Line(sourcePoint, targetPoint);
+        const centerIndex = (total - 1) / 2;
+        const dist = index - centerIndex;
+        const diff = Math.abs(dist);
+        const factor = diff === 0 ? 1 : diff / dist;
         const vertice = line
           .pointAtLength(line.length() / 2 + gap * factor * Math.ceil(diff))
-          .rotate(90, line.getCenter())
-        sourcePoint.x+=5
-        sourcePoint.y-=5
-        targetPoint.x+=5
-        targetPoint.y-=5
-        const points = [sourcePoint, vertice, targetPoint]
-        const curves = Curve.throughPoints(points)
-        const path = new Path(curves)
-        return options.raw ? path : path.serialize()
+          .rotate(90, line.getCenter());
+        sourcePoint.x += 5;
+        sourcePoint.y -= 5;
+        targetPoint.x += 5;
+        targetPoint.y -= 5;
+        const points = [sourcePoint, vertice, targetPoint];
+        const curves = Curve.throughPoints(points);
+        const path = new Path(curves);
+        return options.raw ? path : path.serialize();
       },
-      true,
-    )
+      true
+    );
   };
 
   componentWillUnmount() {
@@ -349,15 +350,15 @@ export default class Example extends React.Component<PropsT, StatesT> {
           temp.splice(
             id + 1,
             0,
-            self.getNodeTempByType(droppingNode.data.type)
+            self.getNodeOptionByType(droppingNode.data.type)
           );
         } else if (id === temp.length - 1) {
-          temp.splice(id, 0, self.getNodeTempByType(droppingNode.data.type));
+          temp.splice(id, 0, self.getNodeOptionByType(droppingNode.data.type));
         } else {
           temp.splice(
             self.isBefore ? id : id + 1,
             0,
-            self.getNodeTempByType(droppingNode.data.type)
+            self.getNodeOptionByType(droppingNode.data.type)
           );
         }
         self.setState(
@@ -372,32 +373,21 @@ export default class Example extends React.Component<PropsT, StatesT> {
       },
     });
     document.getElementById("stencil")!.appendChild(stencil.container);
-    const r1 = this.nodeCtr.addDndNode({ type: NODE_TYPE.A });
-    const r2 = this.nodeCtr.addDndNode({ type: NODE_TYPE.B });
-    const r3 = this.nodeCtr.addDndNode({ type: NODE_TYPE.C });
+    const r1 = this.nodeCtr.addNodeByType({ type: NODE_TYPE.A });
+    const r2 = this.nodeCtr.addNodeByType({ type: NODE_TYPE.B });
+    const r3 = this.nodeCtr.addNodeByType({ type: NODE_TYPE.C });
     stencil.load([r3, r1, r2], "group1");
   }
 
-  showPorts = (ports: NodeListOf<SVGElement>, show: boolean) => {
-    for (let i = 0, len = ports.length; i < len; i = i + 1) {
-      ports[i].style.visibility = show ? "visible" : "hidden";
-    }
-  };
 
   getNodeCtr() {
     return this.nodeCtr;
   }
 
   createGraph() {
-    return new Graph({
-      scroller: {
-        enabled: true,
-      },
-      minimap: {
-        enabled: true,
-        container: this.minimapContainer,
-        width: 300,
-      },
+    let graph = new Graph({
+      panning: true,
+      autoResize: true,
       mousewheel: {
         enabled: true,
       },
@@ -415,56 +405,13 @@ export default class Example extends React.Component<PropsT, StatesT> {
           },
         },
       },
-      connecting: {
-        snap: true,
-        allowBlank: false,
-        allowLoop: false,
-        highlight: true,
-        connector: "rounded",
-        connectionPoint: "boundary",
-        router: "orth",
-        createEdge() {
-          return new Shape.Edge({
-            attrs: {
-              line: {
-                stroke: "#5217b1",
-                strokeWidth: 1,
-                targetMarker: {
-                  name: "classic",
-                  size: 7,
-                },
-              },
-            },
-          });
-        },
-        validateConnection: ({ sourceView, targetView, targetMagnet }) => {
-          if (!targetMagnet) {
-            return false;
-          }
-
-          if (targetMagnet.getAttribute("port-group") !== "in") {
-            return false;
-          }
-
-          if (targetView) {
-            const node = targetView.cell;
-            if (node instanceof MyRect) {
-              const portId = targetMagnet.getAttribute("port");
-              const usedInPorts = node.getUsedInPorts(this.graph);
-              if (usedInPorts.find((port) => port && port.id === portId)) {
-                return false;
-              }
-            }
-          }
-
-          return true;
-        },
-      },
     });
+    return graph;
   }
   handleSummit = () => {
     history.back();
   };
+
   toRecoveryView() {
     this.graph.clearCells();
     let startPos = {
@@ -475,23 +422,22 @@ export default class Example extends React.Component<PropsT, StatesT> {
     const { nodeList } = this.state;
     for (let i = 0; i < nodeList.length; i++) {
       let itemData = nodeList[i];
-      const { type, children = [] } = itemData;
+      const { type, children = [], offsetForNode = { x: 0, y: 0 } } = itemData;
       let offsetY = type == NODE_TYPE.C ? -10 : 0;
       children.forEach((item: any, index: number) => {
         let node = this.nodeCtr
-          .addDndNode({
+          .addNodeByType({
             type: item.type,
             options: {
-              id:item.id,
+              id: item.id,
               data: item,
               label: item.name,
             },
           })
-          .position(startPos.x+offsetY, 150  - (index + 1) * 120)
+          .position(startPos.x, 150 - (index + 1) * 120)
           .setAttrs({
             label: {
               textAnchor: "middle",
-              text: itemData.name,
               textWrap: {
                 width: 60,
                 height: 32,
@@ -503,15 +449,15 @@ export default class Example extends React.Component<PropsT, StatesT> {
       });
 
       let node = this.nodeCtr
-        .addDndNode({
+        .addNodeByType({
           type,
           options: {
-            id:itemData.id,
+            id: itemData.id,
             data: itemData,
             label: itemData.name,
           },
         })
-        .position(startPos.x + i * 130, 150 + offsetY)
+        .position(offsetForNode.x + startPos.x + i * 130, 150 + offsetForNode.y)
         .setAttrs({
           label: {
             textAnchor: "middle",
@@ -527,10 +473,10 @@ export default class Example extends React.Component<PropsT, StatesT> {
     }
     for (let i = 0; i < nodeList.length; i++) {
       let itemData = nodeList[i];
-      const { connects=[] } = itemData;
-      connects.forEach((item:any) => {
+      const { connects = [] } = itemData;
+      connects.forEach((item: any) => {
         const { source, target } = item;
-        let connector = target.connector
+        let connector = target.connector;
         this.graph.addEdge({
           source: { cell: source.id, port: source.port }, // 源节点和链接桩 ID
           target: { cell: target.id, port: target.port }, // 目标节点 ID 和链接桩 ID
@@ -545,9 +491,29 @@ export default class Example extends React.Component<PropsT, StatesT> {
               },
             },
           },
-        })
+        });
       });
     }
+  }
+
+  toNextStep(step: { targetId: string; subArr: any[] }) {
+    const { targetId, subArr } = step;
+    let targetNode = this.nodeArr.find((item) => {
+      return item.id === targetId;
+    });
+    //清理上一步的
+    if (targetId in this.subNodeArr) {
+      this.subNodeArr[targetId].forEach((subNode: Node) => {
+        subNode.remove();
+      });
+    }
+    let pos = targetNode!.position();
+    let arrTemp = this.nodeCtr.addNet({
+      nodeList: subArr,
+      startPos: { ...pos, x: pos.x - 10 },
+      offset: { x: 0, y: -50 },
+    });
+    this.subNodeArr[targetId] = arrTemp;
   }
 
   toRegisterEvent = () => {
@@ -563,14 +529,6 @@ export default class Example extends React.Component<PropsT, StatesT> {
         cell.updateInPorts(this.graph);
       }
     };
-    this.graph.on("edge:connected", ({ previousView, currentView }) => {
-      if (previousView) {
-        update(previousView as NodeView);
-      }
-      if (currentView) {
-        update(currentView as NodeView);
-      }
-    });
 
     this.graph.on("edge:removed", ({ edge, options }) => {
       if (!options.ui) {
@@ -584,20 +542,8 @@ export default class Example extends React.Component<PropsT, StatesT> {
     });
 
     // 控制连接桩显示/隐藏
-    this.graph.on("node:mouseenter", ({ node }) => {
-      const container = document.getElementById("graph-containerS")!;
-      const ports = container.querySelectorAll(
-        ".x6-port-body"
-      ) as NodeListOf<SVGElement>;
-      this.showPorts(ports, true);
-    });
-    this.graph.on("node:mouseleave", ({ node }) => {
-      const container = document.getElementById("graph-containerS")!;
-      const ports = container.querySelectorAll(
-        ".x6-port-body"
-      ) as NodeListOf<SVGElement>;
-      this.showPorts(ports, false);
-    });
+    this.graph.on("node:mouseenter", ({ node }) => {});
+    this.graph.on("node:mouseleave", ({ node }) => {});
 
     this.graph.on("node:click", ({ e, x, y, cell, view }) => {
       view.highlight();
@@ -616,6 +562,14 @@ export default class Example extends React.Component<PropsT, StatesT> {
           this.formInstance?.current?.setFieldsValue(currentData);
         }
       );
+
+      // 点击的如果是回溯节点，就要显示对应回溯步骤
+      let nodeData = cell.data;
+      if (nodeData.type === NODE_TYPE.RECALL) {
+        let stepNum = nodeData.stepNum;
+        let step = nodeData.stepArr[stepNum];
+        this.toNextStep(step);
+      }
     });
     this.graph.on("cell:mouseup", ({ view }) => {
       view.unhighlight();
