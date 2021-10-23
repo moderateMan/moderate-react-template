@@ -22,12 +22,12 @@ class EditableCellTool extends ToolsView.ToolItem<
       const zoom = this.graph.zoom()
       x = pos.x
       y = pos.y
-      width = size.width * zoom
+      width = 10 * zoom
       height = size.height * zoom
     } else {
       x = this.options.x - 40
       y = this.options.y - 20
-      width = 80
+      width = 10
       height = 40
     }
 
@@ -41,7 +41,9 @@ class EditableCellTool extends ToolsView.ToolItem<
     editorParent.style.display = 'flex'
     editorParent.style.alignItems = 'center'
     editorParent.style.textAlign = 'center'
-    
+    editorParent.onclick=(data)=>{
+      alert('123')
+    }
     this.container.appendChild(editorParent)
 
     this.init()

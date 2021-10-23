@@ -6,6 +6,7 @@
   "homepage": "./",
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
+    "@antv/g6": "^4.3.11",
     "@antv/x6": "^1.27.0",
     "@babel/core": "7.12.3",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",

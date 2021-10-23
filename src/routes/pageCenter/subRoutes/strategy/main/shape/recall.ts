@@ -9,13 +9,53 @@ import "./tool";
  * @extends {Myrect}
  */
 export default class RecallRect extends MyRect {
-
   protected postprocess() {
-    let a = 1
     setTimeout(()=>{
       this.zIndex = 100
-    },1000)
+    },0)
   }
+  
+  handleForward(){
+    this.data.stepNum = Math.min(this.data.stepArr.length-1,++this.data.stepNum);
+    if(this.data.stepNum ==this.data.stepArr.length-1){
+      this.setAttrs({
+        buttonGroupForward: { display:"none" },
+      })
+    }
+    this.setAttrs({
+      buttonGroupBack: { display:"block" },
+    })
+    return this.data.stepArr[this.data.stepNum]
+  }
+
+  handleBack(){
+    this.data.stepNum = Math.max(0,--this.data.stepNum);
+    if(this.data.stepNum ==0){
+      this.setAttrs({
+        buttonGroupBack: { display:"none" },
+      })
+    }
+    this.setAttrs({
+      buttonGroupForward: { display:"block" },
+    })
+    return this.data.stepArr[this.data.stepNum]
+  }
+
+  showBtn(){
+    this.setAttrs({
+      buttonGroupForward: { display:"block" },
+      buttonGroupBack: { display:"none" },
+    })
+  }
+
+  hideBtn(){
+    this.data.stepNum=0;
+    this.setAttrs({
+      buttonGroupForward: { display:"none" },
+      buttonGroupBack: { display:"none" },
+    })
+  }
+
 }
 
 // 链接装配置
@@ -107,9 +147,13 @@ RecallRect.config({
   width: 66,
   height: 36,
   markup: [
+    //后退
     {
       tagName: 'g',
-      selector: 'buttonGroup',
+      selector: 'buttonGroupBack',
+      attrs: {
+        class: 'btn back',
+      },
       children: [
         {
           tagName: 'rect',
@@ -128,9 +172,14 @@ RecallRect.config({
         },
       ],
     },
+    //前进
     {
       tagName: 'g',
-      selector: 'buttonGroup2',
+      selector: 'buttonGroupForward',
+      attrs: {
+        class: 'btn forward',
+        
+      },
       children: [
         {
           tagName: 'rect',
@@ -147,7 +196,9 @@ RecallRect.config({
             'pointer-events': 'none',
           },
         },
+        
       ],
+      
     },
     {
       tagName: 'rect',
@@ -177,9 +228,10 @@ RecallRect.config({
       refY: '50%',
       fontSize: 12,
     },
-    buttonGroup: {
+    buttonGroupBack: {
       refX: '-8',
       refY: '50%',
+      display:"none",
     },
     button: {
       fill: '#4C65DD',
@@ -201,9 +253,10 @@ RecallRect.config({
       strokeWidth: 1.6,
       display:"block",
       d: 'M 10 0 L 4 5 L 10 10',
-    },buttonGroup2: {
+    },buttonGroupForward: {
       refX: '100%',
       refY: '50%',
+      display:"none",
     },
     button2: {
       fill: '#4C65DD',
@@ -227,7 +280,16 @@ RecallRect.config({
       d: 'M 0 0 L 6 5 L 0 10',
       // d: 'M 1 5 9 5 M 5 1 5 9',
     },
+    '.btn.back': {
+      event: 'node:back',
+    },
+    '.btn.forward': {
+     
+      event: 'node:forward',
+    },
   },
   ports: { ...ports },
   label: "审批",
 });
+
+

@@ -15,7 +15,7 @@ import styles from "./index.module.scss";
 import MyRect from "./shape/myRect";
 import { NODE_TYPE, getNodePos, getDist } from "./common";
 import { getUrlParam, uuid, game } from "@COMMON/utils";
-import Relation from "./components/relation";
+import Relation from "./components/relationG6";
 import MdView from "@ROUTES/pageCenter/subRoutes/mdView/index";
 declare var cc: any;
 
@@ -44,32 +44,128 @@ export default class Example extends React.Component<PropsT, StatesT> {
   private currentNodeId!: string;
   private isBefore!: boolean;
   private flowId!: string;
-  private subNodeArr: { [key: string]: any } = {};
+  private subNodeArr: any[] = [];
+  private targetRecallId!: string | null;
 
   constructor(props: PropsT) {
     super(props);
     let recall_1 = this.getNodeOptionByType(NODE_TYPE.RECALL);
     let a1 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
+    a1 = {
+      ...a1, connects: [
+        {
+          source: {
+            id: recall_1.id,
+            port: "port_top_1",
+          },
+          target: {
+            id: a1.id,
+            port: "port_out_1",
+          },
+          connector: "multi-smooth",
+        },
+      ]
+    }
     let a2 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
+    a2 = {
+      ...a2, connects: [
+        {
+          source: {
+            id: a1.id,
+            port: "port_out_1",
+          },
+          target: {
+            id: a2.id,
+            port: "port_out_1",
+          },
+          connector: "multi-smooth",
+        },
+      ]
+    }
     let a3 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
+    a3 = {
+      ...a3,
+      connects: [
+        {
+          source: {
+            id: a2.id,
+            port: "port_out_1",
+          },
+          target: {
+            id: a3.id,
+            port: "port_out_1",
+          },
+          connector: "multi-smooth",
+        },
+      ]
+    }
     let a4 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
-
+    a4 = {
+      ...a4,
+      connects: [
+        {
+          source: {
+            id: a3.id,
+            port: "port_out_1",
+          },
+          target: {
+            id: a4.id,
+            port: "port_out_1",
+          },
+          connector: "multi-smooth",
+        },
+      ]
+    }
+    let a5 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
+    a5 = {
+      ...a5,
+      connects: [
+        {
+          source: {
+            id: a4.id,
+            port: "port_in_1",
+          },
+          target: {
+            id: a5.id,
+            port: "port_out_1",
+          },
+          connector: "multi-smooth",
+        },
+      ]
+    }
+    let FIELD_0 = this.getNodeOptionByType(NODE_TYPE.FIELD);
     let FIELD_1 = this.getNodeOptionByType(NODE_TYPE.FIELD);
+    let FIELD_1_1 = this.getNodeOptionByType(NODE_TYPE.FIELD);
     let FIELD_2 = this.getNodeOptionByType(NODE_TYPE.FIELD);
     let FIELD_3 = this.getNodeOptionByType(NODE_TYPE.FIELD);
 
     recall_1.stepNum = 0;
-    recall_1.handleNext = (nodeData: any) => {
-      nodeData.stepNum++;
-      this.toNextStep(recall_1.stepArr[nodeData.stepNum]);
-    };
+
     recall_1.stepArr = [
       { targetId: FIELD_1.id, subArr: [a1] },
       { targetId: FIELD_1.id, subArr: [a1, a2] },
       { targetId: FIELD_1.id, subArr: [a1, a2, a3] },
       { targetId: FIELD_1.id, subArr: [a1, a2, a3, a4] },
+      { targetId: FIELD_0.id, subArr: [a5], isRetain: true },
     ];
+
     let testData = [
+      {
+        ...FIELD_0,
+        connects: [
+          {
+            source: {
+              id: FIELD_0.id,
+              port: "port_out_1",
+            },
+            target: {
+              id: FIELD_1.id,
+              port: "port_in_1",
+            },
+          },
+        ],
+        name: "第1件事"
+      },
       {
         ...FIELD_1,
         connects: [
@@ -79,11 +175,28 @@ export default class Example extends React.Component<PropsT, StatesT> {
               port: "port_out_1",
             },
             target: {
+              id: FIELD_1_1.id,
+              port: "port_in_1",
+            },
+          },
+        ],
+        name: "第2件事"
+      },
+      {
+        ...FIELD_1_1,
+        connects: [
+          {
+            source: {
+              id: FIELD_1_1.id,
+              port: "port_out_1",
+            },
+            target: {
               id: recall_1.id,
               port: "port_in_1",
             },
           },
         ],
+        name: "第3件事"
       },
       {
         ...recall_1,
@@ -114,9 +227,9 @@ export default class Example extends React.Component<PropsT, StatesT> {
             },
           },
         ],
-        name: "知识点B",
+        name: "第4件事"
       },
-      { ...FIELD_3, name: "知识点C" },
+      { ...FIELD_3, name: "第5件事" },
     ];
     this.state = {
       isRefresh: 0,
@@ -264,34 +377,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
       }
     `);
 
-    Graph.registerConnector(
-      "multi-smooth",
-      (
-        sourcePoint,
-        targetPoint,
-        routePoints,
-        options: { raw?: boolean; index?: number; total?: number; gap?: number }
-      ) => {
-        const { index = 0, total = 1, gap = 12 } = options;
-        const line = new Line(sourcePoint, targetPoint);
-        const centerIndex = (total - 1) / 2;
-        const dist = index - centerIndex;
-        const diff = Math.abs(dist);
-        const factor = diff === 0 ? 1 : diff / dist;
-        const vertice = line
-          .pointAtLength(line.length() / 2 + gap * factor * Math.ceil(diff))
-          .rotate(90, line.getCenter());
-        sourcePoint.x += 5;
-        sourcePoint.y -= 5;
-        targetPoint.x += 5;
-        targetPoint.y -= 5;
-        const points = [sourcePoint, vertice, targetPoint];
-        const curves = Curve.throughPoints(points);
-        const path = new Path(curves);
-        return options.raw ? path : path.serialize();
-      },
-      true
-    );
+
   };
 
   componentWillUnmount() {
@@ -495,24 +581,33 @@ export default class Example extends React.Component<PropsT, StatesT> {
     }
   }
 
-  toNextStep(step: { targetId: string; subArr: any[] }) {
-    const { targetId, subArr } = step;
+  toNextStep(step: { targetId: string; subArr: any[], isRetain: boolean }) {
+    const { targetId, subArr, isRetain } = step;
     let targetNode = this.nodeArr.find((item) => {
       return item.id === targetId;
     });
     //清理上一步的
-    if (targetId in this.subNodeArr) {
-      this.subNodeArr[targetId].forEach((subNode: Node) => {
-        subNode.remove();
-      });
-    }
+    !isRetain && this.subNodeArr.forEach((subNode: Node) => {
+      subNode.remove();
+    });
+
     let pos = targetNode!.position();
     let arrTemp = this.nodeCtr.addNet({
       nodeList: subArr,
       startPos: { ...pos, x: pos.x - 10 },
       offset: { x: 0, y: -50 },
     });
-    this.subNodeArr[targetId] = arrTemp;
+    if (isRetain) {
+      this.subNodeArr = [...this.subNodeArr, ...arrTemp];
+    } else {
+      this.subNodeArr = arrTemp;
+    }
+  }
+
+  toRemoveStep = () => {
+    this.subNodeArr.forEach((subNode: Node) => {
+      subNode.remove();
+    });
   }
 
   toRegisterEvent = () => {
@@ -529,6 +624,18 @@ export default class Example extends React.Component<PropsT, StatesT> {
       }
     };
 
+    this.graph.on('node:back', ({ e, node }: any) => {
+      e.stopPropagation();
+      let result = node.handleBack()
+      result && this.toNextStep(result);
+    })
+
+    this.graph.on('node:forward', ({ e, node }: any) => {
+      e.stopPropagation();
+      let result = node.handleForward()
+      result && this.toNextStep(result);
+    })
+
     this.graph.on("edge:removed", ({ edge, options }) => {
       if (!options.ui) {
         return;
@@ -541,10 +648,10 @@ export default class Example extends React.Component<PropsT, StatesT> {
     });
 
     // 控制连接桩显示/隐藏
-    this.graph.on("node:mouseenter", ({ node }) => {});
-    this.graph.on("node:mouseleave", ({ node }) => {});
+    this.graph.on("node:mouseenter", ({ node }) => { });
+    this.graph.on("node:mouseleave", ({ node }) => { });
 
-    this.graph.on("node:click", ({ e, x, y, cell, view }) => {
+    this.graph.on("node:click", ({ e, x, y, node, cell, view }) => {
       view.highlight();
       const {
         data: { id, type },
@@ -562,17 +669,40 @@ export default class Example extends React.Component<PropsT, StatesT> {
         }
       );
 
-      // 点击的如果是回溯节点，就要显示对应回溯步骤
-      let nodeData = cell.data;
-      if (nodeData.type === NODE_TYPE.RECALL) {
-        let stepNum = nodeData.stepNum;
-        let step = nodeData.stepArr[stepNum];
-        this.toNextStep(step);
+      {
+        // 点击的如果是回溯节点，就要显示对应回溯步骤
+        let nodeData = cell.data;
+        if (nodeData.type === NODE_TYPE.RECALL) {
+          if (this.targetRecallId) {
+            this.nodeArr.find((item) => {
+              if (item.data.id === this.targetRecallId) {
+                let itemTemp: any = item
+                itemTemp.hideBtn()
+              }
+            })
+            this.toRemoveStep();
+            this.targetRecallId = null;
+          } else {
+            this.targetRecallId = nodeData.id
+            let nodeTemp: any = node;
+            nodeTemp.showBtn()
+            let stepNum = nodeData.stepNum;
+            let step = nodeData.stepArr[stepNum];
+            this.toNextStep(step);
+          }
+
+        }
       }
+
+
+
     });
+
+
     this.graph.on("cell:mouseup", ({ view }) => {
       view.unhighlight();
     });
+
     this.graph.on("cell:mouseleave", ({ view }) => {
       view.unhighlight();
     });
