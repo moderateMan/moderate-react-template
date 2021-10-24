@@ -20,11 +20,13 @@ export default withRouter((props: PropsT) => {
       container: 'main',
       width,
       height,
-      layout: {
+      fitView:true
+,      layout: {
         type: 'gForce',
         minMovement: 0.01,
         damping: 0.99,
-        linkDistance:100,
+        linkDistance:80,
+        nodeStrength:1500,
         preventOverlap: true,
       },
       modes: {
@@ -36,7 +38,8 @@ export default withRouter((props: PropsT) => {
     const nodes = data.nodes;
     // randomize the node size
     nodes.forEach((node: any) => {
-      node.size = node.size||50;
+      node.size = node.size||30;
+      node.labelCfg = {position:"right"}
     });
     graph.data({
       nodes,

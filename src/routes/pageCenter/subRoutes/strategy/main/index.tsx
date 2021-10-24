@@ -32,6 +32,15 @@ type StatesT = {
   flowName: string;
 };
 
+let A = ()=>{
+  return <div>我是a</div>
+}
+
+let B = (props:any)=>{
+  const {a:A} = props;
+  return <A {...props}></A>
+}
+
 export default class Example extends React.Component<PropsT, StatesT> {
   private graph!: Graph;
   private nodeCtr!: nodeCtr;
@@ -793,6 +802,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
         <div className={styles["app-content-right"]}>
           <MdView {...this.props}></MdView>
         </div>
+        <B a={A}></B>
       </div>
     );
   }

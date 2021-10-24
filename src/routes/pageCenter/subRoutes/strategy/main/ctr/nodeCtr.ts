@@ -94,11 +94,11 @@ export default class NodeCtr {
           target: { cell: target.id, port: target.port }, // 目标节点 ID 和链接桩 ID
           attrs: {
             line: {
-              stroke: "#5217b1",
-              strokeWidth: 1,
-              targetMarker: {
-                name: "classic",
-                size: 7,
+              stroke: '#1890ff',
+              strokeDasharray: 5,
+              targetMarker: 'classic',
+              style: {
+                animation: 'ant-line 30s infinite linear',
               },
             },
           },
