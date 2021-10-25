@@ -17,6 +17,7 @@ import { NODE_TYPE, getNodePos, getDist } from "./common";
 import { getUrlParam, uuid, game } from "@COMMON/utils";
 import Relation from "./components/relationG6";
 import MdView from "@ROUTES/pageCenter/subRoutes/mdView/index";
+import { createRelationData } from './config';
 declare var cc: any;
 
 type PropsT = {
@@ -31,15 +32,6 @@ type StatesT = {
   operatorList: any[];
   flowName: string;
 };
-
-let A = ()=>{
-  return <div>我是a</div>
-}
-
-let B = (props:any)=>{
-  const {a:A} = props;
-  return <A {...props}></A>
-}
 
 export default class Example extends React.Component<PropsT, StatesT> {
   private graph!: Graph;
@@ -60,8 +52,10 @@ export default class Example extends React.Component<PropsT, StatesT> {
     super(props);
     let recall_1 = this.getNodeOptionByType(NODE_TYPE.RECALL);
     let a1 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
+    createRelationData();
     a1 = {
-      ...a1, connects: [
+      ...a1,
+      connects: [
         {
           source: {
             id: recall_1.id,
@@ -73,11 +67,12 @@ export default class Example extends React.Component<PropsT, StatesT> {
           },
           connector: "multi-smooth",
         },
-      ]
-    }
+      ],
+    };
     let a2 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
     a2 = {
-      ...a2, connects: [
+      ...a2,
+      connects: [
         {
           source: {
             id: a1.id,
@@ -89,8 +84,8 @@ export default class Example extends React.Component<PropsT, StatesT> {
           },
           connector: "multi-smooth",
         },
-      ]
-    }
+      ],
+    };
     let a3 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
     a3 = {
       ...a3,
@@ -106,8 +101,8 @@ export default class Example extends React.Component<PropsT, StatesT> {
           },
           connector: "multi-smooth",
         },
-      ]
-    }
+      ],
+    };
     let a4 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
     a4 = {
       ...a4,
@@ -123,8 +118,8 @@ export default class Example extends React.Component<PropsT, StatesT> {
           },
           connector: "multi-smooth",
         },
-      ]
-    }
+      ],
+    };
     let a5 = this.getNodeOptionByType(NODE_TYPE.SCOPE);
     a5 = {
       ...a5,
@@ -140,8 +135,8 @@ export default class Example extends React.Component<PropsT, StatesT> {
           },
           connector: "multi-smooth",
         },
-      ]
-    }
+      ],
+    };
     let FIELD_0 = this.getNodeOptionByType(NODE_TYPE.FIELD);
     let FIELD_1 = this.getNodeOptionByType(NODE_TYPE.FIELD);
     let FIELD_1_1 = this.getNodeOptionByType(NODE_TYPE.FIELD);
@@ -155,26 +150,9 @@ export default class Example extends React.Component<PropsT, StatesT> {
       { targetId: FIELD_1.id, subArr: [a1, a2] },
       { targetId: FIELD_1.id, subArr: [a1, a2, a3] },
       { targetId: FIELD_1.id, subArr: [a1, a2, a3, a4] },
-      { targetId: FIELD_0.id, subArr: [a5], isRetain: true },
     ];
 
     let testData = [
-      {
-        ...FIELD_0,
-        connects: [
-          {
-            source: {
-              id: FIELD_0.id,
-              port: "port_out_1",
-            },
-            target: {
-              id: FIELD_1.id,
-              port: "port_in_1",
-            },
-          },
-        ],
-        name: "第1件事"
-      },
       {
         ...FIELD_1,
         connects: [
@@ -189,7 +167,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
             },
           },
         ],
-        name: "第2件事"
+        name: "看文档",
       },
       {
         ...FIELD_1_1,
@@ -205,7 +183,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
             },
           },
         ],
-        name: "第3件事"
+        name: "第3件事",
       },
       {
         ...recall_1,
@@ -236,7 +214,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
             },
           },
         ],
-        name: "第4件事"
+        name: "第4件事",
       },
       { ...FIELD_3, name: "第5件事" },
     ];
@@ -247,6 +225,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
       operatorList: [],
       nodeList: testData,
       flowName: "",
+      relationDataSource:[]
     };
     // 创建表单实例
     this.formInstance = React.createRef();
@@ -385,8 +364,6 @@ export default class Example extends React.Component<PropsT, StatesT> {
         opacity: 0;
       }
     `);
-
-
   };
 
   componentWillUnmount() {
@@ -590,15 +567,19 @@ export default class Example extends React.Component<PropsT, StatesT> {
     }
   }
 
-  toNextStep(step: { targetId: string; subArr: any[], isRetain: boolean }) {
+  toNextStep(step: { targetId: string; subArr: any[]; isRetain: boolean }) {
     const { targetId, subArr, isRetain } = step;
     let targetNode = this.nodeArr.find((item) => {
       return item.id === targetId;
     });
     //清理上一步的
-    !isRetain && this.subNodeArr.forEach((subNode: Node) => {
-      subNode.remove();
-    });
+    !isRetain &&
+      this.subNodeArr.forEach((subNode: Node) => {
+        subNode.remove();
+      });
+
+    if (isRetain) {
+    }
 
     let pos = targetNode!.position();
     let arrTemp = this.nodeCtr.addNet({
@@ -607,17 +588,31 @@ export default class Example extends React.Component<PropsT, StatesT> {
       offset: { x: 0, y: -50 },
     });
     if (isRetain) {
+      this.subNodeArr[this.subNodeArr.length - 1].removeTools();
       this.subNodeArr = [...this.subNodeArr, ...arrTemp];
     } else {
       this.subNodeArr = arrTemp;
     }
+    this.subNodeArr[this.subNodeArr.length - 1].addTools({
+      name: "boundary",
+      height: 20,
+      args: {
+        padding: 3,
+        attrs: {
+          fill: "#7c68fc",
+          stroke: "#9254de",
+          strokeWidth: 1,
+          fillOpacity: 0.2,
+        },
+      },
+    });
   }
 
   toRemoveStep = () => {
     this.subNodeArr.forEach((subNode: Node) => {
       subNode.remove();
     });
-  }
+  };
 
   toRegisterEvent = () => {
     let update = (view: NodeView) => {
@@ -633,17 +628,17 @@ export default class Example extends React.Component<PropsT, StatesT> {
       }
     };
 
-    this.graph.on('node:back', ({ e, node }: any) => {
+    this.graph.on("node:back", ({ e, node }: any) => {
       e.stopPropagation();
-      let result = node.handleBack()
+      let result = node.handleBack();
       result && this.toNextStep(result);
-    })
+    });
 
-    this.graph.on('node:forward', ({ e, node }: any) => {
+    this.graph.on("node:forward", ({ e, node }: any) => {
       e.stopPropagation();
-      let result = node.handleForward()
+      let result = node.handleForward();
       result && this.toNextStep(result);
-    })
+    });
 
     this.graph.on("edge:removed", ({ edge, options }) => {
       if (!options.ui) {
@@ -657,8 +652,8 @@ export default class Example extends React.Component<PropsT, StatesT> {
     });
 
     // 控制连接桩显示/隐藏
-    this.graph.on("node:mouseenter", ({ node }) => { });
-    this.graph.on("node:mouseleave", ({ node }) => { });
+    this.graph.on("node:mouseenter", ({ node }) => {});
+    this.graph.on("node:mouseleave", ({ node }) => {});
 
     this.graph.on("node:click", ({ e, x, y, node, cell, view }) => {
       view.highlight();
@@ -685,28 +680,23 @@ export default class Example extends React.Component<PropsT, StatesT> {
           if (this.targetRecallId) {
             this.nodeArr.find((item) => {
               if (item.data.id === this.targetRecallId) {
-                let itemTemp: any = item
-                itemTemp.hideBtn()
+                let itemTemp: any = item;
+                itemTemp.hideBtn();
               }
-            })
+            });
             this.toRemoveStep();
             this.targetRecallId = null;
           } else {
-            this.targetRecallId = nodeData.id
+            this.targetRecallId = nodeData.id;
             let nodeTemp: any = node;
-            nodeTemp.showBtn()
+            nodeTemp.showBtn();
             let stepNum = nodeData.stepNum;
             let step = nodeData.stepArr[stepNum];
             this.toNextStep(step);
           }
-
         }
       }
-
-
-
     });
-
 
     this.graph.on("cell:mouseup", ({ view }) => {
       view.unhighlight();
@@ -802,7 +792,6 @@ export default class Example extends React.Component<PropsT, StatesT> {
         <div className={styles["app-content-right"]}>
           <MdView {...this.props}></MdView>
         </div>
-        <B a={A}></B>
       </div>
     );
   }

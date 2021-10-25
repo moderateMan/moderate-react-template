@@ -80,6 +80,8 @@ export default class NodeCtr {
             },
           },
         });
+
+     
       arr.push(this.graph.addNode(node));
     }
 
