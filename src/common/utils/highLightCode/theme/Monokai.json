@@ -1,0 +1,13 @@
+{
+  "hight_light": {
+    "comments": "#7e3648",
+    "string": "#F8F8F2",
+    "number": "#e62020",
+    "functions": "#3E3D32",
+    "keywords": "#8e1da1",
+    "symbol": "#e57373",
+    "black": "#000000",
+    "other": "#000000"
+  }
+}
+
