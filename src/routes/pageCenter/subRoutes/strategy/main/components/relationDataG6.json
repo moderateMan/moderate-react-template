@@ -1,0 +1,102 @@
+{
+  "nodes": [
+      {
+          "id": "0",
+          "value": "",
+          "category": 0,
+          "symbolSize": 25,
+          "size":30
+      },
+      {
+          "id": "路由/概览.md",
+          "label": "路由",
+          "value": "",
+          "category": 0,
+          "symbolSize": 20,
+          "path": "路由/概览.md"
+      },
+      {
+          "id": "数据管理器/概览.md",
+          "label": "数据管理器",
+          "value": "",
+          "category": 0,
+          "symbolSize": 20,
+          "path": "数据管理器/概览.md"
+      },
+      {
+          "id": "开发规范/概览.md",
+          "label": "开发规范",
+          "value": "",
+          "category": 0,
+          "symbolSize": 20,
+          "path": "开发规范/概览.md"
+      },
+      {
+          "id": "公共库/概览.md",
+          "label": "公共库",
+          "value": "",
+          "category": 0,
+          "symbolSize": 20,
+          "path": "公共库/概览.md"
+      },
+      {
+          "id": "国际化/开发攻略.md",
+          "label": "国际化",
+          "value": "",
+          "category": 0,
+          "symbolSize": 20,
+          "path": "国际化/开发攻略.md"
+      },
+      {
+          "id": "cocos游戏引擎/概览.md",
+          "label": "cocos游戏引擎",
+          "value": "",
+          "category": 0,
+          "symbolSize": 20,
+          "path": "cocos游戏引擎/概览.md"
+      },
+      {
+          "id": "MD文档功能集成/概览.md",
+          "label": "MD文档功能集成",
+          "value": "",
+          "category": 0,
+          "symbolSize": 20,
+          "path": "MD文档功能集成/概览.md"
+      }
+  ],
+  "edges": [
+      {
+          "source": "路由/概览.md",
+          "target": "0"
+      },
+      {
+          "source": "数据管理器/概览.md",
+          "target": "0"
+      },
+      {
+          "source": "开发规范/概览.md",
+          "target": "0"
+      },
+      {
+          "source": "公共库/概览.md",
+          "target": "0"
+      },
+      {
+          "source": "国际化/开发攻略.md",
+          "target": "0"
+      },
+      {
+          "source": "cocos游戏引擎/概览.md",
+          "target": "0"
+      },
+      {
+          "source": "MD文档功能集成/概览.md",
+          "target": "0"
+      }
+  ],
+  "categories": [
+      {
+          "name": ""
+      }
+  ]
+}

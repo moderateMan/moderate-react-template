@@ -152,7 +152,7 @@ export default class NodeCtr {
     return new MyRect(optionsTemp);
   };
 
-  addDndNode({ type, options }: { type: string; options?: any }) {
+  addNodeByType({ type, options }: { type: string; options?: any }) {
     return type in this.dndNodeF ? this.dndNodeF[type](options||{type}) : this.addNndNodeA(options||{type});
   }
 

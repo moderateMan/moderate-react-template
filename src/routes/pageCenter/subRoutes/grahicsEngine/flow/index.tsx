@@ -254,9 +254,9 @@ export default class Example extends React.Component<PropsT, StatesT> {
       },
     });
     document.getElementById('stencil2')!.appendChild(stencil.container);
-    const r1 = this.nodeCtr.addDndNode({ type: NODE_TYPE.A });
-    const r2 = this.nodeCtr.addDndNode({ type: NODE_TYPE.B });
-    const r3 = this.nodeCtr.addDndNode({ type: NODE_TYPE.C });
+    const r1 = this.nodeCtr.addNodeByType({ type: NODE_TYPE.A });
+    const r2 = this.nodeCtr.addNodeByType({ type: NODE_TYPE.B });
+    const r3 = this.nodeCtr.addNodeByType({ type: NODE_TYPE.C });
     stencil.load([r3, r1, r2], 'group1');
   }
 
@@ -360,7 +360,7 @@ export default class Example extends React.Component<PropsT, StatesT> {
       const { type } = itemData;
       let offsetY = (type == NODE_TYPE.C ? -10 : 0);
       let node = this.nodeCtr
-        .addDndNode({
+        .addNodeByType({
           type,
           options: {
             data: itemData,

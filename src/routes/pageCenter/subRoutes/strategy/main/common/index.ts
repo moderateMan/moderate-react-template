@@ -6,7 +6,10 @@ export const NODE_TYPE = {
     A:"1",
     C:"0",
     B:"2",
-    D:"3"
+    D:"3",
+    RECALL:"recall",//回溯
+    FIELD:"field",//学科领域
+    SCOPE:"scope",//学习单步
 }
 
 export function getNodePos(node:Node){

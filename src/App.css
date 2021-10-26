@@ -53,3 +53,14 @@
   height: 100%;
   top: 0;
 }
+
+
+.testSelect{
+  background-color: #61dafb;
+}
+
+@keyframes ant-line {
+  to {
+      stroke-dashoffset: -1000
+  }
+}
