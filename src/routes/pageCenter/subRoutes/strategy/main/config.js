@@ -113,7 +113,7 @@ let point_7 = {
     }
 }
 
-let data1 = {
+let data_1 = {
     "nodes": [
         {
             ...point_0
@@ -142,7 +142,7 @@ let data1 = {
     ]
 }
 
-let data2 = {
+let data_2 = {
     "nodes": [
         {
             ...point_0
@@ -171,7 +171,7 @@ let data2 = {
     ]
 }
 
-let data3 = {
+let data_3 = {
     "nodes": [
         {
             ...point_0
@@ -201,7 +201,7 @@ let data3 = {
 }
 
 export const createRelationData = (type)=>{
-   let data = data1
+   let data = data_1
     const {nodes} = data;
     let edges = [];
     nodes.forEach(nodeData => {
