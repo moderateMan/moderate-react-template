@@ -1,4 +1,3 @@
-# 用Mobx许久后，常怀念起Redux的美好，而今我遇到了Natur
 起初我是通过umi了解的redux，当时dva就是基于redux的，用起来说不上不好，就是有点烦，烦ta的墨迹，费劲。后来当我用上了Mobx，哇偶，ta的简单，随性让我着迷，不再拘谨，就这样我选择了Mobx，但当用着用着，总在不经意间去怀念Redux，渐渐地理解了ta，我才明白约束不是过分的要求，而我现在只想从混乱中逃走，如今我遇到了natur，才会越发地觉得合适。
 
 # 状态管理库的管中窥
@@ -8,6 +7,7 @@
 先说一下我的观点，我是结合两方面进行判断的，一个是短期看上手，另一个是长远看维护，结果如下：
 
 **上手难度**：redux>**natur**>mobx
+
 **维护难度**：mobx>**natur**>redux
 
 对于我这种经常开发不大不小，中拨溜项目的开发者来讲，**Natur更适合**。
@@ -216,20 +216,20 @@ Module就是一个由state，maps，actions组成的对象，代码如下：
 	injecter(TestViewUI)
 ```
 
-### 使用状态Module数据
+### 使用状态module数据
 ```js
 	this.props.lightHomeStoreN?.state?.testValue
 ```
 
-### 修改状态Module数据
+### 修改状态module数据
 ```js
 同步和异步一致
 	this.props.lightHomeStoreN.actions.testAsyncAction("测试异步响应！");
 	this.props.lightHomeStoreN.actions.testSyncAction("测试同步响应！");
 ```
 
-### 设置页面响应状态Module更新的粒度
-#### 监听Module的所有
+### 设置页面响应状态module更新的粒度
+#### 监听module的所有
 注入的模块一变化，就更新页面组件，即触发render。
 ```js
 	injectNaturStore(["testModule"])
@@ -237,7 +237,7 @@ Module就是一个由state，maps，actions组成的对象，代码如下：
 	injectNaturStore("testModule")
 ```
 
-#### 监听Module的部分
+#### 监听module的部分
 注入的模块一变化，就更新页面组件，即触发render。
 ```js
 	let complexInjector = inject(
@@ -276,27 +276,26 @@ Module就是一个由state，maps，actions组成的对象，代码如下：
 	   }
 	};
 ```
-相比Redux这一大块的Reducer，能直接就分模块是真的好，Redux也可以自行地进行拆分从而达到分模块，就像Dva那样拆分，然后用nameSpace进行标注，但”本身就有“和”动手自助“，这不一样啊，怎么形容呢。。。
+相比Redux这一大块的reducer，能直接就分模块是真的好，Redux也可以自行地进行拆分从而达到分模块，就像Dva那样拆分，然后用nameSpace进行标注，但”本身就有“和”动手自助“，这不一样啊，怎么形容呢。。。
 
 > 就好比说合租，你觉得用隔断做成的插间和一个原本就独立的房间能一样吗？
 
 我觉得”本身就有“的体验好。
 
-### 页面使用上来看，natur就很原始，但某种意义上讲反而更好
-#### 与react结合方式
-对于Redux和mobx在页面上的使用类似，都是借助其他”结合助手“，如reudx-react和mobx-
+### 页面使用上来看，Natur就很原始，但某种意义上讲反而更好
+#### 与React结合方式
+对于Redux和Mobx在页面上的使用类似，都是借助其他”结合助手“，如reudx-react和mobx-react
 
-*问题：*
-1. react来与react进行结合，但为什么Natur不用呢？
-2. 话说这个”结合助手“被单独设立的意义是什么？
+**话说这个”结合助手“被单独设立的意义是什么？**
 
-
-我认为Mobx和Redux应该是考虑到不单对React一方进行结合，所以将“结合”这块抽出来，分别针对不同方来进行制作”结合助手“。
+ 我认为Mobx和Redux应该是考虑到不单对React一方进行结合，所以将“结合”这块抽出来，分别针对不同方来进行制作”结合助手“。
+ 
+**React来与react进行结合，但为什么Natur不用呢？**
 
 这么想的话，那么Natur不用，估计是因为只针对React一方进行结合。这对React使用者来说应该说反而简单了。。。
 
 #### 在页面上使用Natur仓库的方式
-直接通过链式调用的方式，这就跟Mobx有点神似了，em~ ~ ~，很原始，很直接，好处很实际，如果是用Ts开发，就会有联想提示，，比如：
+直接通过链式调用的方式，这就跟Mobx有点神似了，em~ ~ ~，很原始，很直接，好处很实际，如果是用Ts开发，就会有联想提示，比如：
 <p align="center">
  <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031102015.png">
 </p>
@@ -329,14 +328,10 @@ dispatch传入的type，需要准确无误还没有提示，我想知道目的�
 
 ### 一个页面一个状态Module够了
 从我这个如此普通的开发者视角来讲，我的项目肯定是要用状态管理库的，我是按照页面来划分状态Module的，也就是一个页面对应一个Module，开始还好，完成一些业务功能后，体量不大。
-<p align="center">
- <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031131405.png">
-</p>
+![Image](https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031131405.png)
 
 随着项目不断地开发，每个页面的状态Module越来越复杂，
-<p align="center">
- <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031125254.png">
-</p>
+![Image](https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031125254.png)
 
 各有甚者，状态Model间还有一些往来，那关系叫一个错综复杂啊。
 
@@ -348,33 +343,21 @@ dispatch传入的type，需要准确无误还没有提示，我想知道目的�
 
 ### 化整为零，有点乱啊
 你想要把一整个页面状态module，拆分给页面中各个够格的子组件，如
-<p align="center">
- <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031124008.png">
-</p>
-
+![Image](https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031124008.png)
 想的是挺好，首先这些拆分后的状态module对应的子组件可是很相关的，那就肯定免不了彼此的通信，关系那可就老铁了，如
-<p align="center">
- <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031125144.png">
-</p>
+![Image](https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031125144.png)
 
 ### 总得有module先站出来
 那么关系这么复杂，那就统一的让瘦身成功的页面组件module管吧，毕竟地位还在，为了维护状态模块间的秩序，主要做的就是**跨模块的通信以及业务处理**这方面
-<p align="center">
- <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031124628.png">
-</p>
-
+ ![Image](https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031124628.png)
 但是渐渐的页面组件module又胖了，这把不单是胖，还有点不守“本分”了，这可不行啊。
 
 ###  天降猛男，natur-service很知性
 有些coder实现了项目基本功能后，会对品质产生追求，不希望再忍受混乱，希望一切看起来井井有条，但是往往挡住脚本的总是挡住脚本，这颗进步的心就这样倔强的存在，进退两难，而natur-service知道怎么做来组织好代码，从混乱中解脱，有了他，局面就变成这样了，如：
-<p align="center">
- <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031123826.png">
-</p>
+![Image](https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031123826.png)
  
  甚至还可以这样
- <p align="center">
- <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031142235.png">
-</p>
+ ![Image]( https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031142235.png)
 
 完全可以进一步根据自己对业务的理解再分堆。
 
@@ -482,4 +465,74 @@ const countService = new CountService();
 | oldModule | 旧模块的数据，当type为'init'时为undefined     |   InjectStoreModule | undefined    |
 | newModule | 新模块的数据，当type为'remove'是为undefined    |  InjectStoreModule | undefined    |
 
+## 对比
+### 所有的状态都放在仓库里行不行
+#### redux&mobx
+无论是使用Dva（redux）还是mobx，都被这个问题曾困扰过我很久，经过纠结，我选择了一个折中方案：
+> 我先写成组件状态，然后根据需要再讲这个组件状态改成仓库状态。
+
+不全放在仓库里有几点顾虑：
+1. 我就分不清哪些状态是全局，哪些是局部了（可能没啥太大必要）。
+2. 都放进去，那么多的状态全混在一起，那这个module就会很臃肿。
+3. 拆分模块的话，跨模块通信，互相监听彼此的业务，会不会变得很混乱啊。
+
+#### natur
+有了natur-service，在拆分module这块就好了不少，让跨模块通信变得井井有条，同时也没有让模块间有耦合关系，
+相比dva你得用`put`来触发指定模块的effect或者reducer。
+```
+	*testEffect(_, { call, put, select }) {
+		...
+		yield put({
+			type: '其他模块/effect或者reducer',
+			payload: data,
+		});
+		...
+	}
+```
+mobx就更过，直接得引入这个模块，从而执行相应的`action`。
+```js
+	@action
+	fetchLightDelete = (params:any) => {
+		...
+		otherModule.testAction()
+		...
+	}
+```
+natur根本就不用在模块里写这个写这些，你完全可以通过设立一个flag状态变量和触发它改变的action就行。
+```js
+class CountService extends NaturService<M, LM> {
+	constructor() {
+		this.watch("flagAction", (me: ModuleEvent) => {
+			this.dispatch('count', 'inc', 0).then(() => {});
+		}
+	}
+}
+```
+虽然加了一个无关紧要的flagState来触发natur-service的监听，从而实现让natur-servic精细掌控跨模块通信。
+
+有种业务场景，非常适合natur-service发挥，比如A页面有了个仓库操作，首页和用户页面要有一些相应的仓库状态的操作，一般我是要在UI层，也就是在组件的生命周期的`componentDidmount`这种函数里进行整合业务逻辑，但是选哪个页面里写呢，看是应该谁引起放在谁那，但一细想，这不耦合了，为啥其他模块的事情要在登录页面写呢。。。。，这么一想确实也不是很好，所以有了natur-service，直接在这里写就行了。
+
+### redux跨模块通信就有点拉了
+redux也许就是专注的是全局状态管理，想分模块都得自己动手，dva就是在基础上很好的完善了redux，但是会有一个问题，人嘛能偷懒往往偷懒，你会发现写来写去，dva的effect一堆，但是reducer就一个，统一负责修改该模块的状态。那么跨模块通信触发的reducer难道都用一个？这不又乱了么。。。
+
+
+### 和mobx较量一下维护性。。。
+我觉得不用比了，mobx的可变值，如果不加一套严格的规范和一些必要手段（做个统一修改入口函数啥的），你就很难管理好mobx，太自由，爱过火。
+
+
+### 我的观点
+基于以上主观的分析，我得出了我的观点。
+
+**维护难度**：mobx>**natur**>redux
+
+比较下来，真的我心里越发的觉得**natur**更好维护，不过Redux毕竟大牌子，估计应该更好维护吧。。。
+
+
+
+# 总结
+通过短期看上手和长远看维护，我比较下来，natur很适合我，能够很好的满足我组织代码的需求，对于一个常常开发中拨溜项目的我来说，正正好好。
+
+
+# 题外话
+作为一个普普通通前端coder，每当看到一个国内开发者的库，尤其是没有光环的，我会格外的关注和尊重，并拿出足够的热情去学习和分享，我认为好的库就好像一个发光体，能用来取暖获取力量，同时更应该将光折射出去，而不是去遮掩，这是可耻的，也是徒劳的，因为一个优秀的光源是不惧怕掩盖的，也是盖不灭的，因为只有自己能让自己发光。
 
