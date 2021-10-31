@@ -325,10 +325,14 @@ dispatch传入的type，需要准确无误还没有提示，我想知道目的�
 
 ### 一个页面一个状态Module够了
 从我这个如此普通的开发者视角来讲，我的项目肯定是要用状态管理库的，我是按照页面来划分状态Module的，也就是一个页面对应一个Module，开始还好，完成一些业务功能后，体量不大。
-![Image](https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031131405.png)
+<p align="center">
+ <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031131405.png">
+</p>
 
 随着项目不断地开发，每个页面的状态Module越来越复杂，
-![Image](https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031125254.png)
+<p align="center">
+ <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031125254.png">
+</p>
 
 各有甚者，状态Model间还有一些往来，那关系叫一个错综复杂啊。
 
@@ -340,21 +344,33 @@ dispatch传入的type，需要准确无误还没有提示，我想知道目的�
 
 ### 化整为零，有点乱啊
 你想要把一整个页面状态module，拆分给页面中各个够格的子组件，如
-![Image](https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031124008.png)
+<p align="center">
+ <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031124008.png">
+</p>
+
 想的是挺好，首先这些拆分后的状态module对应的子组件可是很相关的，那就肯定免不了彼此的通信，关系那可就老铁了，如
-![Image](https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031125144.png)
+<p align="center">
+ <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031125144.png">
+</p>
 
 ### 总得有module先站出来
 那么关系这么复杂，那就统一的让瘦身成功的页面组件module管吧，毕竟地位还在，为了维护状态模块间的秩序，主要做的就是**跨模块的通信以及业务处理**这方面
- ![Image](https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031124628.png)
+<p align="center">
+ <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031124628.png">
+</p>
+
 但是渐渐的页面组件module又胖了，这把不单是胖，还有点不守“本分”了，这可不行啊。
 
 ###  天降猛男，natur-service很知性
 有些coder实现了项目基本功能后，会对品质产生追求，不希望再忍受混乱，希望一切看起来井井有条，但是往往挡住脚本的总是挡住脚本，这颗进步的心就这样倔强的存在，进退两难，而natur-service知道怎么做来组织好代码，从混乱中解脱，有了他，局面就变成这样了，如：
-![Image](https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031123826.png)
+<p align="center">
+ <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031123826.png">
+</p>
  
  甚至还可以这样
- ![Image]( https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031142235.png)
+ <p align="center">
+ <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031142235.png">
+</p>
 
 完全可以进一步根据自己对业务的理解再分堆。
 
