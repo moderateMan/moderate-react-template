@@ -297,7 +297,10 @@ Module就是一个由state，maps，actions组成的对象，代码如下：
 
 #### 在页面上使用Natur仓库的方式
 直接通过链式调用的方式，这就跟Mobx有点神似了，em~ ~ ~，很原始，很直接，好处很实际，如果是用Ts开发，就会有联想提示，，比如：
-![[Pasted image 20211031102015.png]]
+<p align="center">
+ <img src="https://s1.imagehub.cc/images/2021/10/31/Pasted-image-20211031102015.png">
+</p>
+
 这其实很棒，反观Redux：
 ```js
 	dispatch({
