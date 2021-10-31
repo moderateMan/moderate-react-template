@@ -168,6 +168,9 @@ function split_one_line(str) {
 }
 
 /**
+ * 检查 字符串类型
+ *
+ * 通过 字符串拼接 对应的 配置文件 并读取
  *
  * @param {一个单词或者标识符} str
  */
@@ -176,7 +179,17 @@ function check_str_type(str) {
      * 读取配置文件
      *
      */
-    let conf = read_file("./config/" + language_type + ".json")
+
+    let conf = "";
+    try{
+        //
+        conf = read_file("./config/" + language_type + ".json")
+    }catch(err){
+        // 如果报错,
+        // 走 默认 js 的 config
+        conf = read_file("./config/" + "js" + ".json")
+    }
+
     // console.log("conf>>>"+conf)
 
     let config = JSON.parse(conf)
@@ -217,7 +230,7 @@ function check_str_type(str) {
      * @type {RegExp}
      */
 
-        // 是否是纯数字
+    // 是否是纯数字
     var patt_number = /^\d+$/;
     if (patt_number.test(str)) return "number"
     var patt_string = /^\w+/;
@@ -329,8 +342,6 @@ let ori = read_file("./doc/README.md")
 // let ori = read_file("./doc/README2.md")
 language_type = check_language(ori)
 // $###################### _____ init ______ ##################3
-
-
 
 
 // let txt = get_code_content(ori)

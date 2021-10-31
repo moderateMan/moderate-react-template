@@ -22,3 +22,6 @@ if (patt_number.test(str)) {
 
 }
 // var patt_string = /\w+/;
+
+var str2 = "你好"
+console.log(str2.length)

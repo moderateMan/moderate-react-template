@@ -58,3 +58,9 @@
 .testSelect{
   background-color: #61dafb;
 }
+
+@keyframes ant-line {
+  to {
+      stroke-dashoffset: -1000
+  }
+}
