@@ -29,11 +29,11 @@ jobs:
                   mkdir -p ~/.ssh/
                   echo "${{secrets.MODERATE_SSH_KEY_PC}}" > ~/.ssh/id_rsa # secret 在这里配置 https://github.com/imooc-lego/biz-editor-server/settings/secrets
                   chmod 600 ~/.ssh/id_rsa
-                  ssh-keyscan "39.105.181.48" >> ~/.ssh/known_hosts
+                  ssh-keyscan "49.233.107.254" >> ~/.ssh/known_hosts
             - name: deploy # 部署
               run: |
-                  ssh work@39.105.181.48 "
-                    cd /home/work/moderate/moderate-react-template;
+                  ssh work@49.233.107.254 "
+                    cd /home/www/moderate/moderate-react-template;
                     git pull;
                     yarn;
                     yarn build
