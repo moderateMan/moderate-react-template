@@ -32,8 +32,8 @@ jobs:
                   ssh-keyscan "49.233.107.254" >> ~/.ssh/known_hosts
             - name: deploy # 部署
               run: |
-                  ssh work@49.233.107.254 "
-                    cd /home/www/moderate/moderate-react-template;
+                  ssh play@49.233.107.254 "
+                    cd /home/play/projects/moderate-react-template;
                     git pull;
                     yarn;
                     yarn build
