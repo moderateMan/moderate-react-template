@@ -115,6 +115,13 @@ let getAll = function (level, dir) {
     return result //返回数据
   }
   filesNameArr.push(readdirs(dir, dir))
+  let docPath = paths.appSrc + '/docs/docsConfig.json';
+  if(fs.readFileSync(docPath) != JSON.stringify(filesNameArr)){
+    fs.writeFile(paths.appSrc + '/docs/docsConfig.json', JSON.stringify(filesNameArr), err => {
+      if (err) throw err
+      console.log('docsConfig文件已被写入')
+    })
+  }
   return filesNameArr
 }
 
@@ -228,11 +235,6 @@ checkBrowsers(paths.appPath, isInteractive)
           console.log('menuLocalConfig文件已被写入')
         })
       }
-      // res.json(getAll("",paths.appSrc+'/docs'))
-      // let temp = [{ "menuId": 1001, "parentId": 0 },
-      // { "menuId": 1002, "parentId": 1001 },s
-      // { "menuId": 1003, "parentId": 1001 }]
-
     });
 
     devServer.app.post("/api/getMd", jsonParser, (req, res) => {
