@@ -4,8 +4,8 @@ import { toJS } from "mobx";
 import { Link } from 'react-router-dom'
 
 let findMd = (folder, mdName) => {
-    const { children } = folder;
-    return children.find((item) => {
+    const { subNodes } = folder;
+    return subNodes.find((item) => {
         return item.name === mdName
     })
 }
@@ -15,13 +15,13 @@ let findFloder = (docList, folderNames = []) => {
     for (let i = 0; i < folderNames.length; i++) {
         let folderName = folderNames[i];
         targetFolder = docListTemp.find((item) => {
-            const { name, children } = item;
+            const { name } = item;
             if (!name.includes(".md") && folderName === name) {
-                return children;
+                return true;
             }
         }) || targetFolder
         if (targetFolder) {
-            docListTemp = targetFolder.children
+            docListTemp = targetFolder.subNodes
         } else {
             break;
         }
@@ -29,6 +29,7 @@ let findFloder = (docList, folderNames = []) => {
     return targetFolder;
 }
 export default ({ node, inline, className, children, ...props }) => {
+    debugger
     const { href = "", style } = props;
     if (href.includes("http")) {
         return <a href={href} style={style}></a>
@@ -42,8 +43,7 @@ export default ({ node, inline, className, children, ...props }) => {
             folderData = strData.slice(0, strData.length - 1)
             mdName = strData[strData.length - 1];
         }
-        let sss = useStores();
-        const { global: { docList } } = useStores();
+        const { global: { docList,isHash } } = useStores();
         let docListTemp = toJS(docList);
         let folder = findFloder(docListTemp, folderData)
         let targetMd = folder && findMd(folder, mdName)

@@ -9,7 +9,7 @@ import { menusMapConfig, RoutesMapItemT } from "@ROUTES/config";
 import { getPath } from "@ROUTES/index";
 import request from "@DATA_MANAGER/netTrans/myReuqest";
 import "./index.scss";
-import mdData from '@SRC/docs/docsConfig'
+import mdData from '../../docs/docsConfig.json'
 import { toJS } from "mobx";
 import { Global } from "@DATA_MANAGER/stores";
 

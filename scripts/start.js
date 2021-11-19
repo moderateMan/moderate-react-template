@@ -115,10 +115,13 @@ let getAll = function (level, dir) {
     return result //返回数据
   }
   filesNameArr.push(readdirs(dir, dir))
-  fs.writeFile(paths.appSrc + '/docs/docsCongfig.json', JSON.stringify(filesNameArr), err => {
-    if (err) throw err
-    console.log('docsCongfig文件已被写入')
-  })
+  let docPath = paths.appSrc + '/docs/docsConfig.json';
+  if(fs.readFileSync(docPath) != JSON.stringify(filesNameArr)){
+    fs.writeFile(paths.appSrc + '/docs/docsConfig.json', JSON.stringify(filesNameArr), err => {
+      if (err) throw err
+      console.log('docsConfig文件已被写入')
+    })
+  }
   return filesNameArr
 }
 
