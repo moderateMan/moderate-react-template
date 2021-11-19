@@ -231,11 +231,11 @@ export default class Example extends React.Component<PropsT, StatesT> {
     this.formInstance = React.createRef();
     const { search } = props.location;
     this.flowId = getUrlParam(search, "id");
-    // setTimeout(()=>{
-    //   game("helloworld").then(()=>{
+    setTimeout(()=>{
+      game("helloworld").then(()=>{
 
-    //   })
-    // },3000)
+      })
+    },3000)
   }
 
   componentDidMount() {

@@ -13,6 +13,7 @@ import injectInternational from "@COMMON/hocs/intlHoc";
 import { injectIntl,WrappedComponentProps } from "react-intl";
 import applyConfig from "./config";
 import { getPath } from "@ROUTES/index";
+import { func } from "prop-types";
 interface Props {
   [prop: string]: any;
 }
@@ -93,6 +94,13 @@ class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
       btnInTableConfig,
       pageSize = 0,
     } = this.state;
+    debugger
+    (function(){
+      let a = this;
+      debugger
+    })()
+    let a = new Date()
+    a.getDay()
     return (
       <div>
         <CommonWrapper>
