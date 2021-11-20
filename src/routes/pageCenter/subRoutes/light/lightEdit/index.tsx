@@ -225,13 +225,6 @@ class TempEdit extends Component<TempEditPropsT, TempEditStatesT> {
       });
     }
   };
-  componentWillUnmount() {
-    //由于该页面有三个状态
-    //也就是说路由变化，实际上都是要使用该组件的
-    //连带的问题就很恶心，所有三个态最关键的就是彼此公用的东西再用完的时候清理一下
-    //按道理讲确实开始和结尾做都行，但是有动画这个因素在，它的卸载实际上是被延迟了
-    //权益的办法就是在开始的时候初始化一下仓库
-  }
   handleTableSelect = ({ selectedRows = [] }) => {
     this.selectedRows = selectedRows.map((item: any) => {
       return item.posItemId;
