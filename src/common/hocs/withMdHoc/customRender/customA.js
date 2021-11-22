@@ -29,7 +29,7 @@ let findFloder = (docList, folderNames = []) => {
     return targetFolder;
 }
 export default ({ node, inline, className, children, ...props }) => {
-    debugger
+    
     const { href = "", style } = props;
     if (href.includes("http")) {
         return <a href={href} style={style}></a>

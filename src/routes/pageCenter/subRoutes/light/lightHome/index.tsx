@@ -94,13 +94,6 @@ class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
       btnInTableConfig,
       pageSize = 0,
     } = this.state;
-    debugger
-    (function(){
-      let a = this;
-      debugger
-    })()
-    let a = new Date()
-    a.getDay()
     return (
       <div>
         <CommonWrapper>

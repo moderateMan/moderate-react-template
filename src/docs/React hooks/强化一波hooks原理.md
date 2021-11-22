@@ -1,6 +1,6 @@
 首先`hooks`已经推出很久，想必大家或多或少都使用过或者了解过`hooks`，不知是否会和我一样都有一种感受，那就是`hooks`使用起来很简单，但总感觉像是一种魔法，并不是很清楚其内部如何实现的，很难得心应手，所以我觉得想要想真正驾驭Hooks，应该先从了解其内部原理开始。
 
-# 函数组件的大橘
+# 函数组件的橘势
 ## hooks 之前
 ### 函数组件的基因限制
 函数组件可以粗暴的认为就是类组件的render函数，即一个返回`jsx`从而创建虚拟`dom`的函数。
@@ -335,13 +335,13 @@ export default function Test() {
 **而这就是Hooks能够延续的奥秘，作为支撑其实现各种功能，从而与class组件相媲美的前提基础。**
 
 # 有了hooks对我们开发的一些改变
-## 使用hooks要注意的闭包的坑
+## 注意的闭包的坑capture value以及闭包陷阱
 ### capture value
 
 `capture value`顾名思义，“捕获的的值”，函数组件执行一次就会产生一个闭包，就好像一个快照，
 这跟我们上面分析说的“关联render结果”或者“那一刻快照”呼应上了。
 
-当`capture value`遇上`hooks`出现了因使用“过期快照”而产生的问题，那就称为`闭包陷阱`。
+当`capture value`遇上`hooks`出现了因使用“过期快照”而产生的问题，那就称为**闭包陷阱**。
 
 不过叫什么不重要，归根节点都是“过期快照”的问题，而在useEffect中的暴露的问题最为明显。
 
@@ -434,8 +434,66 @@ let B = (props) => {
 }
 ```
 
-## useState的修改不同于setState
+## useState和setState不太一样
+
+`useState`的`set`函数跟类组件的setState命名很像，会让有种错觉他俩一样，其实不然，前者实际上是一个`dispath`，因为`useState`内部是基于`useReducer`实现的。
+
+**其中有两点不同值得指出：**
+
+`setState`:
+ 1. **第二个参数是一个函数**，可以在状态值设置生效后进行回调，我们就可以在这里面拿到最新的状态值。
+ 2. **setState具备浅合并功能**，比如state是`{a:1,b:2,c:{e:0}}`,`setState({c:{f:0},d:4})`,`state`就会合并成`{a:1,b:2,c:{f:0},d:4}`
+ 3. **`setState`设置状态就会引发刷新**，即使设置的是相同的值也一样，除非用`PureComponent`实现才能解决
+
+ `set`函数
+ 1. **没有第二个参数**，但是可以借助`useEffect`组合实现,也还好
+ 2. **没有合并功能**，`set`啥是啥。。。,自己动手优化一下也是可以的。
+ 3. **设置相同的状态是不是触发刷新的**，这一点无需进行配置。
+
+其中还有一个很奇怪的问题，那就是
+### `useState`的`set`函数是同步的还是异步的？`setState`是同步还是异步的？
+
+他俩的答案惊人的一致，即：
+
+**大部分时候异步，有些时候同步**
+
+具体什么时候同步呢？就是
+
+[如果是由React引发的事件处理（比如通过onClick引发的事件处理），调用setState不会同步更新this.state，除此之外的setState调用会同步执行this.state](https://zhuanlan.zhihu.com/p/26069727#:~:text=%E5%A6%82%E6%9E%9C%E6%98%AF%E7%94%B1React%E5%BC%95%E5%8F%91%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%EF%BC%88%E6%AF%94%E5%A6%82%E9%80%9A%E8%BF%87onClick%E5%BC%95%E5%8F%91%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%EF%BC%89%EF%BC%8C%E8%B0%83%E7%94%A8setState%E4%B8%8D%E4%BC%9A%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0this.state%EF%BC%8C%E9%99%A4%E6%AD%A4%E4%B9%8B%E5%A4%96%E7%9A%84setState%E8%B0%83%E7%94%A8%E4%BC%9A%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8Cthis.state)
+
+不信，那看下代码：
+
+```js
+export default function Test() {
+  const [info1, setInfo1] = useState(0);
+  const [info2, setInfo2] = useState(0);
+  const ref1 = useRef();
+  const ref2 = useRef();
+  ref1.current = info1;
+  ref2.current = info2;
+  useEffect(() => {
+    setInfo1(ref1.current + 1);
+    setInfo1(ref1.current + 1);
+    setInfo1(ref1.current + 1);
+    console.log("info1:"+ref2.current);
+    setTimeout(() => {
+      setInfo2(ref2.current + 1);
+      setInfo2(ref2.current + 1);
+      setInfo2(ref2.current + 1);
+      console.log("info2:"+ref2.current);
+    });
+  }, []);
+  return <div>{info1}</div>;
+}
+```
+输出的日志是:
+`info1:0`
+`info2:3`
+
+所有这一点上就跟setState一样了么，所以再说`useState`的`set`函数是异步还是同步的时候，知道怎么说了吧。
+
 ## useEffect可以多个，进行关注点分离
+
 ## 函数组件可以通过ref调用它的“成员函数”了
 ## useContext可以一定程度的替代第三方的数据管理库
 
@@ -527,6 +585,7 @@ const useMousePosition = () => {
 现在看来，答案是肯定，至于如何去区分，我觉得是这样的：
 自定义hook与其他工具函数的区别就在于可以使用官方提供的hook，拥有自己的状态，当然你也可以不用这个优势，那么就跟普通函数没啥区别了。。。
 就这一手，拆分共用逻辑，避免的重复的发挥空间就更大了。
+
 ## 函数组件的性能优化的方式
 # 总结
 那么我们梳理一下思路
@@ -538,5 +597,3 @@ const useMousePosition = () => {
 
 # 题外话
 每当我着迷Hooks的精妙，去查阅相关资料的时候，起初真的看的一头雾水，并没第一时间觉得文章有多好，随着我反复的阅读并动手调试React源码去印证一些疑惑，终于如我一般普通的coder也能勉强感受到文章的功力，但这引发了我的一个思考，是不是文章发力太深，就算力量再强，打不到读者也是弱，当好与大家越来越远，渐渐地没有了欣赏，那么也就没有了好，中庸的我希望能够粘合住二者，找一个合适位置发出我的力，如果这个力能打到尽可能多的的人，那么再弱的力也是强，这样就有可能帮助更多的人去欣赏真正好的文章，大家都想当“玉”，那么我就去当个“砖头”吧。
-
-

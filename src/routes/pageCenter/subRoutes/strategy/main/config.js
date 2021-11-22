@@ -15,7 +15,7 @@ let point_1 = {
     "symbolSize": 20,
     "path": "路由/概览.md",
     connect(){
-        debugger
+        
         return {
             "source": this.id,
             "target": point_0.id

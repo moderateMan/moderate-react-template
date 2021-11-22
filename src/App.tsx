@@ -16,9 +16,6 @@ type iProps = {
 } & WrappedComponentProps;
 
 const App: React.FC<iProps> = (props) => {
-  (()=>{
-    debugger
-  })()
   const { global } = props;
   const { isHash } = global!;
   let getConfirmation = (message: string, callback: (ok: boolean) => void) => {

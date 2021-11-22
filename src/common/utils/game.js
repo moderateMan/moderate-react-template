@@ -154,7 +154,7 @@ export const game = function (sceneName) {
     return (new Promise((resolve) => {
         if(window.GAME_FLAG){
           cc.director.loadScene(sceneName,()=>{
-            debugger
+            
             if(sceneName === "hello"){
               cc.game.restart()
             }
