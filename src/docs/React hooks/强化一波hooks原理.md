@@ -1,6 +1,6 @@
 首先`hooks`已经推出很久，想必大家或多或少都使用过或者了解过`hooks`，不知是否会和我一样都有一种感受，那就是`hooks`使用起来很简单，但总感觉像是一种魔法，并不是很清楚其内部如何实现的，很难得心应手，所以我觉得想要想真正驾驭Hooks，应该先从了解其内部原理开始。
 
-# 函数组件的局面
+# 函数组件的大橘
 ## hooks 之前
 ### 函数组件的基因限制
 函数组件可以粗暴的认为就是类组件的render函数，即一个返回`jsx`从而创建虚拟`dom`的函数。
@@ -36,14 +36,15 @@ class CompClass extends Component {
 **函数组件：**
 ```js
 function CompFunction(props) {
+	
 	const showMessage = () => {
-	alert("点击的这一刻，props中info为 " + props.info);
-};
+		alert("点击的这一刻，props中info为 " + props.info);
+	};
  
-const handleClick = () => {
-	setTimeout(showMessage, 3000);
-	console.log(`当前props中的info为${props.info},一致就说明准确的关联到了此时的		render结果`)
-};
+	const handleClick = () => {
+		setTimeout(showMessage, 3000);
+		console.log(`当前props中的info为${props.info},一致就说明准确的关联到了此时的		render结果`)
+	};
 
 return <div onClick={handleClick}>点击函数组件</div>;
 }
@@ -72,7 +73,7 @@ export default function App() {
 
 **分析：**
 
-一个组件渲染出来了，那么就会有一个结果，其中包括`props`，（当然也有`vdom`），而点击事件的处理函数同样也包括在内，那它无论是立即执行还是延迟执行，都应该与触发执行的那一刻render结果相关联。
+一个组件渲染出来了，那么就会有一个结果，其中包括`props`，（当然也有`vdom`），而点击事件的处理函数同样也包括在内，那它无论是立即执行还是延迟执行，都应该与触发执行的那一刻render结果（你也可以理解为那一刻的快照）相关联。
 
 **结论：**
 
@@ -83,7 +84,7 @@ export default function App() {
 所以**函数组件的独特就是能够准确的获得关联`render`的数据**
 
 `class`组件想做到这一点，多少有点难，毕竟this这个奶酪被React给动了，
-反观函数借助闭包就能够实现准确的获取render的数据，而且现如今有了`hooks`，你让函数组件能够获得最新的`render`数据也有办法（使用`useRef`），简直就是如虎添翼。
+反观函数借助闭包就能够实现准确的获取render的数据，而且现如今有了`hooks`，你让函数组件能够获得最新的`render`数据也有办法（后面会讲，毕竟这个可是大名顶顶的“**capture value**”），简直就是如虎添翼。
 
 
 ## hooks 之后
@@ -99,7 +100,7 @@ export default function App() {
 
 ---
 
-# 想要了解Hooks的奥妙，你可能得认识一下Fiber
+# 想要了解Hooks延续的奥秘，你可能得认识一下Fiber
 
 没有延续性，遑论其他，真正让函数组件有延续性的幕后真大佬实际上是`Fiber`，为了能够很好的了解React怎么实现的这么多种`hooks`，那么`Fiber`你是绕不开的，不过学习`Fiber`不用太用力，**点到为止**，我们的目标就是能够更好的理解和使用`Hooks`。
 
@@ -176,7 +177,7 @@ React到底是如何将项目渲染出来的。
 
 > **Fiber核心是实现了一个基于优先级和requestIdleCallback的循环任务调度算法**。它包含以下特性：([参考：fiber-reconciler](https://reactjs.org/docs/codebase-overview.html#fiber-reconciler))
 
-**直白的说：就一碗面条，一双筷子，以前React吃的时候，浏览器职能看着，现在就变成React吃一口换浏览器吃一口，一下就和谐了。**
+**直白的说：就一碗面条，一双筷子，以前React吃的时候，浏览器只能看着，现在就变成React吃一口换浏览器吃一口，一下就和谐了。**
 
 而且`Fiber`就是按照`vdom`来拆分的，一个`vdom`节点对应一个`Fiber`节点，最后形成一个链表结构的fiber tree，大体如图：
 
@@ -238,10 +239,17 @@ em~，龙珠熟悉吧，`vdom`就好像是超级赛亚人1之前够用了，现�
 
 ![test.gif](https://i.loli.net/2021/11/21/sCh17rwUebTpEXy.gif)
 
-1. 根据`current fiber tree`clone出`workinProgress fiber tree`
-2. 每clone一个`workinProgress fiber`都会尽可能的复用备用`fiber`节点（曾经的`current fiber`）
-3. 当构建完整个`workinProgress fiber tree`的时候，`current fiber tree`就会退下去，作为备用`fiber`节点树，然后“`workinProgress fiber tree`就会扶正，成为新的`current fiber tree`
-4. 然后就将收集完变动结果（`effect list`）的新`current fiber tree`，送去`commit`阶段，从而更新画面
+**描述一下过程：**
+
+1. 根据`current fiber tree`clone出`workinProgress fiber tree`，每clone一个`workinProgress fiber`都会尽可能的复用备用`fiber`节点（曾经的`current fiber`）
+2. 当构建完整个`workinProgress fiber tree`的时候，`current fiber tree`就会退下去，作为备用`fiber`节点树，然后“`workinProgress fiber tree`就会扶正，成为新的`current fiber tree`
+3. 然后就将收集完变动结果（`effect list`）的新`current fiber tree`，送去`commit`阶段，从而更新画面
+
+**其中几个点我要注意：**
+
+* 构建`workinProgress fiber tree`的过程，就是`diff`的过程，主要的工作都是发生在`workinProgress fiber`上，有变动就会维护一个`effect list`,当完成工作的时候就会提交格给`return`所指向的节点。
+* 退位的`current fiber tree`,会化作下一次构建`workinProgress fiber tree`的原料，最大程度节约了性能，这样周而复始。
+* 收集到的`effect list`只会关注有改动的节点，并且从最深处往前排列，这也就对应上了，刷新顺序是子节点到父节点。
 
 ### 双fiber树就是问题关键
 
@@ -324,10 +332,211 @@ export default function Test() {
 
 **所以这就是不能把`hooks`写在条件语句中的原因**
 
-**而这就是函数组件能够借助Hooks实现各种功能，从而与class组件相媲美的前提基础。**
+**而这就是Hooks能够延续的奥秘，作为支撑其实现各种功能，从而与class组件相媲美的前提基础。**
+
+# 有了hooks对我们开发的一些改变
+## 使用hooks要注意的闭包的坑
+### capture value
+
+`capture value`顾名思义，“捕获的的值”，函数组件执行一次就会产生一个闭包，就好像一个快照，
+这跟我们上面分析说的“关联render结果”或者“那一刻快照”呼应上了。
+
+当`capture value`遇上`hooks`出现了因使用“过期快照”而产生的问题，那就称为`闭包陷阱`。
+
+不过叫什么不重要，归根节点都是“过期快照”的问题，而在useEffect中的暴露的问题最为明显。
+
+先举个🌰：
+```js
+let B = (props) => {
+  const { info } = props;
+  const [count,setCount] = useState(0);
+  useEffect(()=>{
+    setInterval(()=>{
+      //这才是dispatch函数正确的使用方式
+      setCount((old)=>{
+        return old+1;
+      })
+    },1000)
+  },[])
+  useEffect(()=>{
+      setInterval(()=>{
+          console.log("info为："+info+" count为："+count)
+      },1000)
+  },[])
+  return <div></div>
+}
 
 
-# 结语
-每当我着迷Hooks的精妙，去查阅相关资料的时候，起初真的看的一头雾水，并没第一时间觉得文章有多好，随着我反复的阅读并动手调试React源码去印证一些疑惑，终于如我一般普通的coder也能勉强感受到文章的功力，但这引发了我的一个思考，是不是文章发力太深，就算力量再强，打不到读者也是弱，当好与大家越来越远，渐渐地没有了欣赏，那么也就没有了好，中庸的我希望能够粘合住二者，找一个合适位置发出我的力，如果这个力能打到尽可能多的的人，那么再弱的力也是强，这样就有可能让更多人的人欣赏真正好的文章，大家都想当玉，那么我就去当个砖头吧，
+let A = (props) => {
+  const [info,setInfo] = useState(0);
+  useEffect(()=>{
+    setInterval(()=>{
+      //这才是dispatch函数正确的使用方式
+      setInfo((old)=>{
+        return old+1;
+      })
+    },1000)
+  },[])
+  return <div>
+    <B info={info}></B>
+    {info}
+    </div>
+}
+
+export default function App() {
+  return (
+    <div>
+      <A>
+      </A>
+    </div>
+  );
+}
+```
+这种log出来的一直都是`info：0 count：0`，很显然使用的关联的“过期快照”中的数据。
+
+解决办法：
+
+通过`useRef`获得`ref`对象可是在**整个组件生命周期只维护一个引用的特性**，这样确保使用的数据都是最新的。
+
+`ref`的结构是这样的：
+
+```js
+{
+	current:null
+}
+```
+我们把需要托管的数据赋值给`current`,值得一提的你只能赋值给`current`，**`ref`对象是不支持扩展的**。
+
+然后我们重写一下代码：
+
+```js
+let B = (props) => {
+  const { info } = props;
+  const [count,setCount] = useState(0);
+  const refInfoFromProps = useRef();
+  const refCountFromProps = useRef();
+  refInfoFromProps.current = info;
+  refCountFromProps.current = count;
+  useEffect(()=>{
+    setInterval(()=>{
+      //这才是dispatch函数正确的使用方式
+      setCount((old)=>{
+        return old+1;
+      })
+    },1000)
+  },[])
+  useEffect(()=>{
+      setInterval(()=>{
+          console.log("info为："+refInfoFromProps.current+" count为："+refCountFromProps.current)
+      },1000)
+  },[])
+  return <div></div>
+}
+```
+
+## useState的修改不同于setState
+## useEffect可以多个，进行关注点分离
+## 函数组件可以通过ref调用它的“成员函数”了
+## useContext可以一定程度的替代第三方的数据管理库
+
+先贴出完整可运行代码
+```js
+import {
+  createContext,
+  useContext,
+  useReducer,
+} from "react";
+export const TestContext = createContext({})
+const TAG_1 = 'TAG_1'
+
+const reducer = (state, action) => {
+  const { payload, type } = action;
+  switch (type) {
+    case TAG_1:
+      return { ...state, ...payload };
+      dedault: return state;
+  }
+};
+
+export const A = (props) => {
+  const [data, dispatch] = useReducer(reducer, { info: "本文作者" });
+  return (
+    <TestContext.Provider value={{ data, dispatch }}>
+      <B></B>
+    </TestContext.Provider>
+  );
+};
+
+let B = () => {
+  const { dispatch, data } = useContext(TestContext);
+  let handleClick = ()=>{
+    dispatch({
+        type: TAG_1,
+        payload: {
+          info: "闲D阿强",
+        },
+      })
+  }
+  return (
+    <div>
+      <input
+        type="button"
+        value="测试context"
+        onClick={handleClick}
+      />
+      {data.info}
+    </div>
+  );
+};
+```
+**使用api有：**
+
+* **createContext**
+* **useReducer**
+* **useContext**
+
+**实现的步骤：**
+
+* 函数组件A
+	1. 使用`createContext`api创建一个`TestContext`,进而使用`Provider`
+	2. 然后使用`useReducer`api创建一个`reducer`,将`reducer`返回的`data`, `dispatch`,通过`Provider`进行共享
+
+* 函数组件B
+	1. 在其内部使用`useContext`api并传入创建好的`TestContext`，从而获得`data`,`dispatch`
+	2. 使用`data`中`info`值作为显示，通过点击事件调用`dispatch`进行修改，看是否
+
+em~，目前来看可以在一定程度上替代数据管理库，对，是一定程度。
+## 自定义hook不同于以往封装的工具函数
+自定义hook，大概是这个样子的
+```js
+const useMousePosition = () => {
+    const [position, setPosition] = useState({x: 0, y: 0 })
+    useEffect(() => {
+        const updateMouse = (e) => {
+            setPosition({ x: e.clientX, y: e.clientY })
+        }
+        document.addEventListener('mousemove', updateMouse)
+        return () => {
+            document.removeEventListener('mousemove', updateMouse)
+        }
+    })
+    return position
+}
+```
+我曾纠结过一个问题，写一个自定义`hook`和单纯封装一个函数有区别么？
+现在看来，答案是肯定，至于如何去区分，我觉得是这样的：
+自定义hook与其他工具函数的区别就在于可以使用官方提供的hook，拥有自己的状态，当然你也可以不用这个优势，那么就跟普通函数没啥区别了。。。
+就这一手，拆分共用逻辑，避免的重复的发挥空间就更大了。
+## 函数组件的性能优化的方式
+# 总结
+那么我们梳理一下思路
+
+我们了解了
+1. hooks推出前后，函数组件的局面变化，从而得出观点：函数组件能借助hooks变得这么强，是因为能够延续了，从而的出疑问，hooks怎么做到的延续。
+2. 要想得出延续的答案，我们需要了解fiber，知道其工作原理，最后知道原来是fiber用memoizedState让hooks具有了延续能力
+3. hooks的一些坑
+
+# 题外话
+每当我着迷Hooks的精妙，去查阅相关资料的时候，起初真的看的一头雾水，并没第一时间觉得文章有多好，随着我反复的阅读并动手调试React源码去印证一些疑惑，终于如我一般普通的coder也能勉强感受到文章的功力，但这引发了我的一个思考，是不是文章发力太深，就算力量再强，打不到读者也是弱，当好与大家越来越远，渐渐地没有了欣赏，那么也就没有了好，中庸的我希望能够粘合住二者，找一个合适位置发出我的力，如果这个力能打到尽可能多的的人，那么再弱的力也是强，这样就有可能帮助更多的人去欣赏真正好的文章，大家都想当“玉”，那么我就去当个“砖头”吧。
 
 
