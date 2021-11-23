@@ -1,15 +1,19 @@
-首先`hooks`已经推出很久，想必大家或多或少都使用过或者了解过`hooks`，不知是否会和我一样都有一种感受，那就是`hooks`使用起来很简单，但总感觉像是一种魔法，并不是很清楚其内部如何实现的，很难得心应手，所以我觉得想要想真正驾驭Hooks，应该先从了解其内部原理开始。
+# 强化一波hooks原理
 
-# 函数组件的橘势
+首先`hooks`已经推出很久，想必大家或多或少都使用过或者了解过`hooks`，不知是否会和我一样都有一种感受，那就是`hooks`使用起来很简单，但总感觉像是一种魔法，并不是很清楚其内部如何实现的，很难得心应手，所以我觉得要想真正驾驭`hooks`，应该先从了解其内部原理开始，再讲使用。
+
+# hooks扭转了函数组件的橘势
 ## hooks 之前
 ### 函数组件的基因限制
-函数组件可以粗暴的认为就是类组件的render函数，即一个返回`jsx`从而创建虚拟`dom`的函数。
+
+函数组件可以粗略的认为就是类组件的`render`函数，即一个返回`jsx`从而创建虚拟`dom`的函数。
 
 类组件有`this`，能够拥有自己的实例方法，变量，这样很容易就可以实现各种特性，比如`state`和生命周期函数，每一次渲染都可以认为是“曾经"的自己在不断脱变，有延续性。
 
 反观函数组件就无法延续，每一次渲染都是“新”的自己，这就是函数组件的“基因限制”，有点像章鱼。
 
 ### 函数组件和类组件一个“小差异”
+
 首先一个组件可以分别用类组件和函数组件写出两个版本，对吧
 
 **类组件：**
@@ -17,7 +21,7 @@
 class CompClass extends Component {
 
  showMessage = () => {
- 	alert("点击的这一刻，props中info为 " + this.props.info);
+ 	console.log("点击的这一刻，props中info为 " + this.props.info);
  };
 
  handleClick = () => {
@@ -38,7 +42,7 @@ class CompClass extends Component {
 function CompFunction(props) {
 	
 	const showMessage = () => {
-		alert("点击的这一刻，props中info为 " + props.info);
+		console.log("点击的这一刻，props中info为 " + props.info);
 	};
  
 	const handleClick = () => {
@@ -52,7 +56,7 @@ return <div onClick={handleClick}>点击函数组件</div>;
 
 那也就说这两者不同写法是等价的，对么？
 
-答案是：通常情况下是等价的，但是有种情况二者不同
+答案是：**通常情况下是等价的，但是有种情况二者不同**，比如
 
 ```js
 export default function App() {
@@ -60,7 +64,7 @@ export default function App() {
  return (
 	 <div>
 		 <div onClick={()=>{
-		 setInfo(info+1)
+		 	setInfo(info+1)
 		 }}>父组件的info信息>> {info}</div>
 		 <CompFunction info = {info}></CompFunction>
 		 <CompClass info = {info}></CompClass>
@@ -69,30 +73,48 @@ export default function App() {
 }
 ```
 
-我已经把这个三块代码贴出来，建议动手检验一下。
 
-**分析：**
+通过代码能够看出：
+1. 在组件`App`中，有个状态`info`其初始值为0，并且可以通过点击修改
+2. `CompFunction`和`CompClass`是作为子组件显示，并且都接受父组件的`info`作为参数，
+3. 这两个组件都有一个点击回调，点击之后都会触发一个延迟3秒的`setTimeout`，然后把从父组件`App`中获得`info`，`log`出来
 
-一个组件渲染出来了，那么就会有一个结果，其中包括`props`，（当然也有`vdom`），而点击事件的处理函数同样也包括在内，那它无论是立即执行还是延迟执行，都应该与触发执行的那一刻render结果（你也可以理解为那一刻的快照）相关联。
+那就测试一下：
+1. 就是快速点击`CompFunction`和`CompClass`，以触发其内部的`setTimeout`，等待3秒之后，看看打印从父组件`App`中获得`info`信息
+2. 然后再点击父组件进而修改`info`,只要变了就行，假设变成了5。
+(*建议动手试一下。*)
+
+结果：
+1. 函数组件`CompFunction`会输出：0
+2. 类组件`CompClass`会输出：5
+
+**结果不同，按道理讲应该等价啊，为什么不同呢？**
+
+**解释：**
+
+函数组件执行，就会形成一个闭包，可以形象地说成**render结果**，其中包括`props`，而点击事件的处理函数同样也包括在内，那它无论是立即执行还是延迟执行，都应该与触发执行的那一刻的**render结果**（你也可以理解为那一刻的快照）相关联。
+所以回调函数`showMessage`所应该`log`出的`info`，应该为事件触发的那一刻`render`结果中的`info`，也就是"1"，无论外部的info怎么变。
+
+而类组件就会输出`info`的最新值，也就是"5"。
 
 **结论：**
 
-所以事件回调函数所应该`alert`出的`info`应该为事件触发的那一刻，`render`结果中的`info`才对。
+这个“小差异”就叫做**capture value**
 
-比如：你点击函数组件那一刻，传入的`props`中`info`是1，那么无论你在父组件怎么修改`info`，函数组件都会在3秒之后输出1，反之类组件就会输出父组件中`info`的最新值。
+> [每次 Render 的内容都会形成一个快照并保留下来，因此当状态变更而 Rerender 时，就形成了 N 个 Render 状态，而每个 Render 状态都拥有自己固定不变的 Props 与 State。](https://segmentfault.com/a/1190000018685253?utm_source=tag-newest#:~:text=%E6%AF%8F%E6%AC%A1%20Render%20%E7%9A%84%E5%86%85%E5%AE%B9%E9%83%BD%E4%BC%9A%E5%BD%A2%E6%88%90%E4%B8%80%E4%B8%AA%E5%BF%AB%E7%85%A7%E5%B9%B6%E4%BF%9D%E7%95%99%E4%B8%8B%E6%9D%A5%EF%BC%8C%E5%9B%A0%E6%AD%A4%E5%BD%93%E7%8A%B6%E6%80%81%E5%8F%98%E6%9B%B4%E8%80%8C%20Rerender%20%E6%97%B6%EF%BC%8C%E5%B0%B1%E5%BD%A2%E6%88%90%E4%BA%86%20N%20%E4%B8%AA%20Render%20%E7%8A%B6%E6%80%81%EF%BC%8C%E8%80%8C%E6%AF%8F%E4%B8%AA%20Render%20%E7%8A%B6%E6%80%81%E9%83%BD%E6%8B%A5%E6%9C%89%E8%87%AA%E5%B7%B1%E5%9B%BA%E5%AE%9A%E4%B8%8D%E5%8F%98%E7%9A%84%20Props%20%E4%B8%8E%20State%E3%80%82)
 
-所以**函数组件的独特就是能够准确的获得关联`render`的数据**
+`class`组件想做到这一点，多少有点难，毕竟this这个奶酪被React给动了。
 
-`class`组件想做到这一点，多少有点难，毕竟this这个奶酪被React给动了，
-反观函数借助闭包就能够实现准确的获取render的数据，而且现如今有了`hooks`，你让函数组件能够获得最新的`render`数据也有办法（后面会讲，毕竟这个可是大名顶顶的“**capture value**”），简直就是如虎添翼。
+**capture value**是一把双刃剑，不过没关系有办法解决（后面会讲）
 
 
 ## hooks 之后
 ### hooks让这个“render”函数成精了
 
-如果说在`hooks`之前，函数组件有一些“硬伤”，其独特之处又不能支撑它与类组件分庭抗礼，但是当`hooks`的到来之后，局面就不一样了，这个曾经的“`render`”函数一下就走起来了。
+如果说在`hooks`之前，函数组件有一些“硬伤”，其独特之处不足以支撑它与类组件分庭抗礼，但是当`hooks`的到来之后，橘势就不一样了，这个曾经的“`render`”函数一下就走起来了。
 
 ### hooks帮函数组件打碎了基因锁。
+
 我们之前聊了，函数组件最大的硬伤就是"**次次重来，无法延续**" ，很难让它具备跟类组件那样的能力，比如用状态和生命周期函数，而如今`hooks`的加持，很好的粉碎了被类组件克制的枷锁。
 
 所以说在了解如何使用`hooks`之前，最好要先了解函数组件是怎么拥有了延续性，这样使用`hooks`就”有谱“，否则你就会觉得`hooks`到处都是黑魔法，这么整就不是很”靠谱“了。
@@ -102,7 +124,7 @@ export default function App() {
 
 # 想要了解Hooks延续的奥秘，你可能得认识一下Fiber
 
-没有延续性，遑论其他，真正让函数组件有延续性的幕后真大佬实际上是`Fiber`，为了能够很好的了解React怎么实现的这么多种`hooks`，那么`Fiber`你是绕不开的，不过学习`Fiber`不用太用力，**点到为止**，我们的目标就是能够更好的理解和使用`Hooks`。
+没有延续性，遑论其他，真正让函数组件有延续性的幕后真大佬实际上是`Fiber`，为了能够很好的了解React怎么实现的这么多种`hooks`，那么`Fiber`你是绕不开的，不过学习`Fiber`不用太用力，**点到为止**，我会尽可能的浅出，我们的目标就是能够更好的理解和使用`Hooks`，毕竟吃饺子嘛，不用非得那么清楚怎么做的。
 
 ## fiber 的结构
 ```js
@@ -136,7 +158,7 @@ type Fiber = {
 
 }
 ```
-## fiber   的由来
+## Fiber 的由来
 
 React到底是如何将项目渲染出来的。
 
@@ -147,20 +169,9 @@ React到底是如何将项目渲染出来的。
 
 `reconciliation`是异步的，`commit`是同步的。
 
-为什么拆分呢？
-
-> reconciliation阶段包含的主要工作是对current tree 和 new tree 做diff计算，找出变化部分。进行遍历、对比等是可以中断，歇一会儿接着再来。 
-> 
-> commit阶段是对上一阶段获取到的变化部分应用到真实的DOM树中，是一系列的DOM操作。不仅要维护更复杂的DOM状态，而且中断后再继续，会对用户体验造成影响。在普遍的应用场景下，此阶段的耗时比diff计算等耗时相对短。  
-> 
-> 所以，Fiber选择在reconciliation阶段拆分
-	
-
-（引自[大转转FE](https://www.cnblogs.com/zhuanzhuanfe/p/9567081.html#:~:text=%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AF%B9reconciliation,reconciliation%E9%98%B6%E6%AE%B5%E6%8B%86%E5%88%86)）
-
 ### 在fiber之前，React是如何实现的reconciliation
 
-从头创建一个新的虚拟dom即vdom，与旧的vdom进行比对，从而得出结果，这个过程可是递归，而且是一气呵成，不能停的，这样JavaScript长时间的运行就会阻塞画面的渲染，就很卡。
+从头创建一个新的虚拟dom即`vdom`，与旧的`vdom`进行比对，从而得出`diff`结果，这个过程是递归，需要一气呵成，不能停的，这样JavaScript长时间的占用主线程，就会阻塞画面的渲染，就很卡。
 
 >因为JavaScript在浏览器的主线程上运行，恰好与样式计算、布局以及许多情况下的绘制一起运行。如果JavaScript运行时间过长，就会阻塞这些其他工作，可能导致掉帧。
 
@@ -171,7 +182,6 @@ React到底是如何将项目渲染出来的。
 * **自顶向下遍历，不能停。**
 * **React长时间的执行耽误了浏览器工作。**
 
-
 ###  vdom进化成为Fiber
 `Fiber`可以理解为将上述整个`reconciliation`工作拆分了，然后通过链表串了起来，变成了一个个可以中断/挂起/恢复的任务单元。并且结合浏览器提供的`requestIdleCallback` API（有兴趣可以了解）进行协同合作。
 
@@ -179,7 +189,7 @@ React到底是如何将项目渲染出来的。
 
 **直白的说：就一碗面条，一双筷子，以前React吃的时候，浏览器只能看着，现在就变成React吃一口换浏览器吃一口，一下就和谐了。**
 
-而且`Fiber`就是按照`vdom`来拆分的，一个`vdom`节点对应一个`Fiber`节点，最后形成一个链表结构的fiber tree，大体如图：
+而且`Fiber`就是按照`vdom`来拆分的，一个`vdom`节点对应一个`Fiber`节点，最后形成一个链表结构的`fiber tree`，大体如图：
 
  ![Image](https://s1.imagehub.cc/images/2021/11/21/fiber1.jpg)
  
@@ -189,16 +199,16 @@ return：提交变动结果（effectList）到指定的目标节点（图中没�
 
 **所以说`Fiber tree`就是可切片的`vdom tree`都不为过。**
 
-
 ### 那么`vdom`还存在么？
-这个问题我思考了很久，请原谅这方面的源码我还没看透，我现在通过查阅多篇相关的文章，得出了一个我能接受，逻辑能自洽的解释。
+
+这个问题我思考了很久，请原谅这方面的源码我还没看透，我现在通过查阅多篇相关的文章，得出了一个我能接受，逻辑能自洽的解释:
 
 **`Fiber`出来之后，`vdom`的作用只是作为蓝本进行构建`Fiber`树。**
 
 em~，龙珠熟悉吧，`vdom`就好像是超级赛亚人1之前够用了，现在不行了，进化到了超级赛亚人2，即`Fiber`。
 
-
 ## Fiber是如何工作的
+
 首先我已经知道，`Fiber tree`是一个链表结构，React是通过循环处理每个`Fiber`工作单元，在一段时间后再交还控制权给浏览器，从而协同的合作，让页面变得更加流畅。
 
 要弄清函数组件怎么有的**延续性**的答案就藏在了这个**工作循环**中。
@@ -334,16 +344,15 @@ export default function Test() {
 
 **而这就是Hooks能够延续的奥秘，作为支撑其实现各种功能，从而与class组件相媲美的前提基础。**
 
-# 有了hooks对我们开发的一些改变
-## 注意的闭包的坑capture value以及闭包陷阱
-### capture value
+# hooks整的那些活儿
+## 了解一下capture value以及闭包陷阱
 
 `capture value`顾名思义，“捕获的的值”，函数组件执行一次就会产生一个闭包，就好像一个快照，
 这跟我们上面分析说的“关联render结果”或者“那一刻快照”呼应上了。
 
 当`capture value`遇上`hooks`出现了因使用“过期快照”而产生的问题，那就称为**闭包陷阱**。
 
-不过叫什么不重要，归根节点都是“过期快照”的问题，而在useEffect中的暴露的问题最为明显。
+不过叫什么不重要，归根节点都是“过期快照”的问题，而在`useEffect`中的暴露的问题最为明显。
 
 先举个🌰：
 ```js
@@ -396,7 +405,7 @@ export default function App() {
 
 解决办法：
 
-通过`useRef`获得`ref`对象可是在**整个组件生命周期只维护一个引用的特性**，这样确保使用的数据都是最新的。
+通过`useRef`获得`ref`对象
 
 `ref`的结构是这样的：
 
@@ -434,11 +443,59 @@ let B = (props) => {
 }
 ```
 
-## useState和setState不太一样
+这样就能每次都访问最新的数据了。
+
+当然还有很多别的办法，比如使用`useReducer`，有兴趣可以研究一下。
+
+## useState的事儿
+
+### 这样设置刷新么？
+
+先看下这段代码
+
+```js
+let A = ((props) => {
+  const [count,setCount] = useState({a:1})
+  
+  return <div onClick={()=>{
+    count.a = Date.now();
+    setCount(count)
+  }}>
+  	测试是否刷新
+  </div>
+})
+```
+
+当我点击之后除法了`setCount`，请问刷新么？
+
+答案是**不刷新**，因为我们在使用React的时候，心里一点常提醒一句话，就是：
+
+**不可变值，不可变值，不可变值**
+
+上面的代码问题主要两点：
+
+* 直接的修改了state，这样破坏了不可变值的规矩，你应该通过Object.assign或者扩展运算法来重新创建一个对象进行赋值。
+* React内部会针对传入的参数进行浅比较，引用类型的数据比较的是其指向的地址，而不是内容，切记。
+
+正确的写法
+
+```js
+let A = ((props) => {
+  const [count,setCount] = useState({a:1})
+
+  return <div onClick={()=>{
+    setCount({...count,a:Date.now()})
+  }}>
+    测试是否刷新
+  </div>
+})
+```
+
+### useState和setState不太一样
 
 `useState`的`set`函数跟类组件的setState命名很像，会让有种错觉他俩一样，其实不然，前者实际上是一个`dispath`，因为`useState`内部是基于`useReducer`实现的。
 
-**其中有两点不同值得指出：**
+**其中有三点不同值得指出：**
 
 `setState`:
  1. **第二个参数是一个函数**，可以在状态值设置生效后进行回调，我们就可以在这里面拿到最新的状态值。
@@ -447,13 +504,14 @@ let B = (props) => {
 
  `set`函数
  1. **没有第二个参数**，但是可以借助`useEffect`组合实现,也还好
- 2. **没有合并功能**，`set`啥是啥。。。,自己动手优化一下也是可以的。
- 3. **设置相同的状态是不是触发刷新的**，这一点无需进行配置。
+ 2. **没有合并功能**，设置啥就是啥。。。,不过自己动手优化一下也是可以的。
+ 3. **设置相同的状态是不会触发刷新的**，这一点无需进行配置。
 
-其中还有一个很奇怪的问题，那就是
+还有一个值得强调的一点的问题，接下来深入讨论。
+
 ### `useState`的`set`函数是同步的还是异步的？`setState`是同步还是异步的？
 
-他俩的答案惊人的一致，即：
+答案惊人的一致，即：
 
 **大部分时候异步，有些时候同步**
 
@@ -475,12 +533,12 @@ export default function Test() {
     setInfo1(ref1.current + 1);
     setInfo1(ref1.current + 1);
     setInfo1(ref1.current + 1);
-    console.log("info1:"+ref2.current);
+    console.log("info1:"+ref2.current); // info1:0
     setTimeout(() => {
       setInfo2(ref2.current + 1);
       setInfo2(ref2.current + 1);
       setInfo2(ref2.current + 1);
-      console.log("info2:"+ref2.current);
+      console.log("info2:"+ref2.current);// 同步输出 info2:3
     });
   }, []);
   return <div>{info1}</div>;
@@ -490,14 +548,226 @@ export default function Test() {
 `info1:0`
 `info2:3`
 
-所有这一点上就跟setState一样了么，所以再说`useState`的`set`函数是异步还是同步的时候，知道怎么说了吧。
+所有这一点上就跟`setState`一样了么，所以再说`useState`的`set`函数是异步还是同步的时候，知道怎么说了吧。
 
-## useEffect可以多个，进行关注点分离
+## useEffect的事儿
 
-## 函数组件可以通过ref调用它的“成员函数”了
+`useEffect`有两个参数，一个effect执行的回调函数，一个是是依赖数组
+
+同时`useEffect`可以写多个，这样就可以**按照业务独立拆分**，做到**关注点分离**
+
+### 生命周期
+
+useEffect是函数组件实现生命周期函数的重要手段
+
+可以模拟的生命周期分别是：
+
+* componentDidMount
+* componentWillUnmount
+* componentDidUpdate
+
+代码如下：
+
+```js
+  useEffect(() => {
+    // 相当于 componentDidMount
+    return () => {
+      // 相当于 componentWillUnmount
+    }
+  }, [])
+ 
+  useEffect(() => {
+    // 相当于 componentDidUpdate
+  })
+```
+
+### useEffect的清除函数的执行时机
+
+首先**清除函数**执行有两种情况：
+
+* **一个是卸载的时候**，这个众所周知。
+* **一个是effect重新执行的时候**，也会执行，这点大家要注意，容易马虎
+
+然后再看下这段代码
+
+```js
+useEffect(
+    () => {
+      if (flag) {
+        ...
+        return () => {
+          ...
+          console.log("test")
+        }
+      }
+    },
+    [flag]],
+  )
+```
+请问：当`flag`从`true`设置成了`false`，这个`return`的清除函数会执行么？
+
+再简单点
+
+```js
+useEffect(
+    () => {
+        ...
+        return () => {
+          ...
+          console.log("test")
+        }
+    },
+    [flag]],
+  )
+```
+
+请问执行么？
+
+答案是：**执行**
+
+你可以记住一个铁律：
+
+**当effect重新执行的时候，会清除上一次effect**
+
+### useEffect和useLayoutEffect区分
+
+> useEffect是异步的，useLayoutEffect是同步的
+> 所谓的异步就是利用`requestIdleCallback`，在浏览器空闲时间执行传入的`callback`，也就是继续处理js逻辑
+> 大部分情况没什么区别，但是当有耗时的逻辑，`useLayoutEffect`就会造成渲染阻塞
+
+[先贴出一段代码，这是我在网上遇到了很有趣的例子。](https://imweb.io/topic/5cd845cadcd62f86299fcd76#:~:text=useEffect%E6%98%AF%E5%BC%82%E6%AD%A5%E7%9A%84%EF%BC%8CuseLayoutEffect%E6%98%AF%E5%90%8C%E6%AD%A5%E7%9A%84)
+
+```js
+function TestEffectApi() {
+  const [lapse, setLapse] = useState(0)
+  const [running, setRunning] = useState(false)
+
+  useEffect(
+    () => {
+      if (running) {
+        const startTime = Date.now() - lapse
+        const intervalId = setInterval(() => {
+          setLapse(Date.now() - startTime)
+        }, 2)
+        console.log(intervalId)
+        return () => {
+          clearInterval(intervalId)
+        }
+      }
+    },
+    [running],
+  )
+
+  function handleRunClick() {
+    setRunning(r => !r)
+  }
+
+  function handleClearClick() {
+    setRunning(false)
+    setLapse(0)
+  }
+
+  return (
+    <div>
+      <label>{lapse}ms</label>
+      <button onClick={handleRunClick}>
+        {running ? '暂停' : '开始'}
+      </button>
+      <button onClick={handleClearClick}>
+        暂停并清0
+      </button>
+    </div>
+  )
+}
+```
+
+通过代码可以看出，当我点击“暂停并清0”按钮的时候，我们设置了两个状态一个`running`和`lapse`，前者控制定时器运行，后者控制数据显示，而点击之后的预期是：定时器关闭，同时显示的数据为“0”，但是实际情况却是偶发出现显示不为“0”的情况
+
+**原因：**
+
+因为`useEffect`是异步的，当通过设置`running`关闭定时器和设置`lapse`为“0”时，并没有第一时间关闭定时器，而是阴差阳错的出现了一种情况：`lapse`已经设置为零，定时器还没关闭就要关闭的这一霎，又一次的执行了，便出现了这种问题。而用同步执行的`LayoutEffect`就没有这个问题
+
+通过上面这个例子，`useEffect`和`LayoutEffect`的区别应该能可见一斑了。
+
+## useRef真有用啊
+
+useRef是真有用啊，凭借“跨渲染周期”保存数据的能力，即拥有在整个组件生命周期只维护一个引用的特性，可以解决很多问题。
+
+不但可以保存`dom`节点还可以保存其他数据，比如上面提到的过期闭包的问题。
+
+除此之外还有一个有趣的用处，就是可以结合`forwardRef`和`useImperativeHandle`这两个api，让函数组件可以像类组件那样暴露函数给其他节点使用
+
+代码如下:
+
+```js
+let A = forwardRef((props, ref) => {
+  useImperativeHandle(ref, () => {
+    return {
+      test: () => {
+        console.log("123")
+      }
+    }
+  })
+  const [info, setInfo] = useState(0);
+  return <div>
+    {info}
+  </div>
+})
+
+export default function App() {
+  const ref = useRef(null);
+  return (
+    <div onClick={() => {
+      ref.current.test()
+    }}>
+      <A ref={ref}>
+      </A>
+    </div>
+  );
+}
+```
+
+在父组件中创建一个`ref，`然后给到子组件的`A`
+但是子组件是函数组件，不能直接给，那就用`forwardRef`这个HOC包装一下，就能收到了，并作为继`props`之后第二个参数传入
+拿到ref作为`useImperativeHandle`的第一个参数，第二个参数就是返回暴露数据的函数
+
+`forwardRef`这个Hoc完全可以不用，我改造一下代码
+
+```js
+let A = ((props) => {
+  const {testRef} = props;
+  useImperativeHandle(testRef, () => {
+    return {
+      test: () => {
+        console.log("ok")
+      }
+    }
+  })
+  const [info, setInfo] = useState(0);
+  return <div>
+    {info}
+  </div>
+})
+
+export default function App() {
+  const ref = useRef(null);
+  return (
+    <div onClick={() => {
+      ref.current.test()
+    }}>
+      <A testRef={ref}>
+      </A>
+    </div>
+  );
+}
+```
+
+这么写也是可以的，看着还简洁了不少，仅供参考。
+
 ## useContext可以一定程度的替代第三方的数据管理库
 
 先贴出完整可运行代码
+
 ```js
 import {
   createContext,
@@ -564,7 +834,9 @@ let B = () => {
 	2. 使用`data`中`info`值作为显示，通过点击事件调用`dispatch`进行修改，看是否
 
 em~，目前来看可以在一定程度上替代数据管理库，对，是一定程度。
+
 ## 自定义hook不同于以往封装的工具函数
+
 自定义hook，大概是这个样子的
 ```js
 const useMousePosition = () => {
@@ -581,19 +853,107 @@ const useMousePosition = () => {
     return position
 }
 ```
+
 我曾纠结过一个问题，写一个自定义`hook`和单纯封装一个函数有区别么？
+
 现在看来，答案是肯定，至于如何去区分，我觉得是这样的：
-自定义hook与其他工具函数的区别就在于可以使用官方提供的hook，拥有自己的状态，当然你也可以不用这个优势，那么就跟普通函数没啥区别了。。。
-就这一手，拆分共用逻辑，避免的重复的发挥空间就更大了。
+
+自定义`hook`与其他工具函数的区别就在于可以使用官方提供的`hook`，拥有自己的状态，当然你也可以不用这个优势，那么就跟普通函数没啥区别了。。。
+就这一手，拆分共用逻辑，避免代码重复的发挥空间就大了不少。
 
 ## 函数组件的性能优化的方式
-# 总结
-那么我们梳理一下思路
 
-我们了解了
-1. hooks推出前后，函数组件的局面变化，从而得出观点：函数组件能借助hooks变得这么强，是因为能够延续了，从而的出疑问，hooks怎么做到的延续。
-2. 要想得出延续的答案，我们需要了解fiber，知道其工作原理，最后知道原来是fiber用memoizedState让hooks具有了延续能力
-3. hooks的一些坑
+### memo
+memo是一个高阶组件，使用方法很简单：
+
+```js
+let A = memo((props) => {
+  return <div >
+    memo测试
+  </div>
+})
+```
+
+很多文章说`memo`相当于`PureComponent`，我觉得不对，我更愿意这么理解:
+
+**函数组件本身就有跟`PureComponent`有类似的能力**
+**memo对标的应该是类组件的`shouldComponentUpdate`**
+
+比如用`PureComponent`创建一个类组件：
+```js
+class C extends PureComponent{
+  state={
+    a:1
+  }
+  render(){
+    return <div onClick={
+      ()=>{
+        this.setState({
+          a:1
+        })
+      }
+    }>测试组件是否刷新</div>
+  }
+}
+```
+
+点击设置状态变量`a`相同的值`1`，页面是不刷新的，你用`Component`创建的组件是刷新的
+但这点，函数组件本身就有了，不用刻意为之。
+
+而`memo`最主要的就是避免函数组件不必要的刷新，这点跟`shouldComponentUpdate`如出一辙。
+
+`shouldComponentUpdate`是一个生命周期，代码如下：
+```js
+	...
+	shouldComponentUpdate (nextProps, nextState) {
+      if (nextProps.name === this.props.name) return false
+      return true
+    }
+	...
+```
+`memo` 的实现，传入第二个参数`propsAreEqual`，代码是这样的：
+```js
+let propsAreEqual = (prevProps, nextProps)=>{
+	// 根据具体业务判断传入的参数是否相当决定刷新
+	// true 表示相等，不刷新，函数组件就不会执行
+	// false 表示不等，刷新，就会执行
+	return false
+}
+let A = memo((props) => {
+  return <div >
+    memo测试
+  </div>
+},propsAreEqual)
+```
+
+一个叫“shouldComponentUpdate”，"我哪能刷新么"
+一个叫做“propsAreEqual”，"参数相等么"
+
+"相等为true"当然"不能刷新false",em~ 它俩是相反的。
+
+### useMemo
+避免重复计算，类似计算属性
+```js
+useMemo(()=>{return "计算的值"},[依赖的值])
+```
+
+*注意闭包陷阱，逻辑中用到什么，最后就依赖什么*
+### useCallback
+首先函数是引用类型，本质也是一个对象，函数组件内部会创建一些函数来组织业务，并且还会作为参数传入子节点。
+
+那么每次函数刷新，即使函数本身没有变化，也会重新创建新的函数对象，有可能会引起不必要的刷新，频繁创建也会浪费性能。
+
+所用使用`useCallback`记录一下，可以理解为是一个配置依赖以响应更新的`useRef`
+写法如下：
+
+```js
+useCallback(() => {}, [依赖的值]);
+```
+
+*注意闭包陷阱，逻辑中用到什么，最后就依赖什么*
+
+# 总结
+那么我们梳理一下思路，我们从`hooks`助力函数组件聊起，对hooks能够延续的魔法而感到着迷，进而探索内部的运行原理，了解到了延续的奥秘尽在`fiber`之中，最后再说了说使用`hooks`开发的的二三事，试着建立从原理到使用的一条细细的通路，目的就是先调通，这样之后学习和补充更有主见，正所谓先迷后得主。
 
 # 题外话
 每当我着迷Hooks的精妙，去查阅相关资料的时候，起初真的看的一头雾水，并没第一时间觉得文章有多好，随着我反复的阅读并动手调试React源码去印证一些疑惑，终于如我一般普通的coder也能勉强感受到文章的功力，但这引发了我的一个思考，是不是文章发力太深，就算力量再强，打不到读者也是弱，当好与大家越来越远，渐渐地没有了欣赏，那么也就没有了好，中庸的我希望能够粘合住二者，找一个合适位置发出我的力，如果这个力能打到尽可能多的的人，那么再弱的力也是强，这样就有可能帮助更多的人去欣赏真正好的文章，大家都想当“玉”，那么我就去当个“砖头”吧。
