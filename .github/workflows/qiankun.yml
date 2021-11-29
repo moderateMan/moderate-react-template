@@ -7,7 +7,7 @@ name: deploy for dev
 on:
     push:
         branches:
-            - 'dev' # 只针对 dev 分支
+            - 'qiankun' # 只针对 dev 分支
         paths:
             - '.github/workflows/*'
             # - '__test__/**' # dev 不需要立即测试
@@ -34,6 +34,7 @@ jobs:
               run: |
                   ssh play@49.233.107.254 "
                     cd /home/play/projects/moderate-react-template;
+                    git checkout qiankun
                     git pull;
                     yarn;
                     yarn build
