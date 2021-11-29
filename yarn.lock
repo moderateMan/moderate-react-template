@@ -1499,6 +1499,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.10.5":
+  version "7.16.3"
+  resolved "https://registry.npmmirror.com/@babel/runtime/download/@babel/runtime-7.16.3.tgz?cache=0&sync_timestamp=1636495247319&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.16.3.tgz#b86f0db02a04187a3c17caa77de69840165d42d5"
+  integrity sha512-WBwekcqacdY2e9AF/Q7WLFUWmdJGJTkbjqTjoMDgXkVZ3ZRUvOPsLb5KdwISoQVsbP+DQzVZW4Zhci0DvpbNTQ==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/template@^7.10.4", "@babel/template@^7.14.5", "@babel/template@^7.3.3":
   version "7.14.5"
   resolved "https://registry.nlark.com/@babel/template/download/@babel/template-7.14.5.tgz?cache=0&sync_timestamp=1623280616183&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40babel%2Ftemplate%2Fdownload%2F%40babel%2Ftemplate-7.14.5.tgz#a9bc9d8b33354ff6e55a9c60d1109200a68974f4"
@@ -7761,6 +7768,13 @@ import-from@^2.1.0:
   dependencies:
     resolve-from "^3.0.0"
 
+import-html-entry@^1.9.0:
+  version "1.11.1"
+  resolved "https://registry.nlark.com/import-html-entry/download/import-html-entry-1.11.1.tgz#3d8c5977926bdd122ab8e658965c102068b4af8d"
+  integrity sha1-PYxZd5Jr3RIquOZYllwQIGi0r40=
+  dependencies:
+    "@babel/runtime" "^7.7.2"
+
 import-local@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/import-local/download/import-local-2.0.0.tgz#55070be38a5993cf18ef6db7e961f5bee5c5a09d"
@@ -10273,7 +10287,7 @@ npm-conf@^1.1.3:
 
 npm-run-all@^4.1.5:
   version "4.1.5"
-  resolved "https://registry.npm.taobao.org/npm-run-all/download/npm-run-all-4.1.5.tgz#04476202a15ee0e2e214080861bff12a51d98fba"
+  resolved "https://registry.nlark.com/npm-run-all/download/npm-run-all-4.1.5.tgz#04476202a15ee0e2e214080861bff12a51d98fba"
   integrity sha1-BEdiAqFe4OLiFAgIYb/xKlHZj7o=
   dependencies:
     ansi-styles "^3.2.1"
@@ -11900,6 +11914,17 @@ q@^1.1.2:
   version "1.5.1"
   resolved "https://registry.nlark.com/q/download/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
+
+qiankun@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.npmmirror.com/qiankun/download/qiankun-2.5.1.tgz?cache=0&sync_timestamp=1634289117870&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fqiankun%2Fdownload%2Fqiankun-2.5.1.tgz#1b840f370c8d175ffa032adc70b00ba5d2d0f4fb"
+  integrity sha1-G4QPNwyNF1/6AyrccLALpdLQ9Ps=
+  dependencies:
+    "@babel/runtime" "^7.10.5"
+    import-html-entry "^1.9.0"
+    lodash "^4.17.11"
+    single-spa "^5.9.2"
+    tslib "^1.10.0"
 
 qs@6.2.3:
   version "6.2.3"
@@ -13614,6 +13639,11 @@ simple-swizzle@^0.2.2:
   integrity sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=
   dependencies:
     is-arrayish "^0.3.1"
+
+single-spa@^5.9.2:
+  version "5.9.3"
+  resolved "https://registry.npmmirror.com/single-spa/download/single-spa-5.9.3.tgz#2d151cbb3b273629a5b27b30a3b8ca847dcba4c5"
+  integrity sha1-LRUcuzsnNimlsnswo7jKhH3LpMU=
 
 sirv@^1.0.7:
   version "1.0.12"

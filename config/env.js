@@ -92,7 +92,9 @@ function getClientEnvironment(publicUrl) {
         // which is why it's disabled by default.
         // It is defined here so it is available in the webpackHotDevClient.
         FAST_REFRESH: false,
-        GENERATE_SOURCEMAP: false
+        GENERATE_SOURCEMAP: false,
+        APP_SUB_VUE:"//localhost:7777/subapp/sub-vue/",
+        APP_SUB_REACT:"//localhost:7766/subapp/sub-react/"
       }
     );
   // Stringify all values so we can feed into webpack DefinePlugin

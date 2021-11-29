@@ -60,6 +60,18 @@ let config = {
         en: "Strategy Moderate",
         zh: "强话Moderate",
     },
+    commonTitle_qk_test: {
+        en: "qiankun",
+        zh: "微前端",
+    },
+    commonTitle_qk_vue_test: {
+        en: "qiankun vue",
+        zh: "vue",
+    },
+    commonTitle_qk_react_test: {
+        en: "qiankun react",
+        zh: "react",
+    },
     commonTitle_graphics: {
         en: "Graphics engine",
         zh: "图形引擎",

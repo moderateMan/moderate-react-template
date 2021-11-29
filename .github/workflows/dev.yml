@@ -7,7 +7,8 @@ name: deploy for dev
 on:
     push:
         branches:
-            - 'dev' # 只针对 dev 分支
+            - 'dev' 
+            - 'qiankun' 
         paths:
             - '.github/workflows/*'
             # - '__test__/**' # dev 不需要立即测试

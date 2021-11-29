@@ -22,7 +22,10 @@ export const ROUTES_LOCAL_ID = {
   STRATEGY_ID: 2006,
   GRAPHICS_ID: 2007,
   FLOW_ID: 2008,
-  STRATEGY_TEMP_ID:2009
+  STRATEGY_TEMP_ID:2009,
+  QK_ID:2010,
+  QK_VUE_ID:2011,
+  QK_REACT_ID:2012
 };
 
 const { LOGIN_TOP, PAGEC_CENTER_TOP } = TOP_ROUTE_ID;
@@ -37,6 +40,9 @@ const {
   GRAPHICS_ID,
   STRATEGY_TEMP_ID,
   FLOW_ID,
+  QK_ID,
+  QK_VUE_ID,
+  QK_REACT_ID
 } = ROUTES_LOCAL_ID;
 
 type SearchT = {
@@ -158,6 +164,30 @@ export const routesMap: routesMapType = {
     ),
     key: uuid(),
   },
+  subApps: {
+    path: "/pageCenter/subApps",
+    name: "commonTitle_qk_test",
+    icon: "read",
+    key: uuid(),
+  },
+  qkVue: {
+    path: "/pageCenter/qk/vue",
+    name: "commonTitle_qk_vue_test",
+    icon: "read",
+    component: lazyImport(
+      () => import("@ROUTES/pageCenter/subRoutes/microFrontends/subVue/index")
+    ),
+    key: uuid(),
+  },
+  qkReact: {
+    path: "/pageCenter/qk/react",
+    name: "commonTitle_qk_react_test",
+    icon: "read",
+    component: lazyImport(
+      () => import("@ROUTES/pageCenter/subRoutes/microFrontends/subReact/index")
+    ),
+    key: uuid(),
+  },
   grahics: {
     name: "commonTitle_graphics",
     icon: "thunderbolt",
@@ -192,7 +222,10 @@ export const menusMap = {
   [FAST_ID]: { ...routesMap.start },
   [STRATEGY_ID]: { ...routesMap.strategy },
   [STRATEGY_TEMP_ID]: { ...routesMap.strategyTest},
+  [QK_ID]:{...routesMap.subApps},
   [GRAPHICS_ID]: { ...routesMap.grahics },
+  [QK_VUE_ID]:{...routesMap.qkVue},
+  [QK_REACT_ID]:{...routesMap.qkReact},
   [FLOW_ID]: { ...routesMap.flow },
 };
 

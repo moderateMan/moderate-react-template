@@ -272,18 +272,6 @@ function Routes() {
       <AuthRoute isLoginRoute={true} exact={true} path="/" component={Login} />
       <AuthRoute isLoginRoute={true} path="/login" component={Login} />
       <AuthRoute path="/pageCenter" component={PageCenter} />
-      <Route>
-        <Empty
-          style={{
-            position: "absolute",
-            marginTop: "30%",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-          }}
-        />
-      </Route>
     </Switch>
   );
 }

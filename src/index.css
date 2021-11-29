@@ -52,3 +52,14 @@ code {
   height: 100%;
 }
 
+
+.mainapp-main{
+  flex: 1 1 auto;
+}
+
+#sub-View{
+  position: absolute;
+    z-index: 2;
+    right: calc(50% - 430px);
+    top: 136px;
+}

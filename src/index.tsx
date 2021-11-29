@@ -9,6 +9,8 @@ import { ConfigProvider } from "antd";
 import language from "./language";
 import stores from "@DATA_MANAGER/index";
 import { iGlobal } from "@DATA_MANAGER/stores";
+import apps from './apps'
+import { registerMicroApps, start, setDefaultMountApp } from 'qiankun';
 
 interface iProps {
   global?: iGlobal;
@@ -30,26 +32,41 @@ class Root extends Component<iProps> {
   }
 }
 
-ReactDOM.render(
-  <Provider {...stores}>
-    <div id="gameRoot" className="game1" style={{ display: "none" }}>
-      <canvas
-        id="GameCanvas"
-        onContextMenu={(event) => {
-          event.preventDefault();
-        }}
-        tabIndex={0}
-      ></canvas>
-      <div id="splash">
-        <div className="progress-bar stripes">
-          <span style={{ width: "0%" }}></span>
+
+function render() {
+  ReactDOM.render(
+    <Provider {...stores}>
+      <div id="gameRoot" className="game1" style={{ display: "none" }}>
+        <canvas
+          id="GameCanvas"
+          onContextMenu={(event) => {
+            event.preventDefault();
+          }}
+          tabIndex={0}
+        ></canvas>
+        <div id="splash">
+          <div className="progress-bar stripes">
+            <span style={{ width: "0%" }}></span>
+          </div>
         </div>
       </div>
-    </div>
-    <Root />
-  </Provider>,
-  document.getElementById("root")
-);
+      <Root />
+    </Provider>,
+    document.getElementById("root")
+  );
+}
+
+const loader = () => render();
+render()
+const microApps:any = apps.map((app => ({
+  ...app,
+  loader,
+})))
+
+window.g_microAppsStart = ()=>{
+  registerMicroApps(microApps)
+  start()
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
