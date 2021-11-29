@@ -178,7 +178,6 @@ export const game = function (sceneName) {
             gameFloag === 0 &&
             !document.getElementById("Cocos2dGameContainer")
         ) {
-          
             gameFloag = 1;
             loadScript(
                 "./web-mobile/src/settings.js",
