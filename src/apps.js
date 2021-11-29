@@ -1,14 +1,15 @@
+const {APP_SUB_VUE,NODE_ENV} = process.env;
 const microApps = [
   {
     name: 'sub-vue',
-    entry: process.env.APP_SUB_VUE,
-    activeRule: '/pageCenter/qk/vue',
+    entry: NODE_ENV !== "development" ?'/subapp/sub-vue/':process.env.APP_SUB_VUE,
+    activeRule: '#/pageCenter/qk/vue',
     container: '#sub-View-vue',
   },
   {
     name: 'sub-react', 
-    entry: process.env.APP_SUB_REACT,
-    activeRule: '/pageCenter/qk/react',
+    entry: NODE_ENV !== "development" ?'/subapp/sub-react/':process.env.APP_SUB_REACT,
+    activeRule: '#/pageCenter/qk/react',
     container: '#sub-View-react',
   }
 ]
