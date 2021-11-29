@@ -125,14 +125,17 @@
     "install:sub-vue": "cd subApps/sub-vue && npm i",
     "install:sub-react": "cd subApps/sub-react && npm i",
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "gitPullAll": "git pull && git pull gitee",
     "gitPushAll": "git push && git push gitee",
     "startAll": "npm-run-all --parallel startQ:*",
     "startQ:main": "node scripts/start.js",
     "startQ:sub-vue": "cd subApps/sub-vue && npm start",
-    "startQ:sub-react": "cd subApps/sub-react && npm start"
+    "startQ:sub-react": "cd subApps/sub-react && npm start",
+    "build": "npm-run-all --parallel buildQ:*",
+    "buildQ:main": "node scripts/build.js",
+    "buildQ:sub-react": "cd subApps/sub-react && npm run build",
+    "buildQ:sub-vue": "cd subApps/sub-vue && npm run build"
   },
   "eslintConfig": {
     "extends": [
