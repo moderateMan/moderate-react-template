@@ -34,6 +34,7 @@ jobs:
               run: |
                   ssh play@49.233.107.254 "
                     cd /home/play/projects/moderate-react-template;
+                    git checkout main
                     git pull;
                     yarn;
                     yarn build
