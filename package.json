@@ -134,7 +134,7 @@
     "startQ:sub-react": "cd subApps/sub-react && npm start",
     "build": "npm-run-all --parallel buildQ:*",
     "buildQ:main": "node scripts/build.js",
-    "buildQ:sub-react": "cd subApps/sub-react && npm run build && mkdir -p ../../build/subapp/sub-react && cp -r ./build/* ../../subapp/sub-react/",
+    "buildQ:sub-react": "cd subApps/sub-react && npm run build && mkdir -p ../../build/subapp/sub-react && cp -r ./build/* ../../build/subapp/sub-react/",
     "buildQ:sub-vue": "cd subApps/sub-vue && npm run build && mkdir -p ../../build/subapp/sub-vue && cp -r ./dist/* ../../build/subapp/sub-vue/"
   },
   "eslintConfig": {
