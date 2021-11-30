@@ -120,10 +120,10 @@
     "workbox-webpack-plugin": "5.1.4"
   },
   "scripts": {
-    "install": "npm-run-all --serial install:*",
-    "install:main": "yarn",
-    "install:sub-vue": "cd subApps/sub-vue && yarn",
-    "install:sub-react": "cd subApps/sub-react && yarn",
+    "installAll": "npm-run-all --serial installQ:*",
+    "installQ:main": "yarn",
+    "installQ:sub-vue": "cd subApps/sub-vue && yarn",
+    "installQ:sub-react": "cd subApps/sub-react && yarn",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js",
     "gitPullAll": "git pull && git pull gitee",
