@@ -17,7 +17,7 @@ on:
             - 'bin/*'
             - 'docs/*'
             - 'config/*'
-            - 'subApps/*'
+            - 'subApps/**'
 
 jobs:
     deploy-dev:
