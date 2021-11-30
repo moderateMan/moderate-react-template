@@ -10,7 +10,6 @@ on:
             - 'qiankun' # 只针对 dev 分支
         paths:
             - '.github/workflows/*'
-            # - '__test__/**' # dev 不需要立即测试
             - 'src/**'
             - 'Dockerfile'
             - 'docker-compose.yml'

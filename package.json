@@ -121,9 +121,9 @@
   },
   "scripts": {
     "install": "npm-run-all --serial install:*",
-    "install:main": "npm i",
-    "install:sub-vue": "cd subApps/sub-vue && npm i",
-    "install:sub-react": "cd subApps/sub-react && npm i",
+    "install:main": "yarn",
+    "install:sub-vue": "cd subApps/sub-vue && yarn",
+    "install:sub-react": "cd subApps/sub-react && yarn",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js",
     "gitPullAll": "git pull && git pull gitee",
