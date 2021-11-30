@@ -120,7 +120,7 @@
     "workbox-webpack-plugin": "5.1.4"
   },
   "scripts": {
-    "installAll": "npm-run-all --serial install:*",
+    "install": "npm-run-all --serial install:*",
     "install:main": "npm i",
     "install:sub-vue": "cd subApps/sub-vue && npm i",
     "install:sub-react": "cd subApps/sub-react && npm i",
