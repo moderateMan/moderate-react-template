@@ -17,6 +17,7 @@ on:
             - 'docs/*'
             - 'config/*'
             - 'subApps/**'
+            - 'package.json'
 
 jobs:
     deploy-dev:
