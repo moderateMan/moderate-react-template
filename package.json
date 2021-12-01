@@ -71,7 +71,7 @@
     "mobx-react": "6",
     "mockjs": "^1.1.0",
     "moment": "^2.24.0",
-    "natur": "^2.1.6",
+    "natur": "^2.1.9",
     "optimize-css-assets-webpack-plugin": "5.0.4",
     "pnp-webpack-plugin": "1.6.4",
     "postcss-flexbugs-fixes": "4.2.1",

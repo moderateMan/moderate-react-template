@@ -10113,10 +10113,10 @@ native-url@^0.2.6:
   dependencies:
     querystring "^0.2.0"
 
-natur@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.nlark.com/natur/download/natur-2.1.6.tgz#3bc18afd71b9ecf0ce570b4099a6eb96f19664c4"
-  integrity sha1-O8GK/XG57PDOVwtAmabrlvGWZMQ=
+natur@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.npmmirror.com/natur/download/natur-2.1.9.tgz#e40a5543501e8f52bcaeefc97bfe65b0e846a80d"
+  integrity sha1-5ApVQ1Aej1K8ru/Je/5lsOhGqA0=
   dependencies:
     hoist-non-react-statics "^3.3.0"
 
