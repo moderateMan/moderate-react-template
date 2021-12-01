@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Modal, message, Button, Form } from "antd";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import dataMgrHoc from "@DATA_MANAGER/dataMgrHoc";
+import {Stores as dataMgrClass} from "@DATA_MANAGER/index";
 import "./index.scss";
 import {
   CommonTable,
@@ -12,27 +14,29 @@ import { toJS } from "mobx";
 import injectInternational from "@COMMON/hocs/intlHoc";
 import { injectIntl,WrappedComponentProps } from "react-intl";
 import applyConfig from "./config";
-import { getPath } from "@ROUTES/index";
-import { func } from "prop-types";
+
 interface Props {
   [prop: string]: any;
+  dataMgr:dataMgrClass
 }
 
 type LightHomePropsT = Props & RouteComponentProps&WrappedComponentProps;
 
-type LightHomeStatesT = {  intlData: any;
+type LightHomeStatesT = {  
+  intlData?: any;
   searchItemArr?: any[];
   columns?: any[];
   pageIndex?: number;
   btnInTableConfig?: any[];
   pageSize?: number;
+  searchLightName?:String
 };
 
 @observer
-class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
+export class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
   constructor(props: LightHomePropsT) {
     super(props);
-    applyConfig.call(this);
+    applyConfig(this);
   }
   selectedRows: any;
   refreshConfig: any;
@@ -61,12 +65,15 @@ class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
   };
 
   handleTableAddBtnClick = () => {
-    const { history, intlData } = this.props;
-    history.push(
-      getPath("lightAdd", {
-        search: `?title=${intlData["light_addTitle"]}`,
-      })
-    );
+    this.props.dataMgr.action({
+      storeName:"lightHomeStore",
+      payload:{
+        type:"fetchPage",
+        data:{
+          pageSum:15
+        }
+      }
+    })
   };
 
   handleTableDeleteBtnClick = () => {
@@ -146,7 +153,8 @@ class LightHome extends Component<LightHomePropsT, LightHomeStatesT> {
   }
 }
 
-export default inject(
+
+export default dataMgrHoc(
   "lightHomeStore",
   "global"
 )(injectInternational("light")(LightHome));

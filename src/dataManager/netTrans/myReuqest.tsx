@@ -89,10 +89,7 @@ class Request {
           if (error.response.status === 401) {
             //   window.history.push(LOGIN)
           }
-          const {
-            global: { formatMessage=(params:any)=>{return ""}},
-          } = dataManager;
-          const headerErrorOpen = formatMessage({ id: "header.errorOpen" });
+          const headerErrorOpen = dataManager.getGlobal().formatMessage?.({ id: "header.errorOpen" });
           openNotificationWithIcon(
             "error",
             ERR_CODE_LIST[status as keyof typeof ERR_CODE_LIST] || headerErrorOpen

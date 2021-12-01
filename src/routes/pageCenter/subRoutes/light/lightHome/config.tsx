@@ -4,10 +4,12 @@ import "./index.scss";
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { PAGE_SIZE } from "@COMMON/constants";
 import { getPath } from '@ROUTES/index';
+import {LightHome} from './index'
 
-export default function () {
-    this.selectedRows = [];
-    this.state = {
+export default function (target:LightHome) {
+    target.selectedRows = [];
+    target.state = {
+        intlData:null,
         pageSize: PAGE_SIZE,
         searchLightName: "",
         pageIndex: 1,
@@ -16,9 +18,9 @@ export default function () {
         btnInTableConfig: [],
     };
 
-    this.refreshConfig = ()=>{
-        const { intlData } = this.props;
-        this.setState({
+    target.refreshConfig = ()=>{
+        const { intlData } = target.props;
+        target.setState({
             columns: [
                 {
                     title: intlData["light_Id"],
@@ -75,7 +77,7 @@ export default function () {
                                         marginRight: 10,
                                     }}
                                     onClick={() => {
-                                        this.handlDelete([id]);
+                                        target.handlDelete([id]);
                                     }} />
                             </span>
                         );
@@ -122,13 +124,13 @@ export default function () {
                 {
                     label: intlData["light_add"],
                     icon: "plus",
-                    handleClick: this.handleTableAddBtnClick,
+                    handleClick: target.handleTableAddBtnClick,
                     type: "primary",
                 },
                 {
                     label: intlData["light_delete"],
                     icon: "delete",
-                    handleClick: this.handleTableDeleteBtnClick,
+                    handleClick: target.handleTableDeleteBtnClick,
                 },
             ],
         })
