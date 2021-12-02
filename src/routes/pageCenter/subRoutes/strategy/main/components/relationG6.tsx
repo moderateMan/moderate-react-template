@@ -11,7 +11,7 @@ type PropsT = {
 export default withRouter((props: PropsT) => {
   const {
     global: { docList },
-  } = useStores();
+  } = useStores() as any;
   useEffect(() => {
     const container = document.getElementById('main');
     const width = container!.scrollWidth;

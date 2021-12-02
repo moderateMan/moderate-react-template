@@ -29,7 +29,7 @@ type PropsT = {
 export default withRouter((props: PropsT) => {
   const {
     global: { docList },
-  } = useStores();
+  } = useStores() as any;
   useEffect(() => {
     var chartDom = document.getElementById("main")!;
     var myChart = echarts.init(chartDom);

@@ -1,10 +1,17 @@
+import {createContext} from "react"
+
 import createConfig from "./config";
-import { iGlobal } from "@DATA_MANAGER/stores/global";
-import Global from "@DATA_MANAGER/stores/global";
-import BaseStore from './stores/baseStore';
+import BaseStore from "./stores/baseStore";
+import { createStore, createInject, StoreModule } from "natur";
+import {
+  thunkMiddleware,
+  promiseMiddleware,
+  fillObjectRestDataMiddleware,
+  shallowEqualMiddleware,
+  filterUndefinedMiddleware,
+} from "natur/dist/middlewares";
 
 type iStores = {
-  global: iGlobal;
   storeConfig: any;
   currentStores: any[];
   [key: string]: any;
@@ -13,15 +20,13 @@ type iStores = {
 type changeParamsT = {
   storeName: string;
   payload: {
-    type: string;
-    data: any;
+    type?: string;
+    data?: any;
   };
 };
 
-let globalIns = new Global();
 export class Stores implements iStores {
   storeConfig: any;
-  global: iGlobal = globalIns;
   currentStores!: any[];
   [key: string]: any;
   constructor() {
@@ -37,35 +42,57 @@ export class Stores implements iStores {
   //修改状态
   change(params: changeParamsT) {
     const { storeName, payload } = params;
-    const {type,data} = payload;
-    if(!(storeName in this)){
-      console.error("无效的storeName")
-      return
+    const { type, data } = payload;
+    if (!(storeName in this)) {
+      console.error("无效的storeName");
+      return;
     }
-    let store:BaseStore = this[storeName];
+    let store: BaseStore = this[storeName];
     store.change(data);
   }
 
   //异步触发动作
-  action(params: changeParamsT) {
-    const { storeName, payload } = params;
-    if(!(storeName in this)){
-      console.error("无效的storeName")
-      return
+  action(params?: changeParamsT) {
+    const { storeName, payload } = params!;
+    if (!(storeName in this)) {
+      console.error("无效的storeName");
+      return;
     }
-    let store:BaseStore = this[storeName];
-    store.action(payload);
+    const {type="",data} = payload;
+    return new Promise((res)=>{
+      this.naturStores.getModule(storeName).actions[type]?.(data).then(()=>{
+        res({})
+      })
+    })
   }
 
-  getGlobal = () => {
-    return this.global;
-  };
-
   totoInstantiaze() {
+    let modules: { [key: string]: any } = {};
     for (let key in this.storeConfig) {
       const { storeClass, params } = this.storeConfig[key];
-      this[key] = new storeClass(params);
+      this[key] = new storeClass();
+      modules[key] = {
+        state:this[key].state,
+        maps:this[key].maps,
+        actions:this[key].actions
+      };
     }
+    debugger
+    this.MobXProviderContext = createContext(modules)
+    this.naturStores = createStore(
+      modules,
+      {},
+      {
+        middlewares: [
+          thunkMiddleware, // action支持返回函数，并获取最新数据
+          promiseMiddleware, // action支持异步操作
+          fillObjectRestDataMiddleware, // 增量更新/覆盖更新
+          shallowEqualMiddleware, // 新旧state浅层对比优化
+          filterUndefinedMiddleware, // 过滤无返回值的action
+        ],
+      }
+    );
+    this.injectNaturStore = createInject({ storeGetter: () => this.naturStores });
   }
 }
 

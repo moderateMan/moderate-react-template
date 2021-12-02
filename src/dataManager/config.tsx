@@ -1,8 +1,8 @@
 import {
     Global,
-    LightHomeStore,
-    LightOperateStore
+    LightHomeStore
 } from './stores/index';
+
 import {
     lightOperateApi,
     lightHomeApi,
@@ -34,13 +34,6 @@ export default function config() {
             params: {
                 ...common,
                 api: lightHomeApi
-            }
-        },
-        lightOperateStore: {
-            storeClass: LightOperateStore,
-            params: {
-                ...common,
-                api: lightOperateApi
             }
         }
     }

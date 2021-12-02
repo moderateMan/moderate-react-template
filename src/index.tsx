@@ -7,21 +7,19 @@ import { Provider, inject, observer } from "mobx-react";
 import { IntlProvider } from "react-intl";
 import { ConfigProvider } from "antd";
 import language from "./language";
-import stores from "@DATA_MANAGER/index";
-import { iGlobal } from "@DATA_MANAGER/stores";
 
 interface iProps {
-  global?: iGlobal;
+  global?: any;
 }
 
-@inject("global")
-@observer
+// @inject("global")
+// @observer
 class Root extends Component<iProps> {
-  render() {
-    const { locale } = this.props.global!;
+ render() {
+    // const { state:locale } = this.props.global!;
     let data = language.getData();
     return (
-      <IntlProvider locale={"zh"} messages={data[locale as keyof typeof data]}>
+      <IntlProvider locale={"zh"} messages={data["zh"]}>
         <ConfigProvider>
           <App/>
         </ConfigProvider>
@@ -31,7 +29,7 @@ class Root extends Component<iProps> {
 }
 
 ReactDOM.render(
-  <Provider {...stores}>
+  <Provider >
     <div id="gameRoot" className="game1" style={{ display: "none" }}>
       <canvas
         id="GameCanvas"

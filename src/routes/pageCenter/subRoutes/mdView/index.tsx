@@ -10,7 +10,7 @@ import type {Global} from "@STORE/index"
 
 type DocPropsT = {
   wrapperByMd: any;
-  global:Global
+  global:any
 } & RouteComponentProps;
 
 type MatchT = {

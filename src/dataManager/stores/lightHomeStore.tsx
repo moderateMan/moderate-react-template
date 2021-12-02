@@ -1,39 +1,30 @@
-import { observable, action } from "mobx";
-import BaseStore from "./baseStore";
+import baseStore from "./baseStore";
 
-class LightHomeStore extends BaseStore {
-  @observable lightArr = []; //pos列表数据
-  @observable pageSum = 0; //总页数
-  @observable pageCount = 0; //总条数
-
-  //请求翻页
-  @action
-  fetchPage = (params: [] | object) => {
-    return new Promise((resolve, reject) => {
-      this.fetchApiWrapper("fetchPage", params)
-        .then((res: any) => {
-          debugger
-          this.lightArr = res.data.list;
-          resolve(res);
-        })
-        .catch((res) => {
-          reject(res);
-        });
-    });
+class lightHomeStoreN extends baseStore {
+  // 存放数据
+  state = {
+    number: 0,
+    testValue: "123",
   };
-
-  @action
-  fetchLightDelete = (params: any) => {
-    return new Promise((resolve, reject) => {
-      this.fetchApiWrapper("fetchLightDelete", params)
-        .then((res) => {
-          resolve(res);
-        })
-        .catch((res) => {
-          reject(res);
-        });
-    });
+  // state的映射
+  maps = {
+    isEven: ["number", (number: number) => number % 2 === 0],
+  };
+  // actions用来修改state
+  actions = {
+    inc: (number: number) => ({ number: number + 1 }),
+    dec: (number: number) => ({ number: number - 1 }),
+    // 这里是异步更新state中的name数据
+    asyncAction: (testValue: string) => {
+      debugger;
+      return Promise.resolve({ testValue });
+    },
+    // 这里是同步更新state中的name数据
+    syncAction: (testValue: string) => {
+      debugger;
+      return { testValue: testValue };
+    },
   };
 }
 
-export default LightHomeStore;
+export default lightHomeStoreN;

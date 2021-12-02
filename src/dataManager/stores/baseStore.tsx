@@ -82,7 +82,13 @@ class BaseStore {
   }
   action(params?:any){
     const {type,data} = params;
-    this[type](data)
+    // this[type](data)
+    // getMenu({}).then(async () => {
+    //   let config: RoutesMapItemT[] = await this.createSubRoutesConfig();
+    //   this.setState({
+    //     subRoutesConfig: config,
+    //   });
+    // });
   }
   change(params?:any){
     this.changeParams(params)

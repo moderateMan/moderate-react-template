@@ -10,6 +10,7 @@ import "./index.scss";
 import {openNotificationWithIcon,game} from "@COMMON/utils";
 import FetchRequest from '@DATA_MANAGER/netTrans/myReuqest'
 import { getPath } from "@ROUTES/index";
+import dataMgrHoc from '@DATA_MANAGER/dataMgrHoc';
 
 let isDev = true;
 type PropsT = {
@@ -19,8 +20,7 @@ type PropsT = {
 type StateT = {
   [key:string]:any
 }
-@inject("global")
-@observer
+
 class LoginPage extends React.Component<PropsT,StateT> {
   private isStart:boolean;
   constructor(props:PropsT) {
@@ -181,4 +181,4 @@ class LoginPage extends React.Component<PropsT,StateT> {
 }
 
 
-export default injectIntl(LoginPage);
+export default dataMgrHoc("global")(injectIntl(LoginPage));

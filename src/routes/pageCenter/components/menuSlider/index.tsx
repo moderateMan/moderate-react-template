@@ -39,7 +39,7 @@ type MenuSliderProps = {
 
 const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
   const [state, dispatch] = useReducerEx({ state: initState });
-  const { global } = useStores();
+  const { global } = useStores() as any;
   const { docTreeMap = [] } = global;
   const { openKeys, selectKeys, isEditMenu, remoteMenuData, localMenuData } =
     state;

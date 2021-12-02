@@ -6,6 +6,7 @@ import { Modal } from "antd";
 const { confirm } = Modal;
 import Routes from "./routes";
 import { iGlobal } from "@DATA_MANAGER/stores";
+import dataMgrHoc from '@DATA_MANAGER/dataMgrHoc';
 import "./App.css";
 import './global.d'
 
@@ -36,7 +37,7 @@ const App: React.FC<iProps> = (props) => {
     <Fragment>
       {isHash ? (
         <HashRouter getUserConfirmation={getConfirmation}>
-          <Routes />
+          {/* <Routes /> */}
         </HashRouter>
       ) : (
         <BrowserRouter getUserConfirmation={getConfirmation}>
@@ -47,4 +48,4 @@ const App: React.FC<iProps> = (props) => {
   );
 };
 
-export default injectIntl(inject("global")(observer(App)));
+export default (dataMgrHoc("global")(injectIntl(App)));

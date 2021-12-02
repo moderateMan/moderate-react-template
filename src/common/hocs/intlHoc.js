@@ -1,12 +1,13 @@
 import React from "react";
-import { inject, observer } from "mobx-react";
+import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import language from "@SRC/language/index"
+import dataMgrHoc from "@DATA_MANAGER/dataMgrHoc"
 
 function intlHoc(id) {
     return function (WrappedComponent) {
         @injectIntl
-        @inject("global")
+        @dataMgrHoc("global")
         class RefsHOC extends React.Component {
             constructor(props) {
                 super(props);

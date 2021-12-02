@@ -30,8 +30,8 @@ type TempEditStatesT = {
   [key: string]: any;
 };
 
-@inject("lightOperateStore", "global")
-@observer
+// @inject("lightOperateStore", "global")
+// @observer
 class TempEdit extends Component<TempEditPropsT, TempEditStatesT> {
   formRef: React.RefObject<any> = React.createRef();
   title: string = "";

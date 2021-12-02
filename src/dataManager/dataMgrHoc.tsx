@@ -1,22 +1,20 @@
 import React from "react";
-import { inject, observer } from "mobx-react";
 import dataMgr from '@DATA_MANAGER/index'
 
-type propsT = {
-  stores: string[];
-};
 
 type WrappedComponentPropsT = {
   [key: string]: any;
 };
 
 function dataMgrHoc(...stores:Array<string>) {
+  const inject = dataMgr.injectNaturStore;
   return function (WrappedComponent: any) {
     @inject(...stores)
     class HOC extends React.Component<WrappedComponentPropsT> {
       constructor(props:WrappedComponentPropsT){
           super(props)
           this.dataMgr = dataMgr.getMgr(stores)
+          debugger
       }
       dataMgr:any
       render() {
