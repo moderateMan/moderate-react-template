@@ -119,7 +119,6 @@ export default withRouter((props: PropsT) => {
         a=(a<0?1:a)
         b=(b<0?1:b)
         c=(c<0?1:c)
-        debugger
         myChart.setOption({
           series: [
             {
