@@ -2,14 +2,14 @@ import {createContext} from "react"
 
 import createConfig from "./config";
 import BaseStore from "./stores/baseStore";
-import { createStore, createInject, StoreModule } from "natur";
+import { createStore, createInject, StoreModule } from "./natur/src/index";
 import {
   thunkMiddleware,
   promiseMiddleware,
   fillObjectRestDataMiddleware,
   shallowEqualMiddleware,
   filterUndefinedMiddleware,
-} from "natur/dist/middlewares";
+} from "./natur/src/middlewares";
 
 type iStores = {
   storeConfig: any;
