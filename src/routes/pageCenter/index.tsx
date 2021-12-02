@@ -3,7 +3,7 @@ import { observer, inject } from "mobx-react";
 import { RouteComponentProps } from "react-router-dom";
 import { cloneDeep } from "lodash";
 import { Layout } from "antd";
-import { MenuSlider, TopHeader } from "./components/";
+import { MenuSlider, TopHeader } from "./components";
 import SubRoutes from "./subRoutes";
 import { menusMapConfig, RoutesMapItemT } from "@ROUTES/config";
 import { getPath } from "@ROUTES/index";
