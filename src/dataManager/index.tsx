@@ -3,6 +3,7 @@ import {createContext} from "react"
 import createConfig from "./config";
 import BaseStore from "./stores/baseStore";
 import { createStore, createInject, StoreModule } from "./natur/src/index";
+import {LightHomeStore} from "./stores"
 import {
   thunkMiddleware,
   promiseMiddleware,
@@ -67,7 +68,7 @@ export class Stores implements iStores {
   }
 
   totoInstantiaze() {
-    let modules: { [key: string]: any } = {};
+    let modules:{[key:string]:StoreModule} = {};
     for (let key in this.storeConfig) {
       const { storeClass, params } = this.storeConfig[key];
       this[key] = new storeClass();
@@ -77,12 +78,21 @@ export class Stores implements iStores {
         actions:this[key].actions
       };
     }
-    debugger
-    this.MobXProviderContext = createContext(modules)
-    this.naturStores = createStore(
-      modules,
+    
+    type modulesT = {
+      lightHomeStore:LightHomeStore
+    }
+    
+    this.naturStores = createStore<modulesT,{}>(
+      modules as modulesT,
       {},
       {
+        initStates:{
+          lightHomeStore:{
+            testValue:"",
+            number:123,
+          }
+        },
         middlewares: [
           thunkMiddleware, // action支持返回函数，并获取最新数据
           promiseMiddleware, // action支持异步操作
@@ -92,6 +102,8 @@ export class Stores implements iStores {
         ],
       }
     );
+
+    this.MobXProviderContext = createContext(modules)
     this.injectNaturStore = createInject({ storeGetter: () => this.naturStores });
   }
 }

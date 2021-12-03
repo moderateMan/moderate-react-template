@@ -245,7 +245,6 @@
 	 storeGetter: StoreGetter<M, LM>
 	 loadingComponent?: TReactComponent<{}>
  }) => {
-	 debugger
 	 function Inject<MNS extends Extract<keyof ST, string>>(...moduleDec: [MNS|ModuleDepDec<ST, MNS>]): ConnectFun<ST, MNS>;
 	 function Inject<
 		 MNS1 extends Extract<keyof ST, string>,

@@ -14,7 +14,6 @@ function dataMgrHoc(...stores:Array<string>) {
       constructor(props:WrappedComponentPropsT){
           super(props)
           this.dataMgr = dataMgr.getMgr(stores)
-          debugger
       }
       dataMgr:any
       render() {
