@@ -1,6 +1,6 @@
 import baseStore from "./baseStore";
 
-class lightHomeStoreN extends baseStore {
+class lightHomeStoreN extends baseStore  {
   // 存放数据
   state = {
     number: 0,
@@ -16,12 +16,10 @@ class lightHomeStoreN extends baseStore {
     dec: (number: number) => ({ number: number - 1 }),
     // 这里是异步更新state中的name数据
     asyncAction: (testValue: string) => {
-      debugger;
       return Promise.resolve({ testValue });
     },
     // 这里是同步更新state中的name数据
     syncAction: (testValue: string) => {
-      debugger;
       return { testValue: testValue };
     },
   };
