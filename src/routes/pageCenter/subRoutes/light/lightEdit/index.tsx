@@ -129,6 +129,7 @@ class TempEdit extends Component<TempEditPropsT, TempEditStatesT> {
     if (editingKey) {
       return message.warning(intlData["light_editting"]);
     }
+    
     //通过url地址判断当前是修改还是新增
     let targetHandleSaveApi = this.isEdit ? fetchLightUpdate : fetchLightAdd;
     validateFields().then((error: any, data: any) => {
