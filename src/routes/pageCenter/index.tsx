@@ -77,6 +77,7 @@ class PageCenter extends Component<thisProps, States> {
       collapsed: false,
       userName: sessionStorage.getItem("userName"),
     };
+    
   }
 
   async componentDidMount() {

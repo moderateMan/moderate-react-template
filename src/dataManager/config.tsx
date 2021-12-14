@@ -9,13 +9,13 @@ import {
     globalApi,
 } from "@API/index";
 
-{
-    /* 配置mock启动 */
-    const { NODE_ENV, MOCK, ELECTRON } = process.env;
-    const isEnvElectron = process.env.ELECTRON === "electron";
-    console.log("ELECTRON"+isEnvElectron)
-    require('MOCK');
-}
+// {
+//     /* 配置mock启动 */
+//     const { NODE_ENV, MOCK, ELECTRON } = process.env;
+//     const isEnvElectron = process.env.ELECTRON === "electron";
+//     console.log("ELECTRON"+isEnvElectron)
+//     require('MOCK');
+// }
 
 export default function config() {
     let common = {

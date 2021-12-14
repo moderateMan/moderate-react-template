@@ -8,7 +8,7 @@ import {openNotificationWithIcon} from "@COMMON/utils";
 import { ACCESS_TOKEN } from "@COMMON/constants";
 const { NODE_ENV, MOCK } = process.env;
 
-let publicPath = "/api";
+let publicPath = "";
 if (NODE_ENV === "development") {
   /*联调服务器地址，前提是该地址的服务支持跨域请求*/
   // publicPath = "http://*.*.*.*:*/api";

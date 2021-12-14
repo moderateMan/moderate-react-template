@@ -9,6 +9,7 @@ import { ConfigProvider } from "antd";
 import language from "./language";
 import stores from "@DATA_MANAGER/index";
 import { iGlobal } from "@DATA_MANAGER/stores";
+import "test.js"
 
 interface iProps {
   global?: iGlobal;
@@ -23,7 +24,7 @@ class Root extends Component<iProps> {
     return (
       <IntlProvider locale={"zh"} messages={data[locale as keyof typeof data]}>
         <ConfigProvider>
-          <App/>
+          <App />
         </ConfigProvider>
       </IntlProvider>
     );
@@ -55,3 +56,11 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+
+
+
+
+// await (await new A().bar()).foo()
+
+// await new A().bar().foo()

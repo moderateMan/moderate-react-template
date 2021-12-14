@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import {
   AlibabaOutlined,
   MenuFoldOutlined,
@@ -53,6 +53,7 @@ class TopHeader extends Component<TopHeaderPropT, TopHeaderStateT> {
   menu: () => React.ReactElement = () => {
     return <div></div>;
   };
+  userRef: React.RefObject<any>;
   constructor(props: TopHeaderPropT) {
     super(props);
     this.state = {
@@ -60,6 +61,7 @@ class TopHeader extends Component<TopHeaderPropT, TopHeaderStateT> {
       confirmDirty: false,
       modalVisible: false,
     };
+    this.userRef = createRef();
     this.menu = () => {
       const { intlData } = this.props;
       return (
@@ -117,12 +119,19 @@ class TopHeader extends Component<TopHeaderPropT, TopHeaderStateT> {
   /*表单验证方法*/
   modalConfirm = () => {
     const {
-      form: { validateFieldsAndScroll },
+      global: { register,checkSession },
     } = this.props;
-    validateFieldsAndScroll((err: any, values: any) => {
-      if (!err) {
-        this.editPassword();
-      }
+    
+    debugger
+    // let name = this.userRef.current!.getFieldValue("user");
+    // let pasword = this.userRef.current!.getFieldValue("pasword");
+    this.userRef.current!.validateFields().then((values: any) => {
+      register({
+        name:values.user,
+        password:values.pasword
+      }).then(()=>{
+        checkSession()
+      })
     });
   };
 
@@ -248,48 +257,18 @@ class TopHeader extends Component<TopHeaderPropT, TopHeaderStateT> {
             cancelButtonProps={{ disabled }}
             destroyOnClose
           >
-            <Form {...formItemLayout}>
+            <Form ref={this.userRef} {...formItemLayout}>
               <FormItem
-                {...{
-                  rules: [
-                    {
-                      required: true,
-                      whitespace: true,
-                      message: intlData.header_pleaseInputNewWord,
-                    },
-                    {
-                      pattern: /(?!\d+$)(?![A-Za-z]+$)(?!\W+$)[\w\W]{8,20}$/,
-                      message: intlData.header_pwdTip,
-                    },
-                    {
-                      validator: this.validateToNextPassword,
-                    },
-                  ],
-                }}
+                name="user"
                 label={intlData.header_newPassword}
                 hasFeedback
               >
                 <Input.Password placeholder={intlData.header_newPassword} />
               </FormItem>
               <FormItem
+                name="pasword"
                 label={intlData.header_PasswordConfirmation}
                 hasFeedback
-                {...{
-                  rules: [
-                    {
-                      required: true,
-                      whitespace: true,
-                      message: intlData.header_pleaseInputConfirmWord,
-                    },
-                    {
-                      pattern: /(?!\d+$)(?![A-Za-z]+$)(?!\W+$)[\w\W]{8,19}$/,
-                      message: intlData.header_pwdTip,
-                    },
-                    {
-                      validator: this.compareToFirstPassword,
-                    },
-                  ],
-                }}
               >
                 <Input.Password
                   placeholder={intlData.header_pwdConfirm}
