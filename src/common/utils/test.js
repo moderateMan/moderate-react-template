@@ -3,7 +3,6 @@ import { cloneDeep } from "lodash";
     class A {
         count = 0;
         async foo() {
-            debugger
           this.count++;
           return this;
         }

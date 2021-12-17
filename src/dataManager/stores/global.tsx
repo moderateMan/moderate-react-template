@@ -63,7 +63,6 @@ class Global extends BaseStore implements iGlobal {
       return new Promise((resolve, reject) => {
           this.fetchApiWrapper("register", params)
               .then((res:any) => {
-                  debugger
                   resolve(res);
               }).catch((res) => {
                   reject(res)
@@ -77,7 +76,6 @@ class Global extends BaseStore implements iGlobal {
       return new Promise((resolve, reject) => {
           this.fetchApiWrapper("checkSession", params)
               .then((res:any) => {
-                  debugger
                   resolve(res);
               }).catch((res) => {
                   reject(res)

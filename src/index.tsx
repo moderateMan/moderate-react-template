@@ -9,7 +9,6 @@ import { ConfigProvider } from "antd";
 import language from "./language";
 import stores from "@DATA_MANAGER/index";
 import { iGlobal } from "@DATA_MANAGER/stores";
-import "test.js"
 
 interface iProps {
   global?: iGlobal;

@@ -19,7 +19,6 @@ export default class BaseApi {
     if (!url) {
       throw "未配置相关接口的请求地址";
     }
-    debugger
     return request.post(url, payload);
   }
   getUrlConfig() {

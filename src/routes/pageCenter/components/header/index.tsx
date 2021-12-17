@@ -122,7 +122,6 @@ class TopHeader extends Component<TopHeaderPropT, TopHeaderStateT> {
       global: { register,checkSession },
     } = this.props;
     
-    debugger
     // let name = this.userRef.current!.getFieldValue("user");
     // let pasword = this.userRef.current!.getFieldValue("pasword");
     this.userRef.current!.validateFields().then((values: any) => {
