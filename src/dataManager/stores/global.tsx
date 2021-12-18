@@ -57,6 +57,34 @@ class Global extends BaseStore implements iGlobal {
     });
   };
 
+  //请求翻页
+  @action
+  register = (params:[]|object) => {
+      return new Promise((resolve, reject) => {
+          this.fetchApiWrapper("register", params)
+              .then((res:any) => {
+                  resolve(res);
+              }).catch((res) => {
+                  reject(res)
+              })
+      });
+  };
+
+  //请求翻页
+  @action
+  checkSession = (params:[]|object) => {
+      return new Promise((resolve, reject) => {
+          this.fetchApiWrapper("checkSession", params)
+              .then((res:any) => {
+                  resolve(res);
+              }).catch((res) => {
+                  reject(res)
+              })
+      });
+  };
+
+
+ 
   /**
    * 退出登录的方法
    * @param cb 退出登录之后的回调

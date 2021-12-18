@@ -28,8 +28,6 @@ const App: React.FC<iProps> = (props) => {
         callback(true);
       },
       onCancel() {
-        undefined
-        null
         callback(false);
       },
     });
