@@ -1,5 +1,5 @@
 import React from 'react'
-import useStores from "COMMON/hooks/useStores";
+import useStores from "@COMMON/hooks/useStores";
 import { toJS } from "mobx";
 import { Link } from 'react-router-dom'
 

@@ -23,7 +23,7 @@ class Root extends Component<iProps> {
     return (
       <IntlProvider locale={"zh"} messages={data[locale as keyof typeof data]}>
         <ConfigProvider>
-          <App/>
+          <App />
         </ConfigProvider>
       </IntlProvider>
     );
