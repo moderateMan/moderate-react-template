@@ -1,7 +1,7 @@
 import React from 'react'
 import { PhotoProvider, PhotoConsumer } from 'react-photo-view';
 import 'react-photo-view/dist/index.css';
-
+//123
 function toggleFullScreen() {
     if (document.fullscreenElement) {
         document.exitFullscreen();
