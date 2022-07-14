@@ -237,7 +237,7 @@ checkBrowsers(paths.appPath, isInteractive)
       }
     });
 
-    devServer.app.post("/api/getMd", jsonParser, (req, res) => {
+    devServer.app.post("/getMd", jsonParser, (req, res) => {
       res.json(getAll("", paths.appSrc + '/docs'))
     });
 

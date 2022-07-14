@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   findCurrentMenuInfo,
   filterParams,
@@ -230,7 +230,12 @@ const MenuSliderCom: React.FC<MenuSliderProps> = (props) => {
     });
   };
   return (
-    <Sider className={styles.content} collapsed={collapsed}  width={258} theme={"light"}>
+    <Sider
+      className={styles.content}
+      collapsed={collapsed}
+      width={258}
+      theme={"light"}
+    >
       <div className={styles.logoE}></div>
       <div className={styles.logo}>
         <AnimateWrapper

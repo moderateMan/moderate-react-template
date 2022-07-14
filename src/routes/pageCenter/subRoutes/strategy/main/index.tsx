@@ -15,7 +15,7 @@ import styles from "./index.module.scss";
 import MyRect from "./shape/myRect";
 import { NODE_TYPE, getNodePos, getDist } from "./common";
 import { getUrlParam, uuid, game } from "@COMMON/utils";
-import Relation from "./components/relationG6";
+import Relation from "./components/relation";
 import MdView from "@ROUTES/pageCenter/subRoutes/mdView/index";
 import { createRelationData } from './config';
 declare var cc: any;

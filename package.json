@@ -11,6 +11,11 @@
     "@babel/core": "7.12.3",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",
     "@svgr/webpack": "5.5.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/enzyme": "^3.10.10",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/insert-css": "^2.0.1",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.12.5",
@@ -42,6 +47,9 @@
     "echarts": "^5.1.2",
     "echarts-for-react": "^3.0.1",
     "electron": "^13.1.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-to-json": "^3.6.2",
     "eslint": "^7.11.0",
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-flowtype": "^5.2.0",
@@ -162,7 +170,7 @@
       "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
     ],
     "testEnvironment": "jsdom",
-    "testRunner": "/Users/leeqang/WorkSpace/moderateNew/moderate-react-ts/node_modules/jest-circus/runner.js",
+    "testRunner": "<rootDir>\\node_modules\\jest-circus\\runner.js",
     "transform": {
       "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "<rootDir>/config/jest/babelTransform.js",
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
@@ -175,7 +183,14 @@
     "modulePaths": [],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+      "@COMMON(.*)$": "<rootDir>/src/common/$1",
+      "@ROUTES(.*)$": "<rootDir>/src/routes/$1",
+      "@SRC(.*)$": "<rootDir>/src",
+      "@API(.*)$": "<rootDir>/src/dataManager/netTrans/api/$1",
+      "@DATA_MANAGER(.*)$": "<rootDir>/src/dataManager/$1",
+      "DOCS(.*)$": "<rootDir>/src/docs/$1",
+      "MOCK(.*)$": "<rootDir>/src/dataManager/netTrans/mock/$1"
     },
     "moduleFileExtensions": [
       "web.js",
@@ -194,26 +209,6 @@
       "jest-watch-typeahead/testname"
     ],
     "resetMocks": true
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ],
-    "plugins": [
-      [
-        "module-resolver",
-        {
-          "root": [
-            "./src/"
-          ],
-          "alias": {
-            "@DATA_MANAGER/index": [
-              "./dataManager/index"
-            ]
-          }
-        }
-      ]
-    ]
   },
   "devDependencies": {
     "@babel/cli": "^7.12.17",

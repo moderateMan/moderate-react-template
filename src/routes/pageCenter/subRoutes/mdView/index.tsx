@@ -1,7 +1,6 @@
 import React, { useEffect, useState,memo } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { Switch } from "antd";
-import useStores from "@COMMON/hooks/useStores";
 import { observer,inject } from "mobx-react";
 import { getUrlParam } from "@COMMON/utils";
 import CommonWrapper from "@COMMON/components/wrapper";

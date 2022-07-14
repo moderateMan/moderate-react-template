@@ -1,9 +1,9 @@
 //Nietzsche once said, don't always talk about yourself.
 import React, { useEffect, useRef } from 'react'
-import useStores from "COMMON/hooks/useStores";
+import useStores from "@COMMON/hooks/useStores";
 import { withRouter } from 'react-router-dom'
 import * as echarts from 'echarts';
-import { getDocPath } from 'ROUTES'
+import { getDocPath } from '@ROUTES'
 
 let nodeShape = () => {
     return {
